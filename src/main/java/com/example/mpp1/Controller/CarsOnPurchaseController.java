@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin()
 @RestController
-@RequestMapping(path = "/carsonpurchases")
+@RequestMapping(path = "/api/carsonpurchases")
 public class CarsOnPurchaseController {
 
     @Autowired

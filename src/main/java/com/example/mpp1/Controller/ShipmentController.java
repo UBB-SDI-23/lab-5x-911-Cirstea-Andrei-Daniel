@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @CrossOrigin()
 @RestController
-@RequestMapping(path = "/shipments")
+@RequestMapping(path = "/api/shipments")
 public class ShipmentController {
 
     @Autowired
