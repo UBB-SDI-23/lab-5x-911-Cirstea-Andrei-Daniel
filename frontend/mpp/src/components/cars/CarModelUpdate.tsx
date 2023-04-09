@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
 import { TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { CarModelForm } from './CarModelForm';
 import React from 'react';
 
@@ -103,7 +103,7 @@ export const CarModelUpdate = () => {
                 </button>
 
                 <button onClick={cancel_update}>
-                    <DeleteIcon/>
+                    <KeyboardReturnIcon/>
                 </button>
             </div>
             </React.Fragment>

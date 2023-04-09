@@ -4,9 +4,8 @@ import { ServerSettings } from '../ServerIP';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
 import { Button, TextField } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { CarModelForm } from './CarModelForm';
 import React from 'react';
 
@@ -28,7 +27,7 @@ export const CarModelCreate = () => {
             request_options
         )
         .then((res) => res.json())
-        .then((data) => setCarModel(data))
+        .then((data) => {setCarModel(data); console.log("Hey there") })
         navigate_back(-1)
     }
 
@@ -38,43 +37,25 @@ export const CarModelCreate = () => {
 
     let form_result = (
         <div>
-            {
-                carModel.id != -1 &&
-                <>
-                <TextField label="Model" variant="standard" defaultValue={carModel.model} onChange={(event)=>{
-                    carModel.model = event.target.value;
-                    setCarModel(carModel);
-                }}/>
-                <br></br>
-                <TextField label="Manufacturer" variant="standard" defaultValue={carModel.manufacturer} onChange={(event)=>{
-                    carModel.manufacturer = event.target.value;
-                    setCarModel(carModel);
-                }}/>
-                <br></br>
-                <TextField type="number" label="Price" variant="standard" defaultValue={carModel.price} onChange={(event)=>{
-                    carModel.price = parseInt(event.target.value)
-                    setCarModel(carModel);
-                }} />
-                <br></br>
-                <TextField type="number" label="Fuel Consumption" variant="standard" defaultValue={carModel.fuel_consumption} onChange={(event)=>{
-                    carModel.fuel_consumption = parseInt(event.target.value)
-                    setCarModel(carModel);
-                }} />
-                <br></br>
-                <table>
-                    <tr>
-                        <th>#</th>
-                        <th>Model</th>
-                        <th>Manufacturer</th>
-                        <th>Price</th>
-                        <th>Fuel Consumption</th>
-                    </tr>
-                    {
-                        
-                    }
-                </table>
-                </>
-            }
+            <TextField label="Model" variant="standard" defaultValue={carModel.model} onChange={(event)=>{
+                carModel.model = event.target.value;
+                setCarModel(carModel);
+            }}/>
+            <br></br>
+            <TextField label="Manufacturer" variant="standard" defaultValue={carModel.manufacturer} onChange={(event)=>{
+                carModel.manufacturer = event.target.value;
+                setCarModel(carModel);
+            }}/>
+            <br></br>
+            <TextField type="number" label="Price" variant="standard" defaultValue={carModel.price} onChange={(event)=>{
+                carModel.price = parseInt(event.target.value)
+                setCarModel(carModel);
+            }} />
+            <br></br>
+            <TextField type="number" label="Fuel Consumption" variant="standard" defaultValue={carModel.fuel_consumption} onChange={(event)=>{
+                carModel.fuel_consumption = parseInt(event.target.value)
+                setCarModel(carModel);
+            }} />
         </div>
     );
 
@@ -87,7 +68,7 @@ export const CarModelCreate = () => {
                 </button>
 
                 <button onClick={cancel_add}>
-                    <DeleteIcon />
+                    <KeyboardReturnIcon />
                 </button>
             </div>
         </React.Fragment>
