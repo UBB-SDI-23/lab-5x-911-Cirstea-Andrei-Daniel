@@ -17,7 +17,7 @@ export const CarModelCreate = () => {
 
     const commit_update = () => {
         const request_options = {
-            method: 'PUT',
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(carModel, null, 2)
         };
@@ -27,7 +27,7 @@ export const CarModelCreate = () => {
             request_options
         )
         .then((res) => res.json())
-        .then((data) => {setCarModel(data); console.log("Hey there") })
+        .then((data) => {setCarModel(data); })
         navigate_back(-1)
     }
 

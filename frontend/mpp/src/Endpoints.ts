@@ -5,6 +5,12 @@ export class EndPoints {
     static SHIPMENT_TABLE = "/api/shipments"
     static DISTRIBUTOR_TABLE = "/api/distributors"
     static CARSONPURCHASE_TABLE = "/api/carsonpurchases"
+    
+    static backendCarTableStatistic(count: number) {
+        return EndPoints.CAR_TABLE + '/statistic/' + count
+    }
+
+    static VIRTUAL_CAR_TABLE_STATISTIC = "/statistics/cars"
 
     static VIRTUAL_CREATE = "/create"
     static VIRTUAL_DELETE = "/delete"
