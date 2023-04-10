@@ -26,7 +26,7 @@ public class ShipmentController {
 
     @GetMapping()
     public List<ShipmentDTO> getAll() {
-        return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
+        return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList()).subList(0, 100);
     }
 
     @PostMapping()

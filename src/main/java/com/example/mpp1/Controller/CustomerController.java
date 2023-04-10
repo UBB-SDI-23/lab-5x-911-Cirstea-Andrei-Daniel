@@ -27,7 +27,7 @@ public class CustomerController {
 
     @GetMapping()
     public List<CustomerDTO> getAll() {
-        return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
+        return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList()).subList(0, 100);
     }
 
     @PostMapping()
