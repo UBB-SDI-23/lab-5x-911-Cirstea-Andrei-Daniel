@@ -5,6 +5,8 @@ import com.example.mpp1.Model.CarsOnPurchaseDTO;
 import com.example.mpp1.Repository.CarsOnPurchaseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -24,7 +26,8 @@ public class CarsOnPurchaseController {
 
     @GetMapping()
     public List<CarsOnPurchaseDTO> getAll() {
-        return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList()).subList(0, 100);
+        Pageable pageRequest = PageRequest.of(0, 100);
+        return repository.findAll(pageRequest).stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     @PostMapping()

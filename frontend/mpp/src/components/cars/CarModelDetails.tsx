@@ -3,7 +3,8 @@ import { CarModel } from '../../models/CarModel'
 import { ServerSettings } from '../ServerIP';
 import { useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
-import { TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 export const CarModelDetails = () => {
   const [carModel, setCarModel] = useState<CarModel>()
@@ -20,6 +21,11 @@ export const CarModelDetails = () => {
         .then((data) => { setCarModel(data) })
     }, [])
 
+    let cars_on_purchase_columns: GridColDef[] = [
+        { field: 'count', headerName: 'Order Count', type: 'number', width: 130 },
+        { field: 'priority', headerName: 'Priority', type: 'number', width: 130 },
+    ];
+
     if (carModel === undefined) {
         return <div>Oops! The car with id {id} was not found!</div>
     }
@@ -32,18 +38,20 @@ export const CarModelDetails = () => {
             <h3>Manufacture Year: {carModel.manufacture_year}</h3>
             <h3>Price: {carModel.price}</h3>
             <h3>Fuel Consumption: {carModel.fuel_consumption}</h3>
-            <table>
-                <tr>
-                    <th>#</th>
-                    <th>Model</th>
-                    <th>Manufacturer</th>
-                    <th>Price</th>
-                    <th>Fuel Consumption</th>
-                </tr>
-                {
-                    
-                }
-            </table>
+            <Box sx={{ height: 650, width: '100%' }}>
+                <DataGrid
+                    rows={carModel.purchases}
+                    columns={cars_on_purchase_columns}
+                    initialState={{
+                        pagination: {
+                        paginationModel: {
+                            pageSize: 10,
+                        },
+                        },
+                    }}
+                    pageSizeOptions={[10]}
+                />
+            </Box>
         </div>
     )
 }
