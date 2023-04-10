@@ -30,6 +30,7 @@ export const CarModelDetails = () => {
         return <div>Oops! The car with id {id} was not found!</div>
     }
 
+    console.log(carModel.purchases)
     let purchases_html;
     if (carModel.purchases === undefined || carModel.purchases.length == 0) {
         purchases_html = <h3>No Purchases</h3>
