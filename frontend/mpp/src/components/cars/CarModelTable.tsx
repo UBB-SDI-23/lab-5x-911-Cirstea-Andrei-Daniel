@@ -86,7 +86,7 @@ const table_columns: GridColDef[] = [
                 () => navigate_details(EndPoints.CAR_TABLE + "/" + params.id + EndPoints.VIRTUAL_UPDATE)
             } label="Edit" />,
             <GridActionsCellItem icon={<DeleteIcon/>} onClick={
-                () => main_delete_dialog_open(params.id)
+                () => main_delete_dialog_open(parseInt(params.id.valueOf().toString()))
             } label="Delete"/>,
         ]
     }
