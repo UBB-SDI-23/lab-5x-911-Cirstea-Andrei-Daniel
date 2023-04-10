@@ -37,6 +37,10 @@ public class CarModel {
     @Setter
     private Long fuel_consumption;
 
+    @Getter
+    @Setter
+    private String description;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carModel", orphanRemoval = true)
     @JsonIgnoreProperties("carModel")
     private List<CarsOnPurchase> carsOnPurchaseList;
