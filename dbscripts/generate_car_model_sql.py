@@ -58,18 +58,21 @@ if __name__ == '__main__':
         price = fake.random_int(min=10000, max=100000)
         fuel_consumption = fake.random_int(min=1, max=50)
         manufacture_year = fake.random_int(min=2005, max=2023)
-        id = i + 100
+        id = i
         
         if (i % 10000) == 0:
             print(i)
         
         lines.append("('{}', '{}', '{}', '{}', '{}', '{}')".format(id, models[i], manufacturers[i], manufacture_year, price, fuel_consumption))
-        if i < GENERATE_COUNT:
+        if ((i + 1) % 1000) != 0:
             lines[i] += ",\n"
 
     # write SQL statements to file in /tmp directory
     with open(r'insert.sql', 'w') as f:
-        f.write(sql_start_string)
-        for i, sql in enumerate(lines):
-            f.write(sql)
-        f.write(";")
+        iteration_count = int(GENERATE_COUNT / 1000)
+        for i in range(iteration_count):
+            f.write(sql_start_string)
+            offset = i * 1000
+            for j in range(0, 1000):
+                f.write(lines[offset + j])
+            f.write(";")
