@@ -20,20 +20,24 @@ export const CarModelDetails = () => {
         )
         .then((res) => res.json())
         .then((data) => { console.log(data); setCarModel(data);
-         if (!(data.purchases === undefined || data.purchases.length == 0)) set_purchases_html(<Box sx={{ height: 650, width: '100%' }}>
-            <DataGrid
-                rows={data.purchases}
-                columns={cars_on_purchase_columns}
-                initialState={{
-                    pagination: {
-                    paginationModel: {
-                        pageSize: 10,
-                    },
-                    },
-                }}
-                pageSizeOptions={[10]}
-            />
-        </Box>) })
+         if (!(data.purchases === undefined || data.purchases.length == 0)) {
+            set_purchases_html(<Box sx={{ height: 650, width: '100%' }}>
+                    <DataGrid
+                        rows={data.purchases}
+                        columns={cars_on_purchase_columns}
+                        initialState={{
+                            pagination: {
+                            paginationModel: {
+                                pageSize: 10,
+                            },
+                            },
+                        }}
+                        pageSizeOptions={[10]}
+                    />
+                </Box>)
+            console.log(purchases_html)
+         }
+        })
     }, [])
 
     let cars_on_purchase_columns: GridColDef[] = [
