@@ -31,7 +31,7 @@ export const CarModelDetails = () => {
     }
 
     let purchases_html;
-    if (carModel.purchases.length > 0) {
+    if (carModel.purchases === undefined || carModel.purchases.length > 0) {
         purchases_html = <h3>No Purchases</h3>
     }
     else {
