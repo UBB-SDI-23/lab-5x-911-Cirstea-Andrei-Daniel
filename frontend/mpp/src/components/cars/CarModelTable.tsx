@@ -1,6 +1,6 @@
 import { DataGrid, GridActionsCellItem, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { ServerSettings } from '../ServerIP';
 import { EndPoints } from '../../Endpoints';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -62,7 +62,10 @@ const main_delete_dialog_open = (id: number) => {
 }
 
 let table_columns: GridColDef[] = [
-    { field: 'model', headerName: 'Model', width: 130 },
+    { field: 'model', headerName: 'Model', width: 130, 
+        renderCell: (params) => (
+        <Link to={EndPoints.CAR_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
+      ) },
     { field: 'manufacturer', headerName: 'Manufacturer', width: 130 },
     { field: 'manufacture_year', headerName: 'Manufacture Year', width: 160},
     {
