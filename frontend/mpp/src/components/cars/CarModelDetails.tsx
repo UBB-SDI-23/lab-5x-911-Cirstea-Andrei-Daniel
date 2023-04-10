@@ -20,10 +20,10 @@ export const CarModelDetails = () => {
         )
         .then((res) => res.json())
         .then((data) => { console.log(data); setCarModel(data);
-         if (!(data.purchases === undefined || data.purchases.length == 0)) {
+         if (!(data.carsOnPurchaseList === undefined || data.carsOnPurchaseList.length == 0)) {
             set_purchases_html(<Box sx={{ height: 650, width: '100%' }}>
                     <DataGrid
-                        rows={data.purchases}
+                        rows={data.carsOnPurchaseList}
                         columns={cars_on_purchase_columns}
                         initialState={{
                             pagination: {
