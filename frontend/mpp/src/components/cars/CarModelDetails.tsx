@@ -52,6 +52,7 @@ export const CarModelDetails = () => {
                 />
             </Box>
     }
+    console.log(carModel.purchases)
 
     return (
         <div>
