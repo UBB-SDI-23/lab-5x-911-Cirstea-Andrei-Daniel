@@ -34,6 +34,11 @@ export const CarModelForm = (initial_car_model : CarModel, set_car_model: any) =
                   set_car_model(new_car_model)
               }}/>
               <br></br>
+              <TextField label="Manufacture Year" variant="standard" defaultValue={car_model.manufacture_year} onChange={(event)=>{
+                  let new_car_model: CarModel = car_model
+                  new_car_model.manufacture_year = parseInt(event.target.value)
+                  set_car_model(new_car_model)
+              }}/>
               <TextField type="number" label="Price" variant="standard" defaultValue={car_model.price} onChange={(event)=>{
                   let new_car_model: CarModel = car_model
                   new_car_model.price = parseInt(event.target.value)

@@ -29,6 +29,7 @@ export const CarModelDetails = () => {
             <h1>Car Model Details</h1>
             <h3>Model: {carModel.model}</h3>
             <h3>Manufacturer: {carModel.manufacturer}</h3>
+            <h3>Manufacture Year: {carModel.manufacture_year}</h3>
             <h3>Price: {carModel.price}</h3>
             <h3>Fuel Consumption: {carModel.fuel_consumption}</h3>
             <table>

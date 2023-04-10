@@ -61,22 +61,30 @@ const main_delete_dialog_open = (id: number) => {
     handle_delete_dialog_open()
 }
 
-const table_columns: GridColDef[] = [
+let table_columns: GridColDef[] = [
     { field: 'model', headerName: 'Model', width: 130 },
     { field: 'manufacturer', headerName: 'Manufacturer', width: 130 },
+    { field: 'manufacture_year', headerName: 'Manufacture Year', width: 160},
     {
       field: 'price',
       headerName: 'Price',
       type: 'number',
-      width: 90,
+      width: 160,
     },
     {
       field: 'fuel_consumption',
       headerName: 'Fuel Consumption',
       type: 'number',
       width: 160,
-    },
-    {
+    },   
+  ];
+    const purchaseCount_column : GridColDef = {
+        field: 'purchaseCount',
+        headerName: 'Total Order Count',
+        type: 'number',
+        width: 160
+    };
+  const action_column : GridColDef = {
         field: 'id',
         headerName: 'Options',
         sortable: false,
@@ -90,7 +98,13 @@ const table_columns: GridColDef[] = [
             } label="Delete"/>,
         ]
     }
-  ];
+
+    if (props.has_actions) {
+        table_columns.push(action_column)
+    }
+    else {
+        table_columns.push(purchaseCount_column)
+    }
 
   let delete_dialog_string = null;
     if (delete_dialog) {

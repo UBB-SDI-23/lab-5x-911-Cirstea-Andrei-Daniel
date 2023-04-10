@@ -57,47 +57,7 @@ export const CarModelShowAll = () => {
             Statistic
         </Button>
 
-        <CarModelTable carModels={carModels} update_car_models={update_car_models} />
-        
-
-        {/* <table>
-            <tr>
-                <th>#</th>
-                <th>Model</th>
-                <th>Manufacturer</th>
-                <th>Price</th>
-                <th>Fuel Consumption</th>
-                <th>Actions</th>
-            </tr>
-            {
-                // carModels?.map(
-                //     (carModel: CarModel, index: number) => (
-                //         <tr key={index}>
-                //             <td>{index}</td>
-                //             <td> 
-                //                 <Button  onClick={() => navigate_details(EndPoints.CAR_TABLE + "/" + carModel.id)}>
-                //                     {carModel.model}
-                //                 </Button>
-                //             </td>
-                //             <td>{carModel.manufacturer}</td>
-                //             <td>{carModel.price}</td>
-                //             <td>{carModel.fuel_consumption}</td>
-                //             <td>
-                                
-                //                 <Button onClick={ () => navigate_details(EndPoints.CAR_TABLE + "/" + carModel.id + EndPoints.VIRTUAL_UPDATE)}>
-                //                     <EditIcon />
-                //                 </Button>
-                //                 <Button onClick={() => main_delete_dialog_open(carModel.id)}>
-                //                     <DeleteIcon />
-                //                 </Button>
-                //             </td>
-                //         </tr>
-                //     )                  
-                // )
-
-                
-            }
-        </table> */}
+        <CarModelTable carModels={carModels} update_car_models={update_car_models} has_actions={true} />
     </div>
     </React.Fragment>
     )
