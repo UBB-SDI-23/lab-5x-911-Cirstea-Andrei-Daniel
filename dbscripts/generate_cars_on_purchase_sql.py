@@ -2,7 +2,7 @@ if __name__ == '__main__':
     from faker import Faker
     fake = Faker()
     
-    COUNT = 1000
+    COUNT = 10000000
     MAX_COUNT_FK = 1000000
     
     sql_start_string = "INSERT INTO cars_on_purchase (cars_on_purchaseid, count, priority, car_modelid_fk, purchaseid_fk) VALUES\n"

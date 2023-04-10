@@ -11,20 +11,23 @@ import { CarModelDetails } from './components/cars/CarModelDetails'
 import { CarModelUpdate } from './components/cars/CarModelUpdate'
 import { CarModelCreate } from './components/cars/CarModelCreate'
 import { CarModelStatistic } from './components/cars/CarModelStatistic'
-import { ServerSettings } from './components/ServerIP'
 
 function App() {
   return (
     <React.Fragment>
       <div className="App">
+        <BrowserRouter>
           <Routes>           
-            <Route path={ServerSettings.API_ENDPOINT + EndPoints.HOME_PAGE} element={<HomePage />}></Route>
-            <Route path={ServerSettings.API_ENDPOINT + EndPoints.CAR_TABLE} element={<CarModelShowAll />}></Route>
-            <Route path={ServerSettings.API_ENDPOINT + EndPoints.CAR_TABLE + "/:id"} element={<CarModelDetails/>}></Route>
-            <Route path={ServerSettings.API_ENDPOINT + EndPoints.CAR_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<CarModelUpdate/>}></Route>
-            <Route path={ServerSettings.API_ENDPOINT + EndPoints.CAR_TABLE + EndPoints.VIRTUAL_CREATE} element={<CarModelCreate/>}></Route>
-            <Route path={ServerSettings.API_ENDPOINT + EndPoints.VIRTUAL_CAR_TABLE_STATISTIC} element={<CarModelStatistic/>}></Route>
+            <Route path={EndPoints.HOME_PAGE} element={<HomePage />}></Route>
+            <Route path={EndPoints.CAR_TABLE} element={<CarModelShowAll />}></Route>
+            <Route path={EndPoints.CAR_TABLE + "/:id"} element={<CarModelDetails/>}></Route>
+            <Route path={EndPoints.CAR_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<CarModelUpdate/>}></Route>
+            <Route path={EndPoints.CAR_TABLE + EndPoints.VIRTUAL_CREATE} element={<CarModelCreate/>}></Route>
+            <Route path={EndPoints.VIRTUAL_CAR_TABLE_STATISTIC} element={<CarModelStatistic/>}></Route>
+            {/* <Route path={EndPoints.statisticsUrls} element={<StatisticsPage />}></Route>
+            <Route path="*" element={<NoPage />}></Route> */}
           </Routes>
+        </BrowserRouter>
       </div>
     </React.Fragment>
   )
