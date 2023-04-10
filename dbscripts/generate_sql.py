@@ -2,7 +2,7 @@ if __name__ == '__main__':
     from faker import Faker
     fake = Faker()
     
-    sql_start_string = "INSERT INTO car_model (model, manufacturer, manufacture_year, price, fuel_consumption) VALUES\n"
+    sql_start_string = "INSERT INTO car_model (carid, model, manufacturer, manufacture_year, price, fuel_consumption) VALUES\n"
 
     # create list to store SQL statements
     sql_string = sql_start_string
@@ -14,8 +14,9 @@ if __name__ == '__main__':
         price = fake.random_int(min=10000, max=100000)
         fuel_consumption = fake.random_int(min=1, max=50)
         manufacture_year = fake.random_int(min=2005, max=2023)
+        id = i + 100
         
-        sql_string += "('{}', '{}', '{}', '{}', '{}')".format(name, manufacturer, manufacture_year, price, fuel_consumption)
+        sql_string += "('{}', '{}', '{}', '{}', '{}', '{}')".format(id, name, manufacturer, manufacture_year, price, fuel_consumption)
         if i < 99:
             sql_string += ",\n"
 
