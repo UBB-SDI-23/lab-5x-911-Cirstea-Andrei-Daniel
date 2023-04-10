@@ -18,7 +18,7 @@ export const CarModelDetails = () => {
             endpoint
         )
         .then((res) => res.json())
-        .then((data) => { setCarModel(data) })
+        .then((data) => { console.log(data); setCarModel(data) })
     }, [])
 
     let cars_on_purchase_columns: GridColDef[] = [
