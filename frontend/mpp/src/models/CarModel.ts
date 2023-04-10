@@ -7,5 +7,5 @@ export class CarModel {
     manufacture_year: number = 0;
     price: number = 0;
     fuel_consumption: number = 0;
-    purchases: CarsOnPurchase[] = [];
+    carsOnPurchaseList: CarsOnPurchase[] = [];
 }
