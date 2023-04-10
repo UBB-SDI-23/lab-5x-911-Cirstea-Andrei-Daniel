@@ -8,6 +8,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 export const CarModelDetails = () => {
   const [carModel, setCarModel] = useState<CarModel>()
+  const [purchases_html, set_purchases_html] = useState((<h3>No Purchases</h3>))
 
     const { id } = useParams()
 
@@ -18,7 +19,21 @@ export const CarModelDetails = () => {
             endpoint
         )
         .then((res) => res.json())
-        .then((data) => { console.log(data); setCarModel(data) })
+        .then((data) => { console.log(data); setCarModel(data);
+         if (!(data.purchases === undefined || data.purchases.length == 0)) set_purchases_html(<Box sx={{ height: 650, width: '100%' }}>
+            <DataGrid
+                rows={data.purchases}
+                columns={cars_on_purchase_columns}
+                initialState={{
+                    pagination: {
+                    paginationModel: {
+                        pageSize: 10,
+                    },
+                    },
+                }}
+                pageSizeOptions={[10]}
+            />
+        </Box>) })
     }, [])
 
     let cars_on_purchase_columns: GridColDef[] = [
@@ -29,30 +44,6 @@ export const CarModelDetails = () => {
     if (carModel === undefined) {
         return <div>Oops! The car with id {id} was not found!</div>
     }
-
-    console.log(carModel.purchases)
-    let purchases_html;
-    if (carModel.purchases === undefined || carModel.purchases.length == 0) {
-        purchases_html = <h3>No Purchases</h3>
-    }
-    else {
-        purchases_html =   
-            <Box sx={{ height: 650, width: '100%' }}>
-                <DataGrid
-                    rows={carModel.purchases}
-                    columns={cars_on_purchase_columns}
-                    initialState={{
-                        pagination: {
-                        paginationModel: {
-                            pageSize: 10,
-                        },
-                        },
-                    }}
-                    pageSizeOptions={[10]}
-                />
-            </Box>
-    }
-    console.log(carModel.purchases)
 
     return (
         <div>
