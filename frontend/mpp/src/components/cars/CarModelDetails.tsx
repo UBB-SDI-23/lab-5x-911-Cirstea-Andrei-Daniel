@@ -30,14 +30,12 @@ export const CarModelDetails = () => {
         return <div>Oops! The car with id {id} was not found!</div>
     }
 
-    return (
-        <div>
-            <h1>Car Model Details</h1>
-            <h3>Model: {carModel.model}</h3>
-            <h3>Manufacturer: {carModel.manufacturer}</h3>
-            <h3>Manufacture Year: {carModel.manufacture_year}</h3>
-            <h3>Price: {carModel.price}</h3>
-            <h3>Fuel Consumption: {carModel.fuel_consumption}</h3>
+    let purchases_html;
+    if (carModel.purchases.length > 0) {
+        purchases_html = <h3>No Purchases</h3>
+    }
+    else {
+        purchases_html =   
             <Box sx={{ height: 650, width: '100%' }}>
                 <DataGrid
                     rows={carModel.purchases}
@@ -52,6 +50,17 @@ export const CarModelDetails = () => {
                     pageSizeOptions={[10]}
                 />
             </Box>
+    }
+
+    return (
+        <div>
+            <h1>Car Model Details</h1>
+            <h3>Model: {carModel.model}</h3>
+            <h3>Manufacturer: {carModel.manufacturer}</h3>
+            <h3>Manufacture Year: {carModel.manufacture_year}</h3>
+            <h3>Price: {carModel.price}</h3>
+            <h3>Fuel Consumption: {carModel.fuel_consumption}</h3>
+            {purchases_html}
         </div>
     )
 }
