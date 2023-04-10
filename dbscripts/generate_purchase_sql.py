@@ -2,7 +2,7 @@ if __name__ == '__main__':
     from faker import Faker
     fake = Faker()
     
-    COUNT = 1000000
+    COUNT = 1000
     
     countries = fake.random_elements(elements=
         ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 
@@ -27,11 +27,15 @@ if __name__ == '__main__':
              'Slovakia', 'Slovenia', 'Solomon Islands', 'Somalia'
         ], length=COUNT, unique=False)
     
-    categories = fake.random_elements(
-        elements=["NewCars", "OldCars", "RenovatedCars"],
+    pay_methods = fake.random_elements(
+        elements=["CreditCard", "PayPal", "Cash", "DebitCard", "BankTransfer"],
         length=COUNT, unique=False)
     
-    sql_start_string = "INSERT INTO distributor (distributorid, name, contact_email, country, cooperation_start_date, category) VALUES\n"
+    statuses = fake.random_elements(
+        elements=["Completed", "Pending", "Failed"],
+        length=COUNT, unique=False)
+    
+    sql_start_string = "INSERT INTO purchase (purchaseid_pk, date, pay_method, status, customerid_fk) VALUES\n"
 
     # create list to store SQL statements
     lines = []
@@ -41,17 +45,18 @@ if __name__ == '__main__':
         name = fake.name()
         date = fake.date()
         contact_email = fake.email()
+        customer_id = fake.random_int(min=0, max=COUNT)
         id = i
         
         if (i % 10000) == 0:
             print(i)
         
-        lines.append("('{}', '{}', '{}', '{}', '{}', '{}')".format(id, name, contact_email, countries[i], date, categories[i]))
+        lines.append("('{}', '{}', '{}', '{}', '{}')".format(id, date, pay_methods[i], statuses[i], customer_id))
         if ((i + 1) % 1000) != 0:
             lines[i] += ",\n"
 
     # write SQL statements to file in /tmp directory
-    with open(r'/tmp/insert_distributor.sql', 'w') as f:
+    with open(r'/tmp/insert_purchase.sql', 'w') as f:
         iteration_count = int(COUNT / 1000)
         for i in range(iteration_count):
             f.write(sql_start_string)

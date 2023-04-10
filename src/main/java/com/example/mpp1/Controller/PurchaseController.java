@@ -70,12 +70,15 @@ public class PurchaseController {
     }
 
     private PurchaseDTO convertToDto(Purchase element) {
-        return modelMapper.map(element, PurchaseDTO.class);
+        PurchaseDTO dto = modelMapper.map(element, PurchaseDTO.class);
+        dto.setCustomerID(element.getOriginal_customer().getId());
+        return dto;
     }
 
     private PurchaseStatisticDTO convertToStatisticDTO(Purchase element, Integer totalCount) {
         PurchaseStatisticDTO dto = modelMapper.map(element, PurchaseStatisticDTO.class);
         dto.setCarsPurchased(totalCount);
+        dto.setCustomerID(element.getOriginal_customer().getId());
         return dto;
     }
 

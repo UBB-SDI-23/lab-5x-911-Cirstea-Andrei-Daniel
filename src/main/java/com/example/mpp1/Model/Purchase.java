@@ -30,10 +30,6 @@ public class Purchase {
     @Setter
     private String status;
 
-    @Getter
-    @Setter
-    private Long customerID;
-
     @ManyToOne
     @JoinColumn(name = "customerID_FK")
     @JsonIgnoreProperties("purchases")
@@ -44,7 +40,7 @@ public class Purchase {
     private List<CarsOnPurchase> carsOnPurchaseList;
 
     public String toString() {
-        return "Purchase id " + id + " date " + date + " payMethod " + payMethod + " status " + status + " customerID " + customerID;
+        return "Purchase id " + id + " date " + date + " payMethod " + payMethod + " status " + status + " customerID " + original_customer.getId();
     }
 
 }
