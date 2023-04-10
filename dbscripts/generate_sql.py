@@ -15,7 +15,7 @@ if __name__ == '__main__':
         fuel_consumption = fake.random_int(min=1, max=50)
         manufacture_year = fake.random_int(min=2005, max=2023)
         
-        sql = "INSERT INTO car_model (model, manufacturer, manufacture_year, price, fuel_consumption) VALUES ('{}', '{}', '{}', '{}', '{}')".format(name, manufacturer, manufacture_year, price, fuel_consumption)
+        sql = "INSERT INTO car_model (model, manufacturer, manufacture_year, price, fuel_consumption) VALUES ('{}', '{}', '{}', '{}', '{}');".format(name, manufacturer, manufacture_year, price, fuel_consumption)
         sqls.append(sql)
 
     # write SQL statements to file in /tmp directory
