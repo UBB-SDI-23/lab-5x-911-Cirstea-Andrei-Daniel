@@ -16,10 +16,6 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 export const CarModelShowAll = () => {
   const [carModels, setCarModels] = useState<CarModel[]>()
-  const [delete_id, set_delete_id] = useState(0)
-  const [delete_dialog, set_delete_dialog] = useState(false)
-  const [successful_dialog, set_successful_dialog] = useState(false)
-  const [failed_dialog, set_failed_dialog] = useState(false)
   const navigate_details = useNavigate()
 
     const update_car_models = () => {
