@@ -40,8 +40,8 @@ public class ShipmentController {
     }
 
     @GetMapping("/{id}")
-    public Shipment findID(@PathVariable("id") Long distributorID){
-        return repository.findById(distributorID).get();
+    public Shipment findID(@PathVariable("id") Long shipmentID){
+        return repository.findById(shipmentID).get();
     }
 
     @GetMapping("/filter/{id}")
@@ -64,7 +64,9 @@ public class ShipmentController {
     }
 
     private ShipmentDTO convertToDto(Shipment shipment) {
-        return modelMapper.map(shipment, ShipmentDTO.class);
+        ShipmentDTO dto = modelMapper.map(shipment, ShipmentDTO.class);
+        dto.setDistributorID(shipment.getParent_distributor().getId());
+        return dto;
     }
 
 }

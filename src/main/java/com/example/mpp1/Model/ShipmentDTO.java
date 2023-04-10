@@ -23,4 +23,8 @@ public class ShipmentDTO {
     @Setter
     private Date arrival;
 
+    @Getter
+    @Setter
+    private Integer totalPrice;
+
 }

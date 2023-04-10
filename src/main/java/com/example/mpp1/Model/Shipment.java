@@ -21,15 +21,15 @@ public class Shipment {
 
     @Getter
     @Setter
-    private Long distributorID;
-
-    @Getter
-    @Setter
     private Date expectedArrival;
 
     @Getter
     @Setter
     private Date arrival;
+
+    @Getter
+    @Setter
+    private Integer totalPrice;
 
     @ManyToOne
     @JoinColumn(name="distributorID_FK")
