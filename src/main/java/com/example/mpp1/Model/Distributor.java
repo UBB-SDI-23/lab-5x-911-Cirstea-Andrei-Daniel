@@ -39,7 +39,7 @@ public class Distributor {
     @Setter
     private String category;
 
-    @OneToMany(mappedBy="distributorID")
+    @OneToMany(mappedBy="parent_distributor")
     @JsonIgnoreProperties("parent_distributor")
     private List<Shipment> shipments;
 
