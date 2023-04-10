@@ -43,8 +43,8 @@ public class PurchaseController {
     }
 
     @PutMapping("/{id}")
-    public Purchase updatePurchase(@RequestBody Purchase purchase, @PathVariable("id") Long customerID){
-        Purchase old_purchase = findID(customerID);
+    public Purchase updatePurchase(@RequestBody Purchase purchase, @PathVariable("id") Long purchaseID){
+        Purchase old_purchase = findID(purchaseID);
         old_purchase = purchase;
         return repository.save(old_purchase);
     }
