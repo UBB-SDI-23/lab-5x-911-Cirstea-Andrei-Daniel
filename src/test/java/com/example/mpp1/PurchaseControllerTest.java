@@ -31,52 +31,52 @@ public class PurchaseControllerTest {
 
     @Test
     void testGetAllSortedByPriceWhichAppearInCountPurchases() {
-//        Customer customer1 = new Customer();
-//        customer1.setId(1L);
-//        customer1.setFirstName("John");
-//        customer1.setLastName("Doe");
-//        customer1.setTelephone_number("+1 123-456-7890");
-//        customer1.setEmail_address("john.doe@example.com");
-//        customer1.setPriority("Low");
-//
-//        Customer customer2 = new Customer();
-//        customer2.setId(2L);
-//        customer2.setFirstName("Jane");
-//        customer2.setLastName("Doe");
-//        customer2.setTelephone_number("+1 987-654-3210");
-//        customer2.setEmail_address("jane.doe@example.com");
-//        customer2.setPriority("High");
-//
-//        Customer customer3 = new Customer();
-//        customer3.setId(3L);
-//        customer3.setFirstName("Acme Inc.");
-//        customer3.setLastName("");
-//        customer3.setTelephone_number("+1 555-555-5555");
-//        customer3.setEmail_address("sales@acmeinc.com");
-//        customer3.setPriority("Average");
-//
-//        Customer customer4 = new Customer();
-//        customer4.setId(4L);
-//        customer4.setFirstName("Smith Ltd.");
-//        customer4.setLastName("");
-//        customer4.setTelephone_number("+1 555-555-5555");
-//        customer4.setEmail_address("sales@smithltd.com");
-//        customer4.setPriority("Average");
-//
-//        Customer customer5 = new Customer();
-//        customer5.setId(5L);
-//        customer5.setFirstName("Bill");
-//        customer5.setLastName("Johnson");
-//        customer5.setTelephone_number("+1 555-555-5555");
-//        customer5.setEmail_address("bill.johnson@example.com");
-//        customer5.setPriority("Low");
-//
-//        List<Customer> customers = new ArrayList<Customer>();
-//        customers.add(customer1);
-//        customers.add(customer2);
-//        customers.add(customer3);
-//        customers.add(customer4);
-//        customers.add(customer5);
+        Customer customer1 = new Customer();
+        customer1.setId(1L);
+        customer1.setFirstName("John");
+        customer1.setLastName("Doe");
+        customer1.setTelephone_number("+1 123-456-7890");
+        customer1.setEmail_address("john.doe@example.com");
+        customer1.setPriority("Low");
+
+        Customer customer2 = new Customer();
+        customer2.setId(2L);
+        customer2.setFirstName("Jane");
+        customer2.setLastName("Doe");
+        customer2.setTelephone_number("+1 987-654-3210");
+        customer2.setEmail_address("jane.doe@example.com");
+        customer2.setPriority("High");
+
+        Customer customer3 = new Customer();
+        customer3.setId(3L);
+        customer3.setFirstName("Acme Inc.");
+        customer3.setLastName("");
+        customer3.setTelephone_number("+1 555-555-5555");
+        customer3.setEmail_address("sales@acmeinc.com");
+        customer3.setPriority("Average");
+
+        Customer customer4 = new Customer();
+        customer4.setId(4L);
+        customer4.setFirstName("Smith Ltd.");
+        customer4.setLastName("");
+        customer4.setTelephone_number("+1 555-555-5555");
+        customer4.setEmail_address("sales@smithltd.com");
+        customer4.setPriority("Average");
+
+        Customer customer5 = new Customer();
+        customer5.setId(5L);
+        customer5.setFirstName("Bill");
+        customer5.setLastName("Johnson");
+        customer5.setTelephone_number("+1 555-555-5555");
+        customer5.setEmail_address("bill.johnson@example.com");
+        customer5.setPriority("Low");
+
+        List<Customer> customers = new ArrayList<Customer>();
+        customers.add(customer1);
+        customers.add(customer2);
+        customers.add(customer3);
+        customers.add(customer4);
+        customers.add(customer5);
 
         ModelMapper modelMapper = new ModelMapper();
 
@@ -85,35 +85,35 @@ public class PurchaseControllerTest {
         purchase1.setDate(new Date());
         purchase1.setPayMethod("Credit Card");
         purchase1.setStatus("Completed");
-        purchase1.setCustomerID(1L);
+        purchase1.setOriginal_customer(customer1);
 
         Purchase purchase2 = new Purchase();
         purchase2.setId(2L);
         purchase2.setDate(new Date());
         purchase2.setPayMethod("PayPal");
         purchase2.setStatus("Pending");
-        purchase2.setCustomerID(2L);
+        purchase2.setOriginal_customer(customer2);
 
         Purchase purchase3 = new Purchase();
         purchase3.setId(3L);
         purchase3.setDate(new Date());
         purchase3.setPayMethod("Cash");
         purchase3.setStatus("Completed");
-        purchase3.setCustomerID(3L);
+        purchase3.setOriginal_customer(customer3);
 
         Purchase purchase4 = new Purchase();
         purchase4.setId(4L);
         purchase4.setDate(new Date());
         purchase4.setPayMethod("Credit Card");
         purchase4.setStatus("Canceled");
-        purchase4.setCustomerID(4L);
+        purchase4.setOriginal_customer(customer4);
 
         Purchase purchase5 = new Purchase();
         purchase5.setId(5L);
         purchase5.setDate(new Date());
         purchase5.setPayMethod("Credit Card");
         purchase5.setStatus("Completed");
-        purchase5.setCustomerID(5L);
+        purchase5.setOriginal_customer(customer5);
 
         List<Purchase> purchases = new ArrayList<Purchase>();
         purchases.add(purchase1);
