@@ -63,7 +63,7 @@ export const CarModelUpdate = () => {
                         setCarModel(carModel);
                     }}/>
                     <br></br>
-                    <TextField label="Manufacturer" variant="standard" defaultValue={carModel.manufacture_year} onChange={(event)=>{
+                    <TextField label="Manufacture Year" variant="standard" defaultValue={carModel.manufacture_year} onChange={(event)=>{
                         carModel.manufacture_year = parseInt(event.target.value);
                         setCarModel(carModel);
                     }}/>
