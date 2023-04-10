@@ -48,7 +48,7 @@ if __name__ == '__main__':
         'Volkswagen'
         ], length=GENERATE_COUNT, unique=False)
     
-    sql_start_string = "INSERT INTO car_model (carid, model, manufacturer, manufacture_year, price, fuel_consumption) VALUES\n"
+    sql_start_string = "INSERT INTO car_model (carid, model, manufacturer, manufacture_year, price, fuel_consumption, description) VALUES\n"
 
     # create list to store SQL statements
     lines = []
@@ -58,12 +58,13 @@ if __name__ == '__main__':
         price = fake.random_int(min=10000, max=100000)
         fuel_consumption = fake.random_int(min=1, max=50)
         manufacture_year = fake.random_int(min=2005, max=2023)
+        description = fake.paragraph(3)
         id = i
         
         if (i % 10000) == 0:
             print(i)
         
-        lines.append("('{}', '{}', '{}', '{}', '{}', '{}')".format(id, models[i], manufacturers[i], manufacture_year, price, fuel_consumption))
+        lines.append("('{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(id, models[i], manufacturers[i], manufacture_year, price, fuel_consumption, description))
         if ((i + 1) % 1000) != 0:
             lines[i] += ",\n"
 
