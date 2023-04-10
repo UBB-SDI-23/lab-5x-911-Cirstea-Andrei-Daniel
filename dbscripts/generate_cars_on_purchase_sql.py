@@ -25,19 +25,19 @@ if __name__ == '__main__':
                     car_model_fk = fake.random_int(min=0, max=MAX_COUNT_FK - 1)
                     purchase_fk = fake.random_int(min=0, max=MAX_COUNT_FK - 1)
                     
-                    existing_pair = generated_pairs.get((car_model_fk, purchase_fk), None)
-                    if existing_pair is None:    
-                        id = offset + j
+                    #existing_pair = generated_pairs.get((car_model_fk, purchase_fk), None)
+                    #if existing_pair is None:    
+                    id = offset + j
+                    
+                    if (id % 10000) == 0:
+                        print(id)
+                    
+                    f.write("('{}', '{}', '{}', '{}', '{}')".format(id, count, priority, car_model_fk, purchase_fk))
+                    if ((j + 1) % 1000) != 0:
+                        f.write(",\n")
                         
-                        if (id % 10000) == 0:
-                            print(id)
-                        
-                        f.write("('{}', '{}', '{}', '{}', '{}')".format(id, count, priority, car_model_fk, purchase_fk))
-                        if ((j + 1) % 1000) != 0:
-                            f.write(",\n")
-                            
-                        generated_pairs[(car_model_fk, purchase_fk)] = None
-                        break
+                    #generated_pairs[(car_model_fk, purchase_fk)] = None
+                    break
             f.write(";")
             
         f.write("ALTER SEQUENCE car_model_seq RESTART WITH 10000000;")
