@@ -3,3 +3,5 @@
 //     get_by_id(id: number) : T;
 //     delete_by_id(id: number) : T;
 // }
+
+export {}
