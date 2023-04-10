@@ -4,23 +4,23 @@ if __name__ == '__main__':
     
     COUNT = 1000000
     
-    sql_start_string = "INSERT INTO shipment (shipmentid, count, priority, car_modelid_fk, distributorid_fk) VALUES\n"
+    sql_start_string = "INSERT INTO shipment (shipmentid, expected_arrival, arrival, total_price, distributorid_fk) VALUES\n"
 
     # create list to store SQL statements
     lines = []
 
     # generate fake data and create INSERT SQL statements
     for i in range(COUNT):
-        count = fake.random_int(min=1, max=20)
-        priority = fake.random_int(min=1, max=5)
-        car_model_fk = fake.random_int(min=0, max=MAX_COUNT_FK)
-        purchase_fk = fake.random_int(min=0, max=MAX_COUNT_FK)
+        expected_arrival = fake.date()
+        arrival = fake.date()
+        total_price = fake.random_int(min=10000, max=10000000)
+        distributor_fk = fake.random_int(min=0, max=1000000)
         id = i
         
         if (i % 10000) == 0:
             print(i)
         
-        lines.append("('{}', '{}', '{}', '{}', '{}')".format(id, count, priority, car_model_fk, purchase_fk))
+        lines.append("('{}', '{}', '{}', '{}', '{}')".format(id, expected_arrival, arrival, total_price, distributor_fk))
         if ((i + 1) % 1000) != 0:
             lines[i] += ",\n"
 
