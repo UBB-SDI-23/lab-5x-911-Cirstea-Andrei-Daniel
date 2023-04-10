@@ -22,7 +22,7 @@ if __name__ == '__main__':
         name = fake.name()
         date = fake.date()
         contact_email = fake.email()
-        customer_id = fake.random_int(min=0, max=COUNT)
+        customer_id = fake.random_int(min=0, max=COUNT - 1)
         id = i
         
         if (i % 10000) == 0:
