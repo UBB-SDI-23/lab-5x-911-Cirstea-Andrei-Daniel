@@ -27,7 +27,9 @@ export const CarModelStatistic = () => {
 
     let table;
     if (count >= 0) {
-        table = <CarModelTable carModels={carModels} update_car_models={()=>{}} has_actions={false} />
+        if (carModels != undefined) {
+            table = <CarModelTable carModels={carModels} update_car_models={()=>{}} has_actions={false} />
+        }
     }
 
     return  (

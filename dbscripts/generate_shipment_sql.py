@@ -13,8 +13,8 @@ if __name__ == '__main__':
     for i in range(COUNT):
         expected_arrival = fake.date()
         arrival = fake.date()
-        total_price = fake.random_int(min=10000, max=10000000)
-        distributor_fk = fake.random_int(min=0, max=1000000)
+        total_price = fake.random_int(min=10000, max=10000000 - 1)
+        distributor_fk = fake.random_int(min=0, max=1000000 - 1)
         id = i
         
         if (i % 10000) == 0:

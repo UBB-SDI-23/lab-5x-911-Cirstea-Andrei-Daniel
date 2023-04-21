@@ -1,6 +1,6 @@
 export class EndPoints {
     static HOME_PAGE = "/"
-    static CAR_TABLE = "/cars"
+    static CAR_TABLE = "/api/cars"
     static CUSTOMER_TABLE = "/customers"
     static SHIPMENT_TABLE = "/shipments"
     static DISTRIBUTOR_TABLE = "/distributors"
