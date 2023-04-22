@@ -32,4 +32,8 @@ public class CarModelDTO {
     @Setter
     private Long fuel_consumption;
 
+    @Getter
+    @Setter
+    private Integer purchaseCount;
+
 }

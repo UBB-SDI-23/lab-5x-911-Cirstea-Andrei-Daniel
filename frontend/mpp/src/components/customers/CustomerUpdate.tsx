@@ -9,7 +9,7 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { CarModelForm } from './CustomerForm';
 import React from 'react';
 
-export const CarModelUpdate = () => {
+export const CustomerUpdate = () => {
     const [carModel, setCarModel] = useState<CarModel>(new CarModel())
     const navigate_back = useNavigate()
         const { id } = useParams()

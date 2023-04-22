@@ -5,4 +5,5 @@ export interface CustomerDTO {
     telephone_number : string;
     email_address : string;
     priority : string;
+    purchaseCount : number;
 }

@@ -5,6 +5,7 @@ import com.example.mpp1.Model.Distributor;
 import com.example.mpp1.Model.Shipment;
 import com.example.mpp1.Model.ShipmentDTO;
 import com.example.mpp1.Repository.ShipmentRepository;
+import com.example.mpp1.Service.ShipmentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -21,55 +22,41 @@ import java.util.stream.Collectors;
 public class ShipmentController {
 
     @Autowired
-    private ShipmentRepository repository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private ShipmentService service;
 
     @GetMapping()
     public List<ShipmentDTO> getAll() {
-        Pageable pageRequest = PageRequest.of(0, 100);
-        return repository.findAll(pageRequest).stream().map(this::convertToDto).collect(Collectors.toList());
+        return service.getAll();
     }
 
     @PostMapping()
     public Shipment createShipment(@RequestBody Shipment shipment) {
-        return repository.save(shipment);
+        return service.createShipment(shipment);
     }
 
     @PostMapping("/create")
     public List<Shipment> createShipments(@RequestBody List<Shipment> shipments) {
-        return repository.saveAll(shipments);
+        return service.createShipments(shipments);
     }
 
     @GetMapping("/{id}")
     public Shipment findID(@PathVariable("id") Long shipmentID){
-        return repository.findById(shipmentID).get();
+        return service.findID(shipmentID);
     }
 
     @GetMapping("/filter/{id}")
     public List<ShipmentDTO> filterByIDHigher(@PathVariable("id") Long id) {
-        List<Shipment> list = repository.findByIdGreaterThanEqual(id);
-        return list.stream().map(this::convertToDto).collect(Collectors.toList());
+        return service.filterByIDHigher(id);
     }
 
     @PutMapping("/{id}")
     public Shipment updateShipment(@RequestBody Shipment shipment, @PathVariable("id") Long shipmentID) {
-        Shipment old_shipment = findID(shipmentID);
-        old_shipment = shipment;
-        return  repository.save(old_shipment);
+        return service.updateShipment(shipment, shipmentID);
     }
 
     @DeleteMapping("/{id}")
     public String deleteShipment(@PathVariable("id") Long shipmentID){
-        repository.deleteById(shipmentID);
-        return "Shipment successfully deleted";
-    }
-
-    private ShipmentDTO convertToDto(Shipment shipment) {
-        ShipmentDTO dto = modelMapper.map(shipment, ShipmentDTO.class);
-        dto.setDistributorID(shipment.getParent_distributor().getId());
-        return dto;
+        return service.deleteShipment(shipmentID);
     }
 
 }

@@ -7,19 +7,20 @@ import { TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
+import { CarsOnPurchase } from '../../models/CarsOnPurchase';
 
-export const CarModelUpdate = () => {
-    const [carModel, setCarModel] = useState<CarModel>(new CarModel())
+export const CarsOnPurchaseUpdate = () => {
+    const [element, setElement] = useState<CarsOnPurchase>(new CarsOnPurchase())
     const navigate_back = useNavigate()
         const { id } = useParams()
 
-        const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CAR_TABLE + "/" + id
+        const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CARSONPURCHASE_TABLE + "/" + id
 
         const commit_update = () => {
             const request_options = {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(carModel, null, 2)
+                body: JSON.stringify(element, null, 2)
             };
 
             fetch(
@@ -27,7 +28,7 @@ export const CarModelUpdate = () => {
                 request_options
             )
             .then((res) => res.json())
-            .then((data) => setCarModel(data))
+            .then((data) => setElement(data))
             navigate_back(-1)
         }
 
@@ -43,46 +44,46 @@ export const CarModelUpdate = () => {
             )
             .then((res) => res.json())
             .then((data) => {
-                setCarModel(data)
+                setElement(data)
             })
         }, [])
 
         form_result = (
             <div>
                 {
-                    carModel.id != -1 &&
+                    element.id != -1 &&
                     <>
-                    <TextField label="Model" variant="standard" defaultValue={carModel.model} onChange={(event)=>{
-                        carModel.model = event.target.value;
-                        setCarModel(carModel);
+                    {/* <TextField label="Car Model" variant="standard" defaultValue={element.carModel} onChange={(event)=>{
+                        element.carModel = event.target.value
+                        setElement(element)
                     }}/>
                     <br></br>
-                    <TextField label="Manufacturer" variant="standard" defaultValue={carModel.manufacturer} onChange={(event)=>{
-                        carModel.manufacturer = event.target.value;
-                        setCarModel(carModel);
+                    <TextField label="Purchase" variant="standard" defaultValue={element.purchase} onChange={(event)=>{
+                        element.lastName = event.target.value
+                        setElement(element)
+                    }}/> */}
+                    <br></br>
+                    <TextField type="number" label="Count" variant="standard" defaultValue={element.count} onChange={(event)=>{
+                        element.count = parseInt(event.target.value)
+                        setElement(element)
                     }}/>
                     <br></br>
-                    <TextField label="Manufacture Year" variant="standard" defaultValue={carModel.manufacture_year} onChange={(event)=>{
-                        carModel.manufacture_year = parseInt(event.target.value);
-                        setCarModel(carModel);
-                    }}/>
-                    <br></br>
-                    <TextField type="number" label="Price" variant="standard" defaultValue={carModel.price} onChange={(event)=>{
-                        carModel.price = parseInt(event.target.value)
-                        setCarModel(carModel);
+                    <TextField type="number" label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
+                        element.priority = parseInt(event.target.value)
+                        setElement(element)
                     }} />
                     <br></br>
-                    <TextField type="number" label="Fuel Consumption" variant="standard" defaultValue={carModel.fuel_consumption} onChange={(event)=>{
-                        carModel.fuel_consumption = parseInt(event.target.value)
-                        setCarModel(carModel);
-                    }} />
+                    {/* <TextField label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
+                        element.priority = event.target.value
+                        setElement(element)
+                    }} /> */}
                     </>
                 }
             </div>
         );
 
-        if (carModel === undefined) {
-            return <div>Oops! The Car Model with id {id} was not found!</div>
+        if (element === undefined) {
+            return <div>Oops! The CarOnPurchase with id {id} was not found!</div>
         } 
 
         return (

@@ -1,10 +1,11 @@
 import { CarsOnPurchase } from "./CarsOnPurchase";
+import { Customer } from "./Customer";
 
-export interface Purchase {
-    id: number;
-    date: Date;
-    payMethod: string;
-    status: string;
-    customerID: number;
-    car_models: CarsOnPurchase[];
+export class Purchase {
+    id: number = -1;
+    date: Date = new Date();
+    payMethod: string = "";
+    status: string = "";
+    original_customer: Customer = new Customer();
+    car_models: CarsOnPurchase[] = [];
 }

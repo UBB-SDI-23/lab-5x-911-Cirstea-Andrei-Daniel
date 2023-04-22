@@ -33,6 +33,7 @@ export const CarModelDetails = () => {
                             },
                         }}
                         pageSizeOptions={[10]}
+                        autoHeight={true}
                     />
                 </Box>)
             console.log(purchases_html)
@@ -46,7 +47,7 @@ export const CarModelDetails = () => {
     ];
 
     if (carModel === undefined) {
-        return <div>Oops! The car with id {id} was not found!</div>
+        return <div>Oops! The Car Model with id {id} was not found!</div>
     }
 
     return (

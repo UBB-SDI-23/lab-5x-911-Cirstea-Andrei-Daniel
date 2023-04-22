@@ -1,10 +1,11 @@
 export class EndPoints {
     static HOME_PAGE = "/"
     static CAR_TABLE = "/api/cars"
-    static CUSTOMER_TABLE = "/customers"
-    static SHIPMENT_TABLE = "/shipments"
-    static DISTRIBUTOR_TABLE = "/distributors"
-    static CARSONPURCHASE_TABLE = "/carsonpurchases"
+    static CUSTOMER_TABLE = "/api/customers"
+    static SHIPMENT_TABLE = "/api/shipments"
+    static PURCHASE_TABLE = "/api/purchases"
+    static DISTRIBUTOR_TABLE = "/api/distributors"
+    static CARSONPURCHASE_TABLE = "/api/carsonpurchases"
     
     static backendCarTableStatistic(count: number) {
         return EndPoints.CAR_TABLE + '/statistic/' + count

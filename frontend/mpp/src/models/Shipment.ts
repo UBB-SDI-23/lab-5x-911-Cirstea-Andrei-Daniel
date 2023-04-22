@@ -1,8 +1,9 @@
-import { Distributor } from "./Distributor";
+import { Distributor } from './Distributor';
 
-export interface Shipment {
-    id: number;
-    arrival: Date;
-    expected_arrival: Date;
-    parent_distributor: Distributor;
+export class Shipment {
+    id: number = -1;
+    arrival: Date = new Date();
+    expected_arrival: Date = new Date();
+    totalPrice: number = 0;
+    parent_distributor: Distributor = new Distributor();
 }

@@ -5,6 +5,7 @@ import com.example.mpp1.Model.Customer;
 import com.example.mpp1.Model.CustomerDTO;
 import com.example.mpp1.Model.PurchaseDTO;
 import com.example.mpp1.Repository.CustomerRepository;
+import com.example.mpp1.Service.CustomerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -22,53 +23,36 @@ import java.util.stream.Collectors;
 public class CustomerController {
 
     @Autowired
-    private CustomerRepository repository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private CustomerService service;
 
     @GetMapping()
     public List<CustomerDTO> getAll() {
-        Pageable pageRequest = PageRequest.of(0, 100);
-        return repository.findAll(pageRequest).stream().map(this::convertToDto).collect(Collectors.toList());
+        return service.getAll();
     }
 
     @PostMapping()
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
-        if (customer.getLastName() == null || customer.getLastName().equals("")) {
-            return new ResponseEntity<>("Customer last name invalid", HttpStatus.BAD_REQUEST);
-        }
-        else if (customer.getFirstName() == null || customer.getFirstName().equals("")) {
-            return new ResponseEntity<>("Customer first name invalid", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<Customer>(repository.save(customer), HttpStatus.OK);
+        return service.createCustomer(customer);
     }
 
     @PostMapping("/create")
     public List<Customer> createCustomers(@RequestBody List<Customer> customers) {
-        return repository.saveAll(customers);
+        return service.createCustomers(customers);
     }
 
     @GetMapping("/{id}")
-    public Customer findID(@PathVariable("id") Long carID) {
-        return repository.findById(carID).get();
+    public Customer findID(@PathVariable("id") Long id) {
+        return service.findID(id);
     }
 
     @PutMapping("/{id}")
     public Customer updateCustomer(@RequestBody Customer customer, @PathVariable("id") Long customerID){
-        Customer old_customer = findID(customerID);
-        old_customer = customer;
-        return repository.save(old_customer);
+        return service.updateCustomer(customer, customerID);
     }
 
     @DeleteMapping("/{id}")
     public String deleteCustomer(@PathVariable("id") Long customerID){
-        repository.deleteById(customerID);
-        return "Customer successfully deleted";
-    }
-
-    private CustomerDTO convertToDto(Customer element) {
-        return modelMapper.map(element, CustomerDTO.class);
+        return deleteCustomer(customerID);
     }
 
 }

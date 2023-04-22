@@ -6,22 +6,15 @@ import { EndPoints } from '../../Endpoints';
 import { Box, TextField } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Customer } from '../../models/Customer';
+import { CarsOnPurchase } from '../../models/CarsOnPurchase';
 
-export const CustomerDetails = () => {
-  const [element, setElement] = useState<Customer>(new Customer())
+export const CarsOnPurchaseDetails = () => {
+  const [element, setElement] = useState<CarsOnPurchase>(new CarsOnPurchase())
   const [purchases_html, set_purchases_html] = useState((<h3>No Purchases</h3>))
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CUSTOMER_TABLE + "/" + id 
-
-    let purchase_columns: GridColDef[] = [
-        { field: 'date', headerName: 'Date', type: 'date', width: 130 },
-        { field: 'payMethod', headerName: 'Pay Method', width: 130 },
-        { field: 'payMethod', headerName: 'Pay Method', width: 130 },
-        { field: 'payMethod', headerName: 'Pay Method', width: 130 },
-        { field: 'payMethod', headerName: 'Pay Method', width: 130 },
-    ];
+    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CARSONPURCHASE_TABLE + "/" + id 
 
     useEffect(() => {
         fetch(
@@ -29,11 +22,11 @@ export const CustomerDetails = () => {
         )
         .then((res) => res.json())
         .then((data) => { console.log(data); setElement(data);
-         if (!(data.purchases === undefined || data.purchases.length == 0)) {
+         if (!(data.carsOnPurchaseList === undefined || data.carsOnPurchaseList.length == 0)) {
             set_purchases_html(<Box sx={{ height: 650, width: '100%' }}>
                     <DataGrid
-                        rows={data.purchases}
-                        columns={purchase_columns}
+                        rows={data.carsOnPurchaseList}
+                        columns={cars_on_purchase_columns}
                         initialState={{
                             pagination: {
                             paginationModel: {
@@ -42,7 +35,6 @@ export const CustomerDetails = () => {
                             },
                         }}
                         pageSizeOptions={[10]}
-                        autoHeight={true}
                     />
                 </Box>)
             console.log(purchases_html)
@@ -50,18 +42,25 @@ export const CustomerDetails = () => {
         })
     }, [])
 
+    let cars_on_purchase_columns: GridColDef[] = [
+        { field: 'count', headerName: 'Order Count', type: 'number', width: 130 },
+        { field: 'priority', headerName: 'Priority', type: 'number', width: 130 },
+    ];
+
     if (element === undefined) {
-        return <div>Waiting for reply or the Customer with id {id} was not found!</div>
+        return <div>Waiting for reply or the CarsOnPurchase with id {id} was not found!</div>
     }
 
     return (
         <div>
-            <h1>Customer Details</h1>
-            <h3>First Name: {element.firstName}</h3>
+            <h1>CarsOnPurchase Details</h1>
+            <h3>Count: {element.count}</h3>
+            <h3>Priority: {element.priority}</h3>
+            {/* <h3>First Name: {element.firstName}</h3>
             <h3>Last Name: {element.lastName}</h3>
             <h3>Phone Number: {element.telephone_number}</h3>
             <h3>Email: {element.email_address}</h3>
-            <h3>Priority: {element.priority}</h3>
+            <h3>Priority: {element.priority}</h3> */}
             {purchases_html}
         </div>
     )

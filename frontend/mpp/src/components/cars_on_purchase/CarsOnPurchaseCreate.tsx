@@ -6,13 +6,13 @@ import { Button, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
-import { Customer } from '../../models/Customer';
+import { CarsOnPurchase } from '../../models/CarsOnPurchase';
 
-export const CustomerCreate = () => {
-  const [element, setElement] = useState<Customer>(new Customer())
+export const CarsOnPuchaseCreate = () => {
+  const [element, setElement] = useState<CarsOnPurchase>(new CarsOnPurchase())
   const navigate_back = useNavigate()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CUSTOMER_TABLE
+    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CARSONPURCHASE_TABLE
 
     const commit_update = () => {
         const request_options = {
@@ -36,30 +36,30 @@ export const CustomerCreate = () => {
 
     let form_result = (
         <div>
-            <TextField label="First Name" variant="standard" defaultValue={element.firstName} onChange={(event)=>{
-                element.firstName = event.target.value
+            {/* <TextField label="Car Model" variant="standard" defaultValue={element.carModel} onChange={(event)=>{
+                element.carModel = event.target.value
                 setElement(element)
             }}/>
             <br></br>
-            <TextField label="Last Name" variant="standard" defaultValue={element.lastName} onChange={(event)=>{
+            <TextField label="Purchase" variant="standard" defaultValue={element.purchase} onChange={(event)=>{
                 element.lastName = event.target.value
                 setElement(element)
-            }}/>
+            }}/> */}
             <br></br>
-            <TextField label="Phone Number" variant="standard" defaultValue={element.telephone_number} onChange={(event)=>{
-                element.telephone_number = event.target.value
+            <TextField type="number" label="Count" variant="standard" defaultValue={element.count} onChange={(event)=>{
+                element.count = parseInt(event.target.value)
                 setElement(element)
             }}/>
             <br></br>
-            <TextField label="Email" variant="standard" defaultValue={element.email_address} onChange={(event)=>{
-                element.email_address = event.target.value
+            <TextField type="number" label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
+                element.priority = parseInt(event.target.value)
                 setElement(element)
             }} />
             <br></br>
-            <TextField label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
+            {/* <TextField label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
                 element.priority = event.target.value
                 setElement(element)
-            }} />
+            }} /> */}
         </div>
     );
 

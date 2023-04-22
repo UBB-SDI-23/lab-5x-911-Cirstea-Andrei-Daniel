@@ -30,6 +30,10 @@ public class CustomerDTO {
 
     @Getter
     @Setter
-    private String category;
+    private String priority;
+
+    @Getter
+    @Setter
+    private Integer purchaseCount;
 
 }

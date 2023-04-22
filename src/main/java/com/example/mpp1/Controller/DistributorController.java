@@ -2,6 +2,7 @@ package com.example.mpp1.Controller;
 
 import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.DistributorRepository;
+import com.example.mpp1.Service.DistributorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -20,57 +21,36 @@ import java.util.stream.Collectors;
 public class DistributorController {
 
     @Autowired
-    private DistributorRepository repository;
-
-    @Autowired
-    private ModelMapper modelMapper;
+    private DistributorService service;
 
     @GetMapping()
     public List<DistributorDTO> getAll() {
-        Pageable pageRequest = PageRequest.of(0, 100);
-        return repository.findAll(pageRequest).stream().map(this::convertToDto).collect(Collectors.toList());
+        return service.getAll();
     }
 
     @PostMapping()
     public ResponseEntity<?> createDistributor(@RequestBody Distributor distributor) {
-        if (distributor.getCategory() == null || (!distributor.getCategory().equals("NewCars") && !distributor.getCategory().equals("UsedCars"))){
-            return new ResponseEntity<>("Distributor category is missing or is not NewCars or UsedCars", HttpStatus.BAD_REQUEST);
-        }
-
-        return new ResponseEntity<>(repository.save(distributor), HttpStatus.OK);
+        return service.createDistributor(distributor);
     }
 
     @PostMapping("/create")
     public List<Distributor> createDistributors(@RequestBody List<Distributor> distributors) {
-        distributors = distributors.stream().filter(distributor -> {
-            if (distributor.getCategory() == null || (!distributor.getCategory().equals("NewCars") && !distributor.getCategory().equals("UsedCars"))){
-                return false;
-            }
-            return true;
-        }).toList();
-        return repository.saveAll(distributors);
+        return service.createDistributors(distributors);
     }
 
     @GetMapping("/{id}")
     public Distributor findID(@PathVariable("id") Long distributorID){
-        return repository.findById(distributorID).get();
+        return service.findID(distributorID);
     }
 
     @PutMapping("/{id}")
-    public Distributor updateDistribution(@RequestBody Distributor distributor, @PathVariable("id") Long distributorID){
-        Distributor old_distributor = findID(distributorID);
-        old_distributor = distributor;
-        return  repository.save(old_distributor);
+    public Distributor updateDistributor(@RequestBody Distributor distributor, @PathVariable("id") Long distributorID){
+        return service.updateDistributor(distributor, distributorID);
     }
 
     @DeleteMapping("/{id}")
     public String deleteDistributor(@PathVariable("id") Long distributorID){
-        repository.deleteById(distributorID);
-        return "Distributor successfully deleted";
-    }
-
-    private DistributorDTO convertToDto(Distributor shipment) {
-        return modelMapper.map(shipment, DistributorDTO.class);
+        return service.deleteDistributor(distributorID);
     }
 
 }
