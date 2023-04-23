@@ -33,6 +33,11 @@ public class CustomerController {
         return service.getPage(page_request);
     }
 
+    @GetMapping("/entity_count")
+    public Long getEntityCount() {
+        return service.getEntityCount();
+    }
+
     @PostMapping()
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
         return service.createCustomer(customer);
@@ -49,7 +54,7 @@ public class CustomerController {
         return service.filterCustomers(query == null ? "" : query);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     public Customer findID(@PathVariable("id") Long id) {
         return service.findID(id);
     }

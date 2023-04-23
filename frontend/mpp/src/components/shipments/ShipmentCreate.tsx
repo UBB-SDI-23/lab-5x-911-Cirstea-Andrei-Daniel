@@ -37,8 +37,8 @@ export const ShipmentCreate = () => {
 
     let form_result = (
         <div>
-            <TextField type="date" label="Expected Arrival" variant="standard" defaultValue={element.expected_arrival} onChange={(event)=>{
-                element.expected_arrival = new Date(Date.parse(event.target.value))
+            <TextField type="date" label="Expected Arrival" variant="standard" defaultValue={element.expectedArrival} onChange={(event)=>{
+                element.expectedArrival = new Date(Date.parse(event.target.value))
                 setElement(element)
             }}/>
             <br></br>

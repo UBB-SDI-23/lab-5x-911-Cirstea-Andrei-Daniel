@@ -4,7 +4,7 @@ import { EndPoints } from '../../Endpoints';
 
 export const ShipmentTableColumns = () => {
     let table_columns: GridColDef[] = [
-        { field: 'expected_arrival', headerName: 'Expected Arrival', type: 'Date', width: 130, 
+        { field: 'expectedArrival', headerName: 'Expected Arrival', type: 'Date', width: 130, 
             renderCell: (params) => (
             <Link to={EndPoints.PURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
           ) 

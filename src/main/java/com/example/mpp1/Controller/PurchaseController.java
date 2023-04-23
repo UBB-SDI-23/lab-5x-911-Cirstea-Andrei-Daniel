@@ -34,6 +34,11 @@ public class PurchaseController {
         return service.getPage(page_request);
     }
 
+    @GetMapping("/entity_count")
+    public Long getEntityCount() {
+        return service.getEntityCount();
+    }
+
     @PostMapping()
     public Purchase createPurchase(@RequestBody Purchase purchase) {
         return service.createPurchase(purchase);
@@ -44,7 +49,7 @@ public class PurchaseController {
         return service.createPurchases(purchases);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     public Purchase findID(@PathVariable("id") Long purchaseID) {
         return service.findID(purchaseID);
     }

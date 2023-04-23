@@ -37,6 +37,11 @@ public class CarModelController {
         return service.getPage(page_request);
     }
 
+    @GetMapping("/entity_count")
+    public Long getEntityCount() {
+        return service.getEntityCount();
+    }
+
     @PostMapping()
     public ResponseEntity<?> createCarModel(@RequestBody CarModel carModel) {
         return service.createCarModel(carModel);

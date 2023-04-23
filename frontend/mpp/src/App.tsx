@@ -47,27 +47,27 @@ function App() {
             <Route path={EndPoints.VIRTUAL_CAR_TABLE_STATISTIC} element={<CarModelStatistic/>}></Route>
 
             <Route path={EndPoints.CUSTOMER_TABLE} element={<CustomerShowAll />}></Route>
-            <Route path={EndPoints.CUSTOMER_TABLE + "/:id"} element={<CustomerDetails/>}></Route>
+            <Route path={EndPoints.CUSTOMER_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CustomerDetails/>}></Route>
             <Route path={EndPoints.CUSTOMER_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<CustomerUpdate/>}></Route>
             <Route path={EndPoints.CUSTOMER_TABLE + EndPoints.VIRTUAL_CREATE} element={<CustomerCreate/>}></Route>
 
             <Route path={EndPoints.PURCHASE_TABLE} element={<PurchaseShowAll />}></Route>
-            <Route path={EndPoints.PURCHASE_TABLE + "/:id"} element={<PurchaseDetails/>}></Route>
+            <Route path={EndPoints.PURCHASE_TABLE + EndPoints.FIND_PATH + "/:id"} element={<PurchaseDetails/>}></Route>
             <Route path={EndPoints.PURCHASE_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<PurchaseUpdate/>}></Route>
             <Route path={EndPoints.PURCHASE_TABLE + EndPoints.VIRTUAL_CREATE} element={<PurchaseCreate/>}></Route>
 
             <Route path={EndPoints.CARSONPURCHASE_TABLE} element={<CarsOnPurchaseShowAll />}></Route>
-            <Route path={EndPoints.CARSONPURCHASE_TABLE + "/:id"} element={<CarsOnPurchaseDetails/>}></Route>
+            <Route path={EndPoints.CARSONPURCHASE_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CarsOnPurchaseDetails/>}></Route>
             <Route path={EndPoints.CARSONPURCHASE_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<CarsOnPurchaseUpdate/>}></Route>
             <Route path={EndPoints.CARSONPURCHASE_TABLE + EndPoints.VIRTUAL_CREATE} element={<CarsOnPuchaseCreate/>}></Route>
 
             <Route path={EndPoints.DISTRIBUTOR_TABLE} element={<DistributorShowAll />}></Route>
-            <Route path={EndPoints.DISTRIBUTOR_TABLE + "/:id"} element={<DistributorDetails/>}></Route>
+            <Route path={EndPoints.DISTRIBUTOR_TABLE + EndPoints.FIND_PATH + "/:id"} element={<DistributorDetails/>}></Route>
             <Route path={EndPoints.DISTRIBUTOR_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<DistributorUpdate/>}></Route>
             <Route path={EndPoints.DISTRIBUTOR_TABLE + EndPoints.VIRTUAL_CREATE} element={<DistributorCreate/>}></Route>
 
             <Route path={EndPoints.SHIPMENT_TABLE} element={<ShipmentShowAll />}></Route>
-            <Route path={EndPoints.SHIPMENT_TABLE + "/:id"} element={<ShipmentDetails/>}></Route>
+            <Route path={EndPoints.SHIPMENT_TABLE + EndPoints.FIND_PATH + "/:id"} element={<ShipmentDetails/>}></Route>
             <Route path={EndPoints.SHIPMENT_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<ShipmentUpdate/>}></Route>
             <Route path={EndPoints.SHIPMENT_TABLE + EndPoints.VIRTUAL_CREATE} element={<ShipmentCreate/>}></Route>
 

@@ -34,6 +34,11 @@ public class DistributorController {
         return service.getPage(page_request);
     }
 
+    @GetMapping("/entity_count")
+    public Long getEntityCount() {
+        return service.getEntityCount();
+    }
+
     @PostMapping()
     public ResponseEntity<?> createDistributor(@RequestBody Distributor distributor) {
         return service.createDistributor(distributor);
@@ -44,7 +49,7 @@ public class DistributorController {
         return service.createDistributors(distributors);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     public Distributor findID(@PathVariable("id") Long distributorID){
         return service.findID(distributorID);
     }

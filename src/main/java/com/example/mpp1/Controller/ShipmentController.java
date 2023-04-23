@@ -32,6 +32,11 @@ public class ShipmentController {
         return service.getPage(page_request);
     }
 
+    @GetMapping("/entity_count")
+    public Long getEntityCount() {
+        return service.getEntityCount();
+    }
+
     @PostMapping()
     public Shipment createShipment(@RequestBody Shipment shipment) {
         return service.createShipment(shipment);
@@ -42,7 +47,7 @@ public class ShipmentController {
         return service.createShipments(shipments);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     public Shipment findID(@PathVariable("id") Long shipmentID){
         return service.findID(shipmentID);
     }

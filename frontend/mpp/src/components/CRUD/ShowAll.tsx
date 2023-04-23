@@ -12,14 +12,19 @@ import { ShowAllTable } from '../CRUD/ShowAllTable';
 
 export const ShowAll = (props: any) => {
   const [elements, setElements] = useState<any>()
+  const [element_count, setElementCount] = useState(0)
   const navigate_details = useNavigate()
 
     const update_elements = () => {
         fetch(
-            ServerSettings.API_ENDPOINT + props.table_endpoint //+ EndPoints.PAGE_REQUEST_PATH
+            ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" + element_count
         )
         .then((res) => res.json())
-        .then((data) => {setElements(data); console.log(data);} )
+        .then((data) => {setElements(data); console.log(data);})
+
+        fetch(
+            ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints
+        )
     }
 
     useEffect(() => {

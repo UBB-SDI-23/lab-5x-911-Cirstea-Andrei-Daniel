@@ -41,7 +41,7 @@ export const ShipmentDetails = () => {
 
             <h1>Shipment Details</h1>
             <h3>Distributor: {element.parent_distributor.name}</h3>
-            <h3>Expected Arrival: {element.expected_arrival.toString()}</h3>
+            <h3>Expected Arrival: {element.expectedArrival.toString()}</h3>
             <h3>Arrival: {element.arrival.toString()}</h3>
             <h3>Total Price: {element.totalPrice}</h3>
         </div>
