@@ -1,5 +1,6 @@
 package com.example.mpp1.Service;
 
+import com.example.mpp1.Model.CarsOnPurchaseDTO;
 import com.example.mpp1.Model.Distributor;
 import com.example.mpp1.Model.DistributorDTO;
 import com.example.mpp1.Repository.DistributorRepository;
@@ -25,8 +26,15 @@ public class DistributorService {
     private ModelMapper modelMapper;
 
     public List<DistributorDTO> getAll() {
-        Pageable pageRequest = PageRequest.of(0, 100);
-        return repository.findAll(pageRequest).stream().map(this::convertToDto).collect(Collectors.toList());
+        return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public List<DistributorDTO> getPage(Pageable page) {
+        return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public Long getEntityCount() {
+        return repository.count();
     }
 
     public ResponseEntity<?> createDistributor(Distributor distributor) {

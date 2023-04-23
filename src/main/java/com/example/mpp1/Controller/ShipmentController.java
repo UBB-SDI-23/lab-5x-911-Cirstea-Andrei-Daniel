@@ -1,9 +1,6 @@
 package com.example.mpp1.Controller;
 
-import com.example.mpp1.Model.CarModel;
-import com.example.mpp1.Model.Distributor;
-import com.example.mpp1.Model.Shipment;
-import com.example.mpp1.Model.ShipmentDTO;
+import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.ShipmentRepository;
 import com.example.mpp1.Service.ShipmentService;
 import org.modelmapper.ModelMapper;
@@ -27,6 +24,12 @@ public class ShipmentController {
     @GetMapping()
     public List<ShipmentDTO> getAll() {
         return service.getAll();
+    }
+
+    @GetMapping("/paged")
+    public List<ShipmentDTO> getPage(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
+        Pageable page_request = PageRequest.of(page, page_size);
+        return service.getPage(page_request);
     }
 
     @PostMapping()

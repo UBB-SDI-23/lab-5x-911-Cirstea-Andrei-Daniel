@@ -16,7 +16,7 @@ export const ShowAll = (props: any) => {
 
     const update_elements = () => {
         fetch(
-            ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH
+            ServerSettings.API_ENDPOINT + props.table_endpoint //+ EndPoints.PAGE_REQUEST_PATH
         )
         .then((res) => res.json())
         .then((data) => {setElements(data); console.log(data);} )

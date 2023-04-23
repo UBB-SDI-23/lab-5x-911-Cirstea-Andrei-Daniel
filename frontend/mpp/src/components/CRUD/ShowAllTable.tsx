@@ -166,6 +166,7 @@ export const ShowAllTable = (props: any) => {
                     getRowId={(row) => row.id}
                     rows={props.data}
                     columns={columns}
+                    // rowCount={20}
                     initialState={{
                         pagination: {
                         paginationModel: {

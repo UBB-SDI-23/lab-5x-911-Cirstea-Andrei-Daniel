@@ -1,9 +1,6 @@
 package com.example.mpp1.Service;
 
-import com.example.mpp1.Model.CarsOnPurchase;
-import com.example.mpp1.Model.Purchase;
-import com.example.mpp1.Model.PurchaseDTO;
-import com.example.mpp1.Model.PurchaseStatisticDTO;
+import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.PurchaseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +24,15 @@ public class PurchaseService {
     private ModelMapper modelMapper = new ModelMapper();
 
     public List<PurchaseDTO> getAll() {
-        Pageable pageRequest = PageRequest.of(0, 100);
-        return repository.findAll(pageRequest).stream().map(purchase -> {
-            int current_count = purchase.getCarsOnPurchaseList().stream().mapToInt(CarsOnPurchase::getCount).sum();
-            return convertToDto(purchase, current_count);
-        }).collect(Collectors.toList());
+        return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public List<PurchaseDTO> getPage(Pageable page) {
+        return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public Long getEntityCount() {
+        return repository.count();
     }
 
     public Purchase createPurchase(Purchase purchase) {
@@ -70,9 +71,9 @@ public class PurchaseService {
         return output_list;
     }
 
-    private PurchaseDTO convertToDto(Purchase element, Integer totalCount) {
+    private PurchaseDTO convertToDto(Purchase element) {
         PurchaseDTO dto = modelMapper.map(element, PurchaseDTO.class);
-        dto.setCarsPurchased(totalCount);
+        dto.setCarsPurchased(element.getCarsOnPurchaseList().stream().mapToInt(CarsOnPurchase::getCount).sum());
         dto.setCustomerID(element.getOriginal_customer().getId());
         return dto;
     }

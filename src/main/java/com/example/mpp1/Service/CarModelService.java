@@ -33,6 +33,10 @@ public class CarModelService {
         return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
+    public Long getEntityCount() {
+        return repository.count();
+    }
+
     public ResponseEntity<?> createCarModel(CarModel carModel) {
         if (carModel.getModel() == null || carModel.getManufacturer() == null || carModel.getModel().equals("")
                 || carModel.getManufacturer().equals("")) {

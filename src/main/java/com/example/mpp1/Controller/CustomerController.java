@@ -1,9 +1,6 @@
 package com.example.mpp1.Controller;
 
-import com.example.mpp1.Model.CarModel;
-import com.example.mpp1.Model.Customer;
-import com.example.mpp1.Model.CustomerDTO;
-import com.example.mpp1.Model.PurchaseDTO;
+import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.CustomerRepository;
 import com.example.mpp1.Service.CustomerService;
 import org.modelmapper.ModelMapper;
@@ -28,6 +25,12 @@ public class CustomerController {
     @GetMapping()
     public List<CustomerDTO> getAll() {
         return service.getAll();
+    }
+
+    @GetMapping("/paged")
+    public List<CustomerDTO> getPage(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
+        Pageable page_request = PageRequest.of(page, page_size);
+        return service.getPage(page_request);
     }
 
     @PostMapping()

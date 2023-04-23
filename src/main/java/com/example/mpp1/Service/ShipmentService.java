@@ -1,5 +1,6 @@
 package com.example.mpp1.Service;
 
+import com.example.mpp1.Model.PurchaseDTO;
 import com.example.mpp1.Model.Shipment;
 import com.example.mpp1.Model.ShipmentDTO;
 import com.example.mpp1.Repository.ShipmentRepository;
@@ -23,8 +24,15 @@ public class ShipmentService {
     private ModelMapper modelMapper;
 
     public List<ShipmentDTO> getAll() {
-        Pageable pageRequest = PageRequest.of(0, 100);
-        return repository.findAll(pageRequest).stream().map(this::convertToDto).collect(Collectors.toList());
+        return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public List<ShipmentDTO> getPage(Pageable page) {
+        return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public Long getEntityCount() {
+        return repository.count();
     }
 
     public Shipment createShipment(Shipment shipment) {

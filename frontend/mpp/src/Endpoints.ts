@@ -7,6 +7,7 @@ export class EndPoints {
     static DISTRIBUTOR_TABLE = "/api/distributors"
     static CARSONPURCHASE_TABLE = "/api/carsonpurchases"
     
+    static FIND_PATH = "/find"
     static AUTOCOMPLETE_PATH = "/autocomplete?query="
     static PAGE_REQUEST_PATH = "/paged"
 
