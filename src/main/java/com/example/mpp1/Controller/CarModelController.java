@@ -47,7 +47,7 @@ public class CarModelController {
         return service.createCarModels(carModels);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     public CarModel findID(@PathVariable("id") Long carID){
         return service.findID(carID);
     }
