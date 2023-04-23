@@ -13,7 +13,6 @@ import debounce from 'lodash.debounce';
 export const PurchaseCreate = () => {
   const [element, setElement] = useState<Purchase>(new Purchase())
   const navigate_back = useNavigate()
-  const [suggestions, setSuggestions] = useState<Customer[]>([])
 
     const endpoint = ServerSettings.API_ENDPOINT + EndPoints.PURCHASE_TABLE
 
@@ -33,6 +32,7 @@ export const PurchaseCreate = () => {
         navigate_back(-1)
     }
 
+    const [suggestions, setSuggestions] = useState<Customer[]>([])
     const fetch_suggestions = (query: string) => {
         const request_options = {
             method: 'GET'
@@ -46,26 +46,25 @@ export const PurchaseCreate = () => {
 
     const debouncedCallback = useMemo(
         () => debounce(fetch_suggestions, 300)
-      , []);
+      , [])
 
       useEffect(() => {
         return () => {
             debouncedCallback.cancel();
         }
-      }, [debouncedCallback]);
+      }, [debouncedCallback])
+
+    const handleInputChange = (event: any, value: any, reason: any) => {
+		console.log("input", value, reason)
+
+		if (reason === "input") {
+			debouncedCallback(value)
+		}
+	}
 
     const cancel_add = () => {
         navigate_back(-1)
     }
-
-    const handleInputChange = (event: any, value: any, reason: any) => {
-		console.log("input", value, reason);
-
-		if (reason === "input") {
-			debouncedCallback(value);
-		}
-	};
-
 
     let form_result = (
         <div>
@@ -98,10 +97,6 @@ export const PurchaseCreate = () => {
                     }
                 }}
             />
-            {/* <TextField label="Email" variant="standard" defaultValue={element.email_address} onChange={(event)=>{
-                element.email_address = event.target.value
-                setElement(element)
-            }} /> */}
 
         </div>
     );

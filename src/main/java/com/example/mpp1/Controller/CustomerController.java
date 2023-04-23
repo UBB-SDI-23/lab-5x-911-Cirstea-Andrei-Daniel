@@ -40,9 +40,9 @@ public class CustomerController {
         return service.createCustomers(customers);
     }
 
-    @GetMapping("/autocomplete/")
-    public List<Customer> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
-        return service.filterCustomers(query);
+    @GetMapping("/autocomplete?query={query}")
+    public List<Customer> searchCustomerByFirstNameAndLastName(@PathVariable(value = "query", required = false) String query) {
+        return service.filterCustomers(query == null ? "" : query);
     }
 
     @GetMapping("/{id}")

@@ -1,13 +1,14 @@
-import { Component, useEffect, useState } from 'react'
+import { Component, useEffect, useMemo, useState } from 'react'
 import { ServerSettings } from '../ServerIP';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
-import { Button, TextField } from '@mui/material';
+import { Autocomplete, Button, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import { Customer } from '../../models/Customer';
 import { Purchase } from '../../models/Purchase';
+import debounce from 'lodash.debounce';
 
 export const PurchaseUpdate = () => {
     const [element, setElement] = useState<Purchase>(new Purchase())
@@ -36,6 +37,36 @@ export const PurchaseUpdate = () => {
             navigate_back(-1)
         }
 
+        const [suggestions, setSuggestions] = useState<Customer[]>([])
+        const fetch_suggestions = (query: string) => {
+            const request_options = {
+                method: 'GET'
+            }
+
+            const suggestion_endpoint = ServerSettings.API_ENDPOINT + EndPoints.CUSTOMER_TABLE + '/' + EndPoints.AUTOCOMPLETE_PATH + query
+            fetch(suggestion_endpoint, request_options)
+            .then((res) => res.json())
+            .then((data) => { setSuggestions(data) })
+        }
+
+        const debouncedCallback = useMemo(
+            () => debounce(fetch_suggestions, 300)
+        , [])
+
+        useEffect(() => {
+            return () => {
+                debouncedCallback.cancel();
+            }
+        }, [debouncedCallback])
+
+        const handleInputChange = (event: any, value: any, reason: any) => {
+            console.log("input", value, reason)
+
+            if (reason === "input") {
+                debouncedCallback(value)
+            }
+        }
+
         let form_result : any;
 
         useEffect(() => {
@@ -53,30 +84,35 @@ export const PurchaseUpdate = () => {
                 {
                     element.id != -1 &&
                     <>
-                    {/* <TextField label="First Name" variant="standard" defaultValue={element.firstName} onChange={(event)=>{
-                        element.firstName = event.target.value
+                    <TextField type="date" label="Date" variant="standard" defaultValue={element.date} onChange={(event)=>{
+                        element.date = new Date(Date.parse(event.target.value))
                         setElement(element)
                     }}/>
                     <br></br>
-                    <TextField label="Last Name" variant="standard" defaultValue={element.lastName} onChange={(event)=>{
-                        element.lastName = event.target.value
+                    <TextField label="Pay Method" variant="standard" defaultValue={element.payMethod} onChange={(event)=>{
+                        element.payMethod = event.target.value
                         setElement(element)
                     }}/>
                     <br></br>
-                    <TextField label="Phone Number" variant="standard" defaultValue={element.telephone_number} onChange={(event)=>{
-                        element.telephone_number = event.target.value
+                    <TextField label="Status" variant="standard" defaultValue={element.status} onChange={(event)=>{
+                        element.status = event.target.value
                         setElement(element)
                     }}/>
                     <br></br>
-                    <TextField label="Email" variant="standard" defaultValue={element.email_address} onChange={(event)=>{
-                        element.email_address = event.target.value
-                        setElement(element)
-                    }} />
-                    <br></br>
-                    <TextField label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
-                        element.priority = event.target.value
-                        setElement(element)
-                    }} /> */}
+                    <Autocomplete
+                        id="customer_id"
+                        options={suggestions}
+                        getOptionLabel={(option) => option.firstName + " " + option.lastName }
+                        renderInput={(params) => <TextField  {...params} label="Customer" variant="outlined" />}
+                        onInputChange={handleInputChange}
+                        onChange={(event, value) => {
+                            if (value) {
+                                console.log(value);
+                                element.original_customer.id = value.id
+                                setElement(element)
+                            }
+                        }}
+                    />
                     </>
                 }
             </div>
