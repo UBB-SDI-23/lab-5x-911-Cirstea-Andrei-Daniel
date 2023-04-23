@@ -46,7 +46,7 @@ export const PurchaseUpdate = () => {
             const suggestion_endpoint = ServerSettings.API_ENDPOINT + EndPoints.CUSTOMER_TABLE + EndPoints.AUTOCOMPLETE_PATH + query
             fetch(suggestion_endpoint, request_options)
             .then((res) => res.json())
-            .then((data) => { setSuggestions(data) })
+            .then((data) => { setSuggestions(data); console.log(data) })
         }
 
         const debouncedCallback = useMemo(

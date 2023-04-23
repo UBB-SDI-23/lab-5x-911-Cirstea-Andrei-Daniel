@@ -42,6 +42,7 @@ public class CustomerController {
 
     @GetMapping("/autocomplete")
     public List<Customer> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
+        System.out.println(query);
         return service.filterCustomers(query == null ? "" : query);
     }
 
