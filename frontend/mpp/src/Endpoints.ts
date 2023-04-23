@@ -8,6 +8,7 @@ export class EndPoints {
     static CARSONPURCHASE_TABLE = "/api/carsonpurchases"
     
     static AUTOCOMPLETE_PATH = "/autocomplete?query="
+    static PAGE_REQUEST_PATH = "/paged"
 
     static backendCarTableStatistic(count: number) {
         return EndPoints.CAR_TABLE + '/statistic/' + count

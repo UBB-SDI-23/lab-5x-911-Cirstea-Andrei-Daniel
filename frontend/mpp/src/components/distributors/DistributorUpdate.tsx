@@ -27,7 +27,7 @@ export const DistributorUpdate = () => {
                 request_options
             )
             .then((res) => res.json())
-            .then((data) => setElement(data))
+            .then((data) => {setElement(data); console.log(data)})
             navigate_back(-1)
         }
 
@@ -57,8 +57,8 @@ export const DistributorUpdate = () => {
                         setElement(element)
                     }}/>
                     <br></br>
-                    <TextField type="date" label="Cooperation Start Date" variant="standard" defaultValue={element.cooperation_start_date} onChange={(event)=>{
-                        element.cooperation_start_date = new Date(Date.parse(event.target.value))
+                    <TextField type="date" label="Cooperation Start Date" variant="standard" defaultValue={element.cooperationStartDate} onChange={(event)=>{
+                        element.cooperationStartDate = new Date(Date.parse(event.target.value))
                         setElement(element)
                     }}/>
                     <br></br>

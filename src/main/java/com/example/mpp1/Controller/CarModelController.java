@@ -31,6 +31,12 @@ public class CarModelController {
         return service.getAll();
     }
 
+    @GetMapping("/paged")
+    public List<CarModelDTO> getPage(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
+        Pageable page_request = PageRequest.of(page, page_size);
+        return service.getPage(page_request);
+    }
+
     @PostMapping()
     public ResponseEntity<?> createCarModel(@RequestBody CarModel carModel) {
         return service.createCarModel(carModel);

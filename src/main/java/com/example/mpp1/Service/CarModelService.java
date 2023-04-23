@@ -26,8 +26,11 @@ public class CarModelService {
     private ModelMapper modelMapper = new ModelMapper();
 
     public List<CarModelDTO> getAll() {
-        Pageable pageRequest = PageRequest.of(0, 100);
-        return repository.findAll(pageRequest).stream().map(this::convertToDto).collect(Collectors.toList());
+        return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
+    }
+
+    public List<CarModelDTO> getPage(Pageable page) {
+        return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
     public ResponseEntity<?> createCarModel(CarModel carModel) {
