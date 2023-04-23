@@ -7,6 +7,8 @@ export class EndPoints {
     static DISTRIBUTOR_TABLE = "/api/distributors"
     static CARSONPURCHASE_TABLE = "/api/carsonpurchases"
     
+    static AUTOCOMPLETE_PATH = "/autocomplete?query="
+
     static backendCarTableStatistic(count: number) {
         return EndPoints.CAR_TABLE + '/statistic/' + count
     }

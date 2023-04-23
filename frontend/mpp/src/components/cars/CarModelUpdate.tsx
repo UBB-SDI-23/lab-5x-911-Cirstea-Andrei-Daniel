@@ -3,7 +3,7 @@ import { CarModel } from '../../models/CarModel';
 import { ServerSettings } from '../ServerIP';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
-import { TextField } from '@mui/material';
+import { Button, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
@@ -81,8 +81,15 @@ export const CarModelUpdate = () => {
             </div>
         );
 
+        let return_element = <Button onClick={() => navigate_back(-1)}>
+            <KeyboardReturnIcon/>
+        </Button>
+
         if (carModel === undefined) {
-            return <div>Oops! The Car Model with id {id} was not found!</div>
+            return <React.Fragment>
+                {return_element}
+                <div>Oops! The Car Model with id {id} was not found!</div>
+            </React.Fragment>
         } 
 
         return (

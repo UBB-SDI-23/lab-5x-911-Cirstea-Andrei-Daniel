@@ -4,17 +4,21 @@ import { EndPoints } from '../../Endpoints';
 
 export const CarsOnPurchaseTableColumns = () => {
     let table_columns: GridColDef[] = [
-        { field: 'carModel', headerName: 'Car Model', width: 130, 
+        // { field: 'carModel', headerName: 'Car Model', width: 130, 
+        //     renderCell: (params) => (
+        //     <Link to={EndPoints.CARSONPURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value.carModel}</Link>
+        //   ) 
+        // },
+        // { field: 'purchase', headerName: 'Purchase', width: 130,
+        //   renderCell: (params) => (
+        //     <Link to={EndPoints.CARSONPURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value.date}</Link>
+        //   ) 
+        // },
+        { field: 'count', headerName: 'Count', type: 'number', width: 160,
             renderCell: (params) => (
-            <Link to={EndPoints.CUSTOMER_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value.model}</Link>
-          ) 
+              <Link to={EndPoints.CARSONPURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
+            )
         },
-        { field: 'purchase', headerName: 'Purchase', width: 130,
-          renderCell: (params) => (
-            <Link to={EndPoints.CUSTOMER_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value.date}</Link>
-          ) 
-        },
-        { field: 'count', headerName: 'Count', type: 'number', width: 160},
         {
           field: 'priority',
           headerName: 'Priority',

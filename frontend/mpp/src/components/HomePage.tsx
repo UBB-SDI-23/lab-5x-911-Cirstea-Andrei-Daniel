@@ -8,13 +8,14 @@ import { EndPoints } from '../Endpoints';
 export const HomePage = () => {
     return (
         <Box>
-        <AppBar position="sticky">
+        <AppBar position="sticky" style={{ background: '#2E3B55' }}>
             <Toolbar>
-                <Button component={Link} to={EndPoints.HOME_PAGE}>Home</Button>
                 <Button component={Link} to={EndPoints.CAR_TABLE}>Car Models</Button>
                 <Button component={Link} to={EndPoints.CUSTOMER_TABLE}>Customers</Button>
-                {/* <Button component={Link} to={EndPoints.DISTRIBUTOR_TABLE}>Distributors</Button> */}
                 <Button component={Link} to={EndPoints.PURCHASE_TABLE}>Purchases</Button>
+                <Button component={Link} to={EndPoints.CARSONPURCHASE_TABLE}>Car Orders</Button>
+                <Button component={Link} to={EndPoints.DISTRIBUTOR_TABLE}>Distributors</Button>
+                <Button component={Link} to={EndPoints.SHIPMENT_TABLE}>Shipments</Button>
             </Toolbar>
         </AppBar>
         </Box>

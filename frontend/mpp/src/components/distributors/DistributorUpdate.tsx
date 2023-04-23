@@ -1,5 +1,4 @@
 import { Component, useEffect, useState } from 'react'
-import { CarModel } from '../../models/CarModel';
 import { ServerSettings } from '../ServerIP';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
@@ -7,14 +6,14 @@ import { Button, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
-import { CarsOnPurchase } from '../../models/CarsOnPurchase';
+import { Distributor } from '../../models/Distributor';
 
-export const CarsOnPurchaseUpdate = () => {
-    const [element, setElement] = useState<CarsOnPurchase>(new CarsOnPurchase())
+export const DistributorUpdate = () => {
+    const [element, setElement] = useState<Distributor>(new Distributor())
     const navigate_back = useNavigate()
         const { id } = useParams()
 
-        const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CARSONPURCHASE_TABLE + "/" + id
+        const endpoint = ServerSettings.API_ENDPOINT + EndPoints.DISTRIBUTOR_TABLE + "/" + id
 
         const commit_update = () => {
             const request_options = {
@@ -53,30 +52,30 @@ export const CarsOnPurchaseUpdate = () => {
                 {
                     element.id != -1 &&
                     <>
-                    {/* <TextField label="Car Model" variant="standard" defaultValue={element.carModel} onChange={(event)=>{
-                        element.carModel = event.target.value
+                    <TextField label="Name" variant="standard" defaultValue={element.name} onChange={(event)=>{
+                        element.name = event.target.value
                         setElement(element)
                     }}/>
                     <br></br>
-                    <TextField label="Purchase" variant="standard" defaultValue={element.purchase} onChange={(event)=>{
-                        element.lastName = event.target.value
-                        setElement(element)
-                    }}/> */}
-                    <br></br>
-                    <TextField type="number" label="Count" variant="standard" defaultValue={element.count} onChange={(event)=>{
-                        element.count = parseInt(event.target.value)
+                    <TextField type="date" label="Cooperation Start Date" variant="standard" defaultValue={element.cooperation_start_date} onChange={(event)=>{
+                        element.cooperation_start_date = new Date(Date.parse(event.target.value))
                         setElement(element)
                     }}/>
                     <br></br>
-                    <TextField type="number" label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
-                        element.priority = parseInt(event.target.value)
+                    <TextField label="Country" variant="standard" defaultValue={element.country} onChange={(event)=>{
+                        element.country = event.target.value
                         setElement(element)
-                    }} />
+                    }}/>
                     <br></br>
-                    {/* <TextField label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
-                        element.priority = event.target.value
+                    <TextField label="Contact Email" variant="standard" defaultValue={element.contactEmail} onChange={(event)=>{
+                        element.contactEmail = event.target.value
                         setElement(element)
-                    }} /> */}
+                    }}/>
+                    <br></br>
+                    <TextField label="Category" variant="standard" defaultValue={element.category} onChange={(event)=>{
+                        element.category = event.target.value
+                        setElement(element)
+                    }}/>
                     </>
                 }
             </div>
@@ -89,7 +88,7 @@ export const CarsOnPurchaseUpdate = () => {
         if (element === undefined) {
             return <React.Fragment>
                 {return_element}
-                <div>Oops! The Car Order with id {id} was not found!</div>
+                <div>Oops! The Distributor with id {id} was not found!</div>
             </React.Fragment>
         } 
 

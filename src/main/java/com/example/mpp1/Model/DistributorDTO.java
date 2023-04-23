@@ -32,4 +32,9 @@ public class DistributorDTO {
     @Getter
     @Setter
     private String category;
+
+    @Getter
+    @Setter
+    private Integer shipmentCount;
+
 }

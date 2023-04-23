@@ -63,7 +63,9 @@ public class DistributorService {
     }
 
     private DistributorDTO convertToDto(Distributor shipment) {
-        return modelMapper.map(shipment, DistributorDTO.class);
+        DistributorDTO dto = modelMapper.map(shipment, DistributorDTO.class);
+        dto.setShipmentCount(shipment.getShipments().size());
+        return dto;
     }
 
 }

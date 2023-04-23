@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
 import { ServerSettings } from '../ServerIP';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
-import { Box, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Purchase } from '../../models/Purchase';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import React from 'react';
 
 export const PurchaseDetails = () => {
   const [element, setElement] = useState<Purchase>(new Purchase())
   const [purchases_html, set_purchases_html] = useState((<h3>No Purchases</h3>))
+  const navigate_details = useNavigate()
 
     const { id } = useParams()
 
@@ -38,6 +41,7 @@ export const PurchaseDetails = () => {
                             },
                         }}
                         pageSizeOptions={[10]}
+                        autoHeight={true}
                     />
                 </Box>)
             console.log(purchases_html)
@@ -45,12 +49,21 @@ export const PurchaseDetails = () => {
         })
     }, [])
 
+    let return_element = <Button onClick={() => navigate_details(-1)}>
+        <KeyboardReturnIcon/>
+    </Button>
+
     if (element === undefined) {
-        return <div>Waiting for reply or the Customer with id {id} was not found!</div>
+        return <React.Fragment>
+            {return_element}
+            <div>Waiting for reply or the Purchase with id {id} was not found!</div>
+        </React.Fragment>
     }
 
     return (
         <div>
+            {return_element}
+
             <h1>Purchase Details</h1>
             <h3>Customer: {element.original_customer.firstName} {element.original_customer.lastName}</h3>
             <h3>Date: {element.date.toString()}</h3>

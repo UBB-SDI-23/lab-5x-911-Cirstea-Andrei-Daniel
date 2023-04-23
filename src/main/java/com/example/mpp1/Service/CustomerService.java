@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,17 @@ public class CustomerService {
 
     public List<Customer> createCustomers(List<Customer> customers) {
         return repository.saveAll(customers);
+    }
+
+    // Filter string is a combination of first_name + last_name
+    public List<Customer> filterCustomers(String filter_string) {
+        String[] parts = filter_string.split(" ");
+        if (parts.length == 1) {
+            return repository.searchByFirstAndOrLastName(parts[0], "");
+        }
+        else {
+            return repository.searchByFirstAndOrLastName(parts[0], parts[1]);
+        }
     }
 
     public Customer findID(Long carID) {

@@ -40,6 +40,11 @@ public class CustomerController {
         return service.createCustomers(customers);
     }
 
+    @GetMapping("/autocomplete/")
+    public List<Customer> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
+        return service.filterCustomers(query);
+    }
+
     @GetMapping("/{id}")
     public Customer findID(@PathVariable("id") Long id) {
         return service.findID(id);

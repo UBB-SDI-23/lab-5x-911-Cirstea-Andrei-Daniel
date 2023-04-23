@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react'
 import { CarModel } from '../../models/CarModel'
 import { ServerSettings } from '../ServerIP';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
-import { Box, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Customer } from '../../models/Customer';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import React from 'react';
 
 export const CustomerDetails = () => {
   const [element, setElement] = useState<Customer>(new Customer())
   const [purchases_html, set_purchases_html] = useState((<h3>No Purchases</h3>))
+  const navigate_details = useNavigate()
 
     const { id } = useParams()
 
@@ -50,12 +53,21 @@ export const CustomerDetails = () => {
         })
     }, [])
 
+    let return_element = <Button onClick={() => navigate_details(-1)}>
+        <KeyboardReturnIcon/>
+    </Button>
+
     if (element === undefined) {
-        return <div>Waiting for reply or the Customer with id {id} was not found!</div>
+        return <React.Fragment>
+            {return_element}
+            <div>Waiting for reply or the Customer with id {id} was not found!</div>
+        </React.Fragment>
     }
 
     return (
         <div>
+            {return_element}
+
             <h1>Customer Details</h1>
             <h3>First Name: {element.firstName}</h3>
             <h3>Last Name: {element.lastName}</h3>

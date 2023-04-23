@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CarModel } from '../../models/CarModel'
 import { ServerSettings } from '../ServerIP';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
-import { Box, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 export const CarModelDetails = () => {
   const [carModel, setCarModel] = useState<CarModel>()
   const [purchases_html, set_purchases_html] = useState((<h3>No Purchases</h3>))
+  const navigate_details = useNavigate()
 
     const { id } = useParams()
 
@@ -46,12 +48,21 @@ export const CarModelDetails = () => {
         { field: 'priority', headerName: 'Priority', type: 'number', width: 130 },
     ];
 
+    let return_element = <Button onClick={() => navigate_details(-1)}>
+        <KeyboardReturnIcon/>
+    </Button>
+
     if (carModel === undefined) {
-        return <div>Oops! The Car Model with id {id} was not found!</div>
+        return <React.Fragment>
+            {return_element}
+            <div>Oops! The Car Model with id {id} was not found!</div>
+        </React.Fragment>
     }
 
     return (
         <div>
+            {return_element}
+
             <h1>Car Model Details</h1>
             <h3>Model: {carModel.model}</h3>
             <h3>Manufacturer: {carModel.manufacturer}</h3>
