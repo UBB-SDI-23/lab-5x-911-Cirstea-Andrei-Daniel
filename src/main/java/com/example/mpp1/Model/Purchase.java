@@ -8,7 +8,9 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table
+@Table(indexes = {
+        @Index(name = "idx_purchase_customer", columnList = "customerID_FK")
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
