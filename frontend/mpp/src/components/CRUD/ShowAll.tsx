@@ -32,17 +32,11 @@ export const ShowAll = (props: any) => {
 
 
   const update_elements = () => {
-    //   fetch(
-    //       ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" + current_page
-    //   )
-    //   .then((res) => res.json())
-    //   .then((data) => {setElements(data); console.log(data);})
-
       fetch(
-          ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.GET_ELEMENT_COUNT_PATH
+          ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" + current_page
       )
       .then((res) => res.json())
-      .then((data) => {setElementCount(data); console.log(data); })
+      .then((data) => {setElements(data); console.log(data);})
   }
 
   const update_page =  (page: number) => {
@@ -51,6 +45,14 @@ export const ShowAll = (props: any) => {
 
     useEffect(() => {
         update_elements()
+    }, [current_page])
+
+    useEffect(() => {
+        fetch(
+            ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.GET_ELEMENT_COUNT_PATH
+        )
+        .then((res) => res.json())
+        .then((data) => {setElementCount(data); console.log(data); })
     }, [])
 
     let return_element = <Button onClick={() => navigate_details(-1)}>
