@@ -68,7 +68,7 @@ export const PurchaseCreate = () => {
 
     let form_result = (
         <div>
-            <TextField type="date" label="Date" variant="standard" defaultValue={element.date} onChange={(event)=>{
+            <TextField type="date" label="Date" variant="standard" defaultValue={element.date.toString()} onChange={(event)=>{
                 element.date = new Date(Date.parse(event.target.value))
                 setElement(element)
             }}/>
@@ -80,7 +80,7 @@ export const PurchaseCreate = () => {
                     id="demo-simple-select"
                     defaultValue={element.payMethod}
                     label="Age"
-                    onChange={(event) => {element.payMethod = event.target.value; setElement(element); console.log(element.payMethod)}}
+                    onChange={(event) => {element.payMethod = event.target.value; setElement(element);}}
                 >
                     <MenuItem value={"CreditCard"}>CreditCard</MenuItem>
                     <MenuItem value={"PayPal"}>PayPal</MenuItem>
