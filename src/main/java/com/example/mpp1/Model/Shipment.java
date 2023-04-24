@@ -9,10 +9,12 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(indexes = {
+        @Index(name = "idx_shipment_distributor", columnList = "distributorID_FK")
+})
 public class Shipment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

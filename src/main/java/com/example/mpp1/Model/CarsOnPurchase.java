@@ -7,8 +7,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table
 @Data
+@Table(indexes = {
+        @Index(name = "idx_carsonpurchase_purchase", columnList = "purchaseID_FK"),
+        @Index(name = "idx_carsonpurchase_car_model", columnList = "carModelID_FK")
+})
 public class CarsOnPurchase {
 
     @Id
