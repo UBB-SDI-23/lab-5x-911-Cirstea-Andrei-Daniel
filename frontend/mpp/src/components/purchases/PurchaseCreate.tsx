@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ServerSettings } from '../ServerIP';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
-import { Autocomplete, Button, TextField } from '@mui/material';
+import { Autocomplete, Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
@@ -73,10 +73,27 @@ export const PurchaseCreate = () => {
                 setElement(element)
             }}/>
             <br></br>
-            <TextField label="Pay Method" variant="standard" defaultValue={element.payMethod} onChange={(event)=>{
+            <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Pay Method</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    defaultValue={element.payMethod}
+                    label="Age"
+                    onChange={(event) => {element.payMethod = event.target.value; setElement(element); console.log(element.payMethod)}}
+                >
+                    <MenuItem value={"CreditCard"}>CreditCard</MenuItem>
+                    <MenuItem value={"PayPal"}>PayPal</MenuItem>
+                    <MenuItem value={"Cash"}>Cash</MenuItem>
+                    <MenuItem value={"DebitCard"}>DebitCard</MenuItem>
+                    <MenuItem value={"BankTransfer"}>BankTransfer</MenuItem>
+                </Select>
+            </FormControl>
+
+            {/* <TextField label="Pay Method" variant="standard" defaultValue={element.payMethod} onChange={(event)=>{
                 element.payMethod = event.target.value
                 setElement(element)
-            }}/>
+            }}/> */}
             <br></br>
             <TextField label="Status" variant="standard" defaultValue={element.status} onChange={(event)=>{
                 element.status = event.target.value

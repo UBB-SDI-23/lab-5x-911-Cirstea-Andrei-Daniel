@@ -10,6 +10,7 @@ export class EndPoints {
     static FIND_PATH = "/find"
     static AUTOCOMPLETE_PATH = "/autocomplete?query="
     static PAGE_REQUEST_PATH = "/paged"
+    static GET_ELEMENT_COUNT_PATH = "/entity_count"
 
     static backendCarTableStatistic(count: number) {
         return EndPoints.CAR_TABLE + '/statistic/' + count

@@ -40,5 +40,5 @@ if __name__ == '__main__':
                     break
             f.write(";")
             
-        f.write("ALTER SEQUENCE car_model_seq RESTART WITH 10000000;")
+        f.write("ALTER SEQUENCE cars_on_purchase_seq RESTART WITH 10000000;")
     

@@ -1,5 +1,5 @@
 import { DataGrid, GridActionsCellItem, GridColDef, GridRowParams } from '@mui/x-data-grid';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -7,6 +7,7 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, D
 import React from 'react';
 import { ServerSettings } from '../ServerIP';
 import { EndPoints } from '../../Endpoints';
+import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 export const ShowAllTable = (props: any) => {
     const [delete_id, set_delete_id] = useState(props.id)
@@ -50,7 +51,7 @@ export const ShowAllTable = (props: any) => {
             }
         )
         .then((res) => { 
-            props.update(); 
+            props.update()
             handle_successful_dialog_open() })
         .catch((exception) => { handle_failed_dialog_open() })
     }
@@ -158,7 +159,6 @@ export const ShowAllTable = (props: any) => {
     if (props.has_actions) {
         columns.push(action_column)
     }
-
     return (
         <React.Fragment>
             <Box sx={{ height: 650, width: '100%' }}>
@@ -166,7 +166,6 @@ export const ShowAllTable = (props: any) => {
                     getRowId={(row) => row.id}
                     rows={props.data}
                     columns={columns}
-                    // rowCount={20}
                     initialState={{
                         pagination: {
                         paginationModel: {
@@ -176,6 +175,7 @@ export const ShowAllTable = (props: any) => {
                     }}
                     pageSizeOptions={[10]}
                     autoHeight={true}
+                    loading={props.loading}
                 />
             </Box>
 

@@ -21,9 +21,7 @@ export const CustomerDetails = () => {
     let purchase_columns: GridColDef[] = [
         { field: 'date', headerName: 'Date', type: 'date', width: 130 },
         { field: 'payMethod', headerName: 'Pay Method', width: 130 },
-        { field: 'payMethod', headerName: 'Pay Method', width: 130 },
-        { field: 'payMethod', headerName: 'Pay Method', width: 130 },
-        { field: 'payMethod', headerName: 'Pay Method', width: 130 },
+        { field: 'status', headerName: 'Status', width: 130 },
     ];
 
     useEffect(() => {

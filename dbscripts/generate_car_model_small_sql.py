@@ -2,7 +2,7 @@ if __name__ == '__main__':
     from faker import Faker
     fake = Faker()
     
-    GENERATE_COUNT = 1000000
+    GENERATE_COUNT = 1000
     
     models = fake.random_elements(
         elements=['Accord', 'Acura', 'Altima', 'Armada', 'Avalanche', 'Aveo', 'Azera', 'Beetle', 'Cadenza', 'Camaro', 

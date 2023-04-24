@@ -59,3 +59,4 @@ if __name__ == '__main__':
             for j in range(0, 1000):
                 f.write(lines[offset + j])
             f.write(";")
+        f.write("ALTER SEQUENCE distributor_seq RESTART WITH 10000000;")
