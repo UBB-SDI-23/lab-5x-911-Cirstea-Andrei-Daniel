@@ -69,7 +69,7 @@ if __name__ == '__main__':
             lines[i] += ",\n"
 
     # write SQL statements to file in /tmp directory
-    with open(r'/tmp/insert_car_model.sql', 'w') as f:
+    with open(r'insert_car_model.sql', 'w') as f:
         iteration_count = int(GENERATE_COUNT / 1000)
         for i in range(iteration_count):
             f.write(sql_start_string)

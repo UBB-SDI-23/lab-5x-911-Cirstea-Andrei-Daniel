@@ -8,7 +8,7 @@ if __name__ == '__main__':
     sql_start_string = "INSERT INTO cars_on_purchase (cars_on_purchaseid, count, priority, car_modelid_fk, purchaseid_fk) VALUES\n"
     
     # write SQL statements to file in /tmp directory
-    with open(r'/tmp/insert_cars_on_purchase.sql', 'w') as f:
+    with open(r'insert_cars_on_purchase.sql', 'w') as f:
         generated_pairs = {}
 
         iteration_count = int(COUNT / 1000)
