@@ -4,6 +4,7 @@ import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.PurchaseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,9 @@ public class PurchaseService {
         return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    public List<PurchaseDTO> getPage(Pageable page) {
-        return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
+    public Page<PurchaseDTO> getPage(Pageable page) {
+        //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
+        return repository.findAll(page).map(this::convertToDto);
     }
 
     public Long getEntityCount() {

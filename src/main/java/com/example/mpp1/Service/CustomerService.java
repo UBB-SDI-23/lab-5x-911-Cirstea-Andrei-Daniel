@@ -6,6 +6,7 @@ import com.example.mpp1.Model.CustomerDTO;
 import com.example.mpp1.Repository.CustomerRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -30,8 +31,9 @@ public class CustomerService {
         return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    public List<CustomerDTO> getPage(Pageable page) {
-        return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
+    public Page<CustomerDTO> getPage(Pageable page) {
+        //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
+        return repository.findAll(page).map(this::convertToDto);
     }
 
     public Long getEntityCount() {
