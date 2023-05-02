@@ -5,6 +5,7 @@ import com.example.mpp1.Repository.DistributorRepository;
 import com.example.mpp1.Service.DistributorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -29,7 +30,7 @@ public class DistributorController {
     }
 
     @GetMapping("/paged")
-    public List<DistributorDTO> getPage(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
+    public Page<DistributorDTO> getPage(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
         Pageable page_request = PageRequest.of(page, page_size);
         return service.getPage(page_request);
     }
