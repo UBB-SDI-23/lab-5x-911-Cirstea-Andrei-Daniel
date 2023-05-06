@@ -30,10 +30,9 @@ public class CarModelService {
         return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    public Page<CarModel> getPage(Pageable page) {
+    public Page<CarModelDTO> getPage(Pageable page) {
         //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
-        //return repository.findAll(page).map(this::convertToDto);
-        return repository.findAll(page);
+        return repository.findAll(page).map(this::convertToDto);
     }
 
     public ResponseEntity<?> createCarModel(CarModel carModel) {
@@ -61,15 +60,9 @@ public class CarModelService {
         return repository.findById(carID).get();
     }
 
-    public List<CarModelStatisticDTO> getAllSortedByPriceWhichAppearInCountPurchases(Integer count) {
-        List<CarModelStatisticDTO> output_list = new ArrayList<CarModelStatisticDTO>();
-
-        repository.findAll().stream().forEach(carModel -> {
-            if (carModel.getCarsOnPurchaseList().size() >= count) {
-                output_list.add(convertToStatisticDto(carModel));
-            }
-        });
-        output_list.sort(Comparator.comparing(CarModelStatisticDTO::getPrice));
+    public List<CarModelStatisticDTO> getCarModelsByTotalUnitsSold() {
+        List<CarModelStatisticDTO> output_list = repository.getCarModelsWithPurchaseCount();
+        output_list.sort(Comparator.comparing(CarModelStatisticDTO::getPurchaseCount));
         return output_list;
     }
 

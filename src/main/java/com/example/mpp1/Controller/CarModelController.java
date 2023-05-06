@@ -27,13 +27,15 @@ public class CarModelController {
     @Autowired
     private CarModelService service;
 
+    private List<CarModelStatisticDTO> stored_dtos;
+
     @GetMapping()
     public List<CarModelDTO> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/paged")
-    public Page<CarModel> getPage(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
+    public Page<CarModelDTO> getPage(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
         Pageable page_request = PageRequest.of(page, page_size);
         return service.getPage(page_request);
     }
@@ -53,9 +55,22 @@ public class CarModelController {
         return service.findID(carID);
     }
 
-    @GetMapping("/statistic/{count}")
-    public List<CarModelStatisticDTO> getAllSortedByPriceWhichAppearInCountPurchases(@PathVariable("count") Integer count) {
-        return service.getAllSortedByPriceWhichAppearInCountPurchases(count);
+    @GetMapping("/statistic")
+    public List<CarModelStatisticDTO> getCarModelsSortedByTotalUnitsSold(
+            @RequestParam(defaultValue = "false", required = false) boolean recalculate,
+            @RequestParam(defaultValue = "0", required = false) Integer page,
+            @RequestParam(defaultValue = "10", required = false) Integer page_size
+    ) {
+        if (stored_dtos.isEmpty() || recalculate) {
+            stored_dtos = service.getCarModelsByTotalUnitsSold();
+        }
+
+        int sublist_start = page * page_size;
+        int sublist_end = (page + 1) * page_size;
+        if (sublist_start >= 0 && sublist_start < stored_dtos.size() && sublist_end >= 0 && sublist_end <= stored_dtos.size()) {
+            return stored_dtos.subList(sublist_start, sublist_end);
+        }
+        return new ArrayList<CarModelStatisticDTO>();
     }
 
     @PutMapping("/{id}")

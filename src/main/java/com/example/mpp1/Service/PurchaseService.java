@@ -28,10 +28,9 @@ public class PurchaseService {
         return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    public Page<Purchase> getPage(Pageable page) {
+    public Page<PurchaseDTO> getPage(Pageable page) {
         //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
-        //return repository.findAll(page).map(this::convertToDto);
-        return repository.findAll(page);
+        return repository.findAll(page).map(this::convertToDto);
     }
 
     public Purchase createPurchase(Purchase purchase) {

@@ -44,7 +44,7 @@ function App() {
             <Route path={EndPoints.CAR_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CarModelDetails/>}></Route>
             <Route path={EndPoints.CAR_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<CarModelUpdate/>}></Route>
             <Route path={EndPoints.CAR_TABLE + EndPoints.VIRTUAL_CREATE} element={<CarModelCreate/>}></Route>
-            <Route path={EndPoints.VIRTUAL_CAR_TABLE_STATISTIC} element={<CarModelStatistic/>}></Route>
+            <Route path={EndPoints.CAR_TABLE + EndPoints.STATISTIC} element={<CarModelStatistic/>}></Route>
 
             <Route path={EndPoints.CUSTOMER_TABLE} element={<CustomerShowAll />}></Route>
             <Route path={EndPoints.CUSTOMER_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CustomerDetails/>}></Route>

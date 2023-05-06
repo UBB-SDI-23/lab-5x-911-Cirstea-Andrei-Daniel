@@ -20,6 +20,6 @@ export const CarModelShowAll = () => {
     }
     table_columns.push(purchase_count)
 
-  return <ShowAll table_endpoint={EndPoints.CAR_TABLE} has_actions={true} table_columns={table_columns} description={"Car Models"} has_statistic={true}
-    statistic_endpoint={EndPoints.VIRTUAL_CAR_TABLE_STATISTIC} ></ShowAll>
+  return <ShowAll table_endpoint={EndPoints.CAR_TABLE} has_actions={true} table_columns={table_columns}
+   description={"Car Models"} has_statistic={true}></ShowAll>
 }

@@ -30,7 +30,7 @@ public class PurchaseController {
     }
 
     @GetMapping("/paged")
-    public Page<Purchase> getPage(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
+    public Page<PurchaseDTO> getPage(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
         Pageable page_request = PageRequest.of(page, page_size);
         return service.getPage(page_request);
     }

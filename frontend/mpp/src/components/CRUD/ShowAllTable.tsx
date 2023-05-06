@@ -1,9 +1,9 @@
-import { DataGrid, GridActionsCellItem, GridColDef, GridRowParams } from '@mui/x-data-grid';
-import { useEffect, useState } from 'react';
+import { DataGrid, GridActionsCellItem, GridColDef, GridRowParams, GridPagination  } from '@mui/x-data-grid';
+import { ReactNode, useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Pagination } from '@mui/material';
 import React from 'react';
 import { ServerSettings } from '../ServerIP';
 import { EndPoints } from '../../Endpoints';
@@ -14,7 +14,13 @@ export const ShowAllTable = (props: any) => {
     const [delete_dialog, set_delete_dialog] = useState(false)
     const [successful_dialog, set_successful_dialog] = useState(false)
     const [failed_dialog, set_failed_dialog] = useState(false)
+    const [current_page, setCurrentPage] = useState<number>(0)
     const navigate_details = useNavigate()
+
+    let page_count = props.data.length / 10;
+    if (props.data.length % 10 > 0) {
+        page_count = page_count + 1;
+    }
 
     const handle_delete_dialog_open = () => {
         set_delete_dialog(true)
@@ -60,6 +66,22 @@ export const ShowAllTable = (props: any) => {
         set_delete_id(id)
         handle_delete_dialog_open()
     }
+
+    const CustomPagination = (props: any) => {
+        const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+            setCurrentPage(page - 1);
+        };
+      
+        return (
+          <Pagination
+            count={page_count} 
+            color="primary"
+            onChange={handlePageChange}
+            {...props}
+            page={current_page + 1}
+          />
+        );
+      }
 
     let delete_dialog_element = null;
     if (delete_dialog) {
@@ -176,6 +198,7 @@ export const ShowAllTable = (props: any) => {
                     pageSizeOptions={[10]}
                     autoHeight={true}
                     loading={props.loading}
+                    components={{ Pagination: CustomPagination }}
                 />
             </Box>
 

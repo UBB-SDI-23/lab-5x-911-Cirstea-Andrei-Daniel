@@ -1,16 +1,18 @@
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { CarModel } from '../../models/CarModel'
 import { ServerSettings } from "../ServerIP"
 import { Link, useNavigate } from 'react-router-dom'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, IconButton } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, IconButton, Pagination } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { EndPoints } from '../../Endpoints';
 import React from 'react';
-import { DataGrid, GridActionsCellItem, GridColDef, GridRenderCellParams, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridColDef, GridPagination, GridRenderCellParams, GridRowParams, GridValueGetterParams, gridPageCountSelector, useGridApiContext, useGridSelector } from '@mui/x-data-grid';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { ShowAllTable } from '../CRUD/ShowAllTable';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import MuiPagination from '@mui/material/Pagination';
+import { TablePaginationProps } from '@mui/material/TablePagination';
 
 export const ShowAll = (props: any) => {
   const navigate_details = useNavigate()
@@ -18,7 +20,8 @@ export const ShowAll = (props: any) => {
 
   const [elements, setElements] = useState<any>()
   const [current_page, setCurrentPage] = useState<number>(0)
-  const [element_count, setElementCount] = useState<number>(1000000)
+  const [element_count, setElementCount] = useState<number>(0)
+  const [page_count, setPageCount] = useState<number>(0)
 
   const [paginationModel, setPaginationModel] = React.useState({
     page: 0,
@@ -36,7 +39,7 @@ export const ShowAll = (props: any) => {
           ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" + current_page
       )
       .then((res) => res.json())
-      .then((data) => {setElements(data.content); setElementCount(data.totalElements); console.log(data); })
+      .then((data) => {setElements(data.content); setElementCount(data.totalElements); setPageCount(data.totalPages); })
   }
 
   const update_page =  (page: number) => {
@@ -76,7 +79,7 @@ export const ShowAll = (props: any) => {
 
     let statistic_element;
     if (props.has_statistic) {
-        statistic_element = <Button onClick={() => navigate_details(props.statictic_endpoint)}>
+        statistic_element = <Button onClick={() => { navigate_details(props.table_endpoint + EndPoints.STATISTIC) }}>
             Statistic
         </Button>
     }
@@ -205,6 +208,22 @@ export const ShowAll = (props: any) => {
             </Dialog>
         </div>
     }
+
+    const CustomPagination = (props: any) => {
+        const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+            update_page(page - 1);
+        };
+      
+        return (
+          <Pagination
+            count={page_count} 
+            color="primary"
+            onChange={handlePageChange}
+            {...props}
+            page={current_page + 1}
+          />
+        );
+      }
     
   const action_column : GridColDef = {
         field: 'id',
@@ -238,6 +257,7 @@ export const ShowAll = (props: any) => {
                     onPaginationModelChange={(model, details) => {setPaginationModel(model); update_page(model.page)}}
                     pageSizeOptions={[10]}
                     autoHeight={true}
+                    components={{ Pagination: CustomPagination }}
                 />
             </Box>
 
