@@ -4,6 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class CarModelStatisticDTO {
+    public CarModelStatisticDTO(Long id, String model, String manufacturer, Long price, Long manufacture_year, Long fuel_consumption, Integer unitCount) {
+        this.id = id;
+        this.model = model;
+        this.manufacturer = manufacturer;
+        this.price = price;
+        this.manufacture_year = manufacture_year;
+        this.fuel_consumption = fuel_consumption;
+        this.unitCount = unitCount;
+    }
 
     @Getter
     @Setter
@@ -31,6 +40,6 @@ public class CarModelStatisticDTO {
 
     @Getter
     @Setter
-    private Integer purchaseCount;
+    private Integer unitCount;
 
 }

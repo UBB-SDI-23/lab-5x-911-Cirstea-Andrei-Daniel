@@ -56,8 +56,7 @@ public class CarModelController {
     }
 
     @GetMapping("/statistic")
-    public Page<CarModelStatisticDTO> getCarModelsSortedByTotalUnitsSold(
-            @RequestParam(defaultValue = "false", required = false) boolean recalculate,
+    public List<CarModelStatisticDTO> getCarModelsSortedByTotalUnitsSold(
             @RequestParam(defaultValue = "0", required = false) Integer page,
             @RequestParam(defaultValue = "10", required = false) Integer page_size
     ) {
