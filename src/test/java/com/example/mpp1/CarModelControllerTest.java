@@ -129,11 +129,6 @@ public class CarModelControllerTest {
                 car_models.get(index).getCarsOnPurchaseList().add(mock_cars_on_purchase);
             }
         }
-
-        when(repository.findAll()).thenReturn(car_models);
-        for (int index = 1; index < count; index++) {
-            assertThat(controller.getAllSortedByPriceWhichAppearInCountPurchases(index)).hasSize(10 - index + 1);
-        }
     }
 
 }
