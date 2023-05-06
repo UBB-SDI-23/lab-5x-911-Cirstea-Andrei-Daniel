@@ -27,7 +27,7 @@ public class CarModelController {
     @Autowired
     private CarModelService service;
 
-    private List<CarModelStatisticDTO> stored_dtos;
+    private List<CarModelStatisticDTO> stored_dtos = new ArrayList<>();
 
     @GetMapping()
     public List<CarModelDTO> getAll() {
