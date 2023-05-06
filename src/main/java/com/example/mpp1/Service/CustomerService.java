@@ -53,11 +53,12 @@ public class CustomerService {
     // Filter string is a combination of first_name + last_name
     public List<Customer> filterCustomers(String filter_string) {
         String[] parts = filter_string.split(" ");
+        Pageable page_request = PageRequest.of(0, 20);
         if (parts.length == 1) {
-            return repository.searchByFirstAndOrLastName(parts[0], "");
+            return repository.findByFirstNameContainingAndLastNameContaining(parts[0], "", page_request);
         }
         else {
-            return repository.searchByFirstAndOrLastName(parts[0], parts[1]);
+            return repository.findByFirstNameContainingAndLastNameContaining(parts[0], parts[1], page_request);
         }
     }
 
