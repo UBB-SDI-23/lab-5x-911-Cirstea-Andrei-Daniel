@@ -60,9 +60,9 @@ public class CarModelService {
         return repository.findById(carID).get();
     }
 
-    public List<CarModelStatisticDTO> getCarModelsByTotalUnitsSold() {
-        List<CarModelStatisticDTO> output_list = new ArrayList<CarModelStatisticDTO>();
-        output_list.sort(Comparator.comparing(CarModelStatisticDTO::getPurchaseCount));
+    public Page<CarModelStatisticDTO> getCarModelsByTotalUnitsSold(Pageable page) {
+        Page<CarModelStatisticDTO> output_list = repository.getCarModelsWithPurchaseCount(page);
+        //output_list.sort(Comparator.comparing(CarModelStatisticDTO::getPurchaseCount));
         return output_list;
     }
 
