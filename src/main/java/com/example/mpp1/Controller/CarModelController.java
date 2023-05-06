@@ -27,8 +27,6 @@ public class CarModelController {
     @Autowired
     private CarModelService service;
 
-    private List<CarModelStatisticDTO> stored_dtos = new ArrayList<>();
-
     @GetMapping()
     public List<CarModelDTO> getAll() {
         return service.getAll();
@@ -60,17 +58,6 @@ public class CarModelController {
             @RequestParam(defaultValue = "0", required = false) Integer page,
             @RequestParam(defaultValue = "10", required = false) Integer page_size
     ) {
-//        if (stored_dtos.isEmpty() || recalculate) {
-//            stored_dtos = service.getCarModelsByTotalUnitsSold();
-//        }
-//
-//        int sublist_start = page * page_size;
-//        int sublist_end = (page + 1) * page_size;
-//        if (sublist_start >= 0 && sublist_start < stored_dtos.size() && sublist_end >= 0 && sublist_end <= stored_dtos.size()) {
-//            return stored_dtos.subList(sublist_start, sublist_end);
-//        }
-//        return new ArrayList<CarModelStatisticDTO>();
-
         Pageable page_request = PageRequest.of(page, page_size);
         return service.getCarModelsWithPurchaseCount(page_request);
     }

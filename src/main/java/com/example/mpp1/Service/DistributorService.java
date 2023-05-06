@@ -1,12 +1,15 @@
 package com.example.mpp1.Service;
 
-import com.example.mpp1.Model.CarsOnPurchaseDTO;
-import com.example.mpp1.Model.Distributor;
-import com.example.mpp1.Model.DistributorDTO;
+import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.DistributorRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class DistributorService {
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Autowired
     private DistributorRepository repository;
@@ -51,6 +57,34 @@ public class DistributorService {
             return true;
         }).toList();
         return repository.saveAll(distributors);
+    }
+
+    public Page<DistributorStatisticDTO> getDistributorsSortedByAverageShipmentPrice(Pageable pageable) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<DistributorStatisticDTO> query = builder.createQuery(DistributorStatisticDTO.class);
+        Root<Distributor> root = query.from(Distributor.class);
+        Join<Distributor, Shipment> shipmentJoin = root.join("shipments", JoinType.LEFT);
+
+        Expression<Double> avgPrice = builder.avg(shipmentJoin.get("totalPrice"));
+        query.select(builder.construct(
+                        DistributorStatisticDTO.class,
+                        root.get("id"),
+                        root.get("name"),
+                        root.get("cooperationStartDate"),
+                        root.get("country"),
+                        root.get("contactEmail"),
+                        root.get("category"),
+                        builder.coalesce(builder.toInteger(avgPrice), 0)))
+                .groupBy(root)
+                .orderBy(builder.desc(builder.coalesce(builder.toInteger(avgPrice), 0)));
+        TypedQuery<DistributorStatisticDTO> typedQuery = entityManager.createQuery(query);
+
+// Set pagination
+        typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        typedQuery.setMaxResults(pageable.getPageSize());
+
+        List<DistributorStatisticDTO> distributorStatisticDTOList = typedQuery.getResultList();
+        return new PageImpl<>(distributorStatisticDTOList, pageable, distributorStatisticDTOList.size());
     }
 
     public Distributor findID(Long distributorID){
