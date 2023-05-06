@@ -37,7 +37,7 @@ public class Purchase {
     @JsonIgnoreProperties("purchases")
     private Customer original_customer;
 
-    @OneToMany(mappedBy = "purchase", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "purchase")
     @JsonIgnoreProperties("purchase")
     private List<CarsOnPurchase> carsOnPurchaseList;
 

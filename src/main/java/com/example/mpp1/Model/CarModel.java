@@ -41,7 +41,7 @@ public class CarModel {
     @Setter
     private String description;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carModel", orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carModel", orphanRemoval = true)
     @JsonIgnoreProperties("carModel")
     private List<CarsOnPurchase> carsOnPurchaseList;
 }
