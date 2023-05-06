@@ -61,7 +61,7 @@ public class CarModelService {
     }
 
     public List<CarModelStatisticDTO> getCarModelsByTotalUnitsSold() {
-        List<CarModelStatisticDTO> output_list = repository.getCarModelsWithPurchaseCount();
+        List<CarModelStatisticDTO> output_list = new ArrayList<CarModelStatisticDTO>();
         output_list.sort(Comparator.comparing(CarModelStatisticDTO::getPurchaseCount));
         return output_list;
     }
