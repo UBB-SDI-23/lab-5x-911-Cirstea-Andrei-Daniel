@@ -15,8 +15,8 @@ import java.util.List;
 @Repository
 public interface CarModelRepository extends JpaRepository<CarModel, Long> {
 
-    @Query(value = "SELECT cm.id, cm.model, cm.manufacturer, cm.price, cm.manufacture_year, cm.fuel_consumption, COUNT(cop.id) as purchaseCount " +
-            "FROM car_model cm LEFT JOIN cars_on_purchase cop ON cm.id = cop.car_model_id ",
+    @Query(value = "SELECT cm.carid as id, cm.model, cm.manufacturer, cm.price, cm.manufacture_year, cm.fuel_consumption, COUNT(cop.id) as purchaseCount " +
+            "FROM car_model cm LEFT JOIN cars_on_purchase cop ON cm.carid = cop.car_modelid_fk ",
             nativeQuery = true)
     List<CarModelStatisticDTO> getCarModelsWithPurchaseCount();
 
