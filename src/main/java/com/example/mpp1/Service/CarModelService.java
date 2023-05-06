@@ -105,12 +105,6 @@ public class CarModelService {
         return repository.findById(carID).get();
     }
 
-    public List<CarModelStatisticDTO> getCarModelsByTotalUnitsSold(Pageable page) {
-        List<CarModelStatisticDTO> output_list = getCarModelsWithPurchaseCount(page).getContent();
-        //output_list.sort(Comparator.comparing(CarModelStatisticDTO::getPurchaseCount));
-        return output_list;
-    }
-
     public CarModel updateCarModel(CarModel carModel, Long carID){
         CarModel old_carModel = findID(carID);
         old_carModel = carModel;

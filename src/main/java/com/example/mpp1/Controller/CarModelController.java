@@ -56,7 +56,7 @@ public class CarModelController {
     }
 
     @GetMapping("/statistic")
-    public List<CarModelStatisticDTO> getCarModelsSortedByTotalUnitsSold(
+    public Page<CarModelStatisticDTO> getCarModelsSortedByTotalUnitsSold(
             @RequestParam(defaultValue = "0", required = false) Integer page,
             @RequestParam(defaultValue = "10", required = false) Integer page_size
     ) {
@@ -72,7 +72,7 @@ public class CarModelController {
 //        return new ArrayList<CarModelStatisticDTO>();
 
         Pageable page_request = PageRequest.of(page, page_size);
-        return service.getCarModelsByTotalUnitsSold(page_request);
+        return service.getCarModelsWithPurchaseCount(page_request);
     }
 
     @PutMapping("/{id}")
