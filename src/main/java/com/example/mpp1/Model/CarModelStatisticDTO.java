@@ -1,17 +1,22 @@
 package com.example.mpp1.Model;
 
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class CarModelStatisticDTO {
-    public CarModelStatisticDTO(Long id, String model, String manufacturer, Long price, Long manufacture_year, Long fuel_consumption, Integer unitCount) {
+    public CarModelStatisticDTO(Long id, String model, String manufacturer, Long price, Long manufacture_year, Long fuel_consumption) {
         this.id = id;
         this.model = model;
         this.manufacturer = manufacturer;
         this.price = price;
         this.manufacture_year = manufacture_year;
         this.fuel_consumption = fuel_consumption;
-        this.unitCount = unitCount;
+        this.unitCount = 0;
     }
 
     @Getter

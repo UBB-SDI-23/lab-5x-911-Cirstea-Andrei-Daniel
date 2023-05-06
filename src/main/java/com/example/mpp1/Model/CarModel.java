@@ -12,6 +12,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CarModel {
+    public CarModel(Long id, String model, String manufacturer, Long price, Long manufacture_year, Long fuel_consumption, String description) {
+        this.id = id;
+        this.model = model;
+        this.manufacturer = manufacturer;
+        this.price = price;
+        this.manufacture_year = manufacture_year;
+        this.fuel_consumption = fuel_consumption;
+        this.description = description;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "carID")
