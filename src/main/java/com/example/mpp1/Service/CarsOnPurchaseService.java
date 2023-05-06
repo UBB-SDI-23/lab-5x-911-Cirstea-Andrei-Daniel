@@ -34,10 +34,6 @@ public class CarsOnPurchaseService {
         return repository.findAll(page).map(this::convertToDto);
     }
 
-    public Long getEntityCount() {
-        return repository.count();
-    }
-
     public CarsOnPurchase createCarsOnPurchase(CarsOnPurchase carsOnPurchase) {
         return repository.save(carsOnPurchase);
     }

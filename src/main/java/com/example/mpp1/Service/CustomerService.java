@@ -36,10 +36,6 @@ public class CustomerService {
         return repository.findAll(page).map(this::convertToDto);
     }
 
-    public Long getEntityCount() {
-        return repository.count();
-    }
-
     public ResponseEntity<?> createCustomer(Customer customer) {
         if (customer.getLastName() == null || customer.getLastName().equals("")) {
             return new ResponseEntity<>("Customer last name invalid", HttpStatus.BAD_REQUEST);

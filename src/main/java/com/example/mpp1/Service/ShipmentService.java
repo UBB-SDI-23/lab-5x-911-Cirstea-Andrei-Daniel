@@ -33,10 +33,6 @@ public class ShipmentService {
         return repository.findAll(page).map(this::convertToDto);
     }
 
-    public Long getEntityCount() {
-        return repository.count();
-    }
-
     public Shipment createShipment(Shipment shipment) {
         return repository.save(shipment);
     }

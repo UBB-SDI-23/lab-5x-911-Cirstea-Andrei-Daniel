@@ -30,13 +30,10 @@ public class CarModelService {
         return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    public Page<CarModelDTO> getPage(Pageable page) {
+    public Page<CarModel> getPage(Pageable page) {
         //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
-        return repository.findAll(page).map(this::convertToDto);
-    }
-
-    public Long getEntityCount() {
-        return repository.count();
+        //return repository.findAll(page).map(this::convertToDto);
+        return repository.findAll(page);
     }
 
     public ResponseEntity<?> createCarModel(CarModel carModel) {

@@ -35,11 +35,6 @@ public class DistributorController {
         return service.getPage(page_request);
     }
 
-    @GetMapping("/entity_count")
-    public Long getEntityCount() {
-        return service.getEntityCount();
-    }
-
     @PostMapping()
     public ResponseEntity<?> createDistributor(@RequestBody Distributor distributor) {
         return service.createDistributor(distributor);

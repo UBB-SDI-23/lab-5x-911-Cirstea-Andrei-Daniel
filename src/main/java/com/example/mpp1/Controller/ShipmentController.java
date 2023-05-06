@@ -33,11 +33,6 @@ public class ShipmentController {
         return service.getPage(page_request);
     }
 
-    @GetMapping("/entity_count")
-    public Long getEntityCount() {
-        return service.getEntityCount();
-    }
-
     @PostMapping()
     public Shipment createShipment(@RequestBody Shipment shipment) {
         return service.createShipment(shipment);

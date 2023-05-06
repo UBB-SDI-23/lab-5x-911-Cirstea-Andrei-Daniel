@@ -34,11 +34,6 @@ public class CustomerController {
         return service.getPage(page_request);
     }
 
-    @GetMapping("/entity_count")
-    public Long getEntityCount() {
-        return service.getEntityCount();
-    }
-
     @PostMapping()
     public ResponseEntity<?> createCustomer(@RequestBody Customer customer) {
         return service.createCustomer(customer);

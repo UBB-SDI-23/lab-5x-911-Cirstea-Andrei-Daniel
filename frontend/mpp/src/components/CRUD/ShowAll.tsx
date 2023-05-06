@@ -18,7 +18,7 @@ export const ShowAll = (props: any) => {
 
   const [elements, setElements] = useState<any>()
   const [current_page, setCurrentPage] = useState<number>(0)
-  const [element_count, setElementCount] = useState<number>(0)
+  const [element_count, setElementCount] = useState<number>(1000000)
 
   const [paginationModel, setPaginationModel] = React.useState({
     page: 0,
@@ -36,7 +36,7 @@ export const ShowAll = (props: any) => {
           ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" + current_page
       )
       .then((res) => res.json())
-      .then((data) => {setElements(data); console.log(data);})
+      .then((data) => {setElements(data.content); setElementCount(data.totalElements); console.log(data); })
   }
 
   const update_page =  (page: number) => {
@@ -46,14 +46,6 @@ export const ShowAll = (props: any) => {
     useEffect(() => {
         update_elements()
     }, [current_page])
-
-    useEffect(() => {
-        fetch(
-            ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.GET_ELEMENT_COUNT_PATH
-        )
-        .then((res) => res.json())
-        .then((data) => {setElementCount(data); console.log(data); })
-    }, [])
 
     let return_element = <Button onClick={() => navigate_details(-1)}>
         <KeyboardReturnIcon/>

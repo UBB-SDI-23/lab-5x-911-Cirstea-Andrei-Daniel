@@ -35,11 +35,6 @@ public class CarsOnPurchaseController {
         return service.getPage(page_request);
     }
 
-    @GetMapping("/entity_count")
-    public Long getEntityCount() {
-        return service.getEntityCount();
-    }
-
     @PostMapping()
     public CarsOnPurchase createCarsOnPurchase(@RequestBody CarsOnPurchase carsOnPurchase) {
         return service.createCarsOnPurchase(carsOnPurchase);

@@ -35,10 +35,6 @@ public class DistributorService {
         return repository.findAll(page).map(this::convertToDto);
     }
 
-    public Long getEntityCount() {
-        return repository.count();
-    }
-
     public ResponseEntity<?> createDistributor(Distributor distributor) {
         if (distributor.getCategory() == null || (!distributor.getCategory().equals("NewCars") && !distributor.getCategory().equals("UsedCars"))){
             return new ResponseEntity<>("Distributor category is missing or is not NewCars or UsedCars", HttpStatus.BAD_REQUEST);
