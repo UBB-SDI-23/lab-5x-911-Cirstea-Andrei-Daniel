@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
-    @Query("select u from Customer u where u.firstName LIKE CONCAT('%',:firstName,'%') AND u.lastName LIKE CONCAT('%', :lastName, '%')")
+    @Query("select u from Customer u where u.firstName LIKE CONCAT('%',:firstName,'%') AND u.lastName LIKE CONCAT('%', :lastName, '%') LIMIT 20")
     List<Customer> searchByFirstAndOrLastName(@Param("firstName") String firstName,
                                               @Param("lastName") String lastName);
 
