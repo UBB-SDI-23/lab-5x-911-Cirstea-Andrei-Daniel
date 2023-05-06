@@ -31,6 +31,7 @@ import { ShipmentDetails } from './components/shipments/ShipmentDetails'
 import { ShipmentShowAll } from './components/shipments/ShipmentShowAll'
 import { ShipmentUpdate } from './components/shipments/ShipmentUpdate'
 import { DistributorUpdate } from './components/distributors/DistributorUpdate'
+import { DistributorStatistic } from './components/distributors/DistributorStatistic'
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
             <Route path={EndPoints.CAR_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CarModelDetails/>}></Route>
             <Route path={EndPoints.CAR_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<CarModelUpdate/>}></Route>
             <Route path={EndPoints.CAR_TABLE + EndPoints.VIRTUAL_CREATE} element={<CarModelCreate/>}></Route>
-            <Route path={EndPoints.CAR_TABLE + EndPoints.STATISTIC} element={<CarModelStatistic/>}></Route>
+            {/* <Route path={EndPoints.CAR_TABLE + EndPoints.STATISTIC} element={<CarModelStatistic/>}></Route> */}
 
             <Route path={EndPoints.CUSTOMER_TABLE} element={<CustomerShowAll />}></Route>
             <Route path={EndPoints.CUSTOMER_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CustomerDetails/>}></Route>
@@ -65,6 +66,7 @@ function App() {
             <Route path={EndPoints.DISTRIBUTOR_TABLE + EndPoints.FIND_PATH + "/:id"} element={<DistributorDetails/>}></Route>
             <Route path={EndPoints.DISTRIBUTOR_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<DistributorUpdate/>}></Route>
             <Route path={EndPoints.DISTRIBUTOR_TABLE + EndPoints.VIRTUAL_CREATE} element={<DistributorCreate/>}></Route>
+            <Route path={EndPoints.DISTRIBUTOR_TABLE + EndPoints.STATISTIC} element={<DistributorStatistic/>}></Route>
 
             <Route path={EndPoints.SHIPMENT_TABLE} element={<ShipmentShowAll />}></Route>
             <Route path={EndPoints.SHIPMENT_TABLE + EndPoints.FIND_PATH + "/:id"} element={<ShipmentDetails/>}></Route>

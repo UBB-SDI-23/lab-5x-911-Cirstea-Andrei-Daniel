@@ -83,8 +83,12 @@ public class DistributorService {
         typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
         typedQuery.setMaxResults(pageable.getPageSize());
 
+        CriteriaQuery<Long> countQuery = builder.createQuery(Long.class);
+        countQuery.select(builder.count(countQuery.from(Distributor.class)));
+        Long count = entityManager.createQuery(countQuery).getSingleResult();
+
         List<DistributorStatisticDTO> distributorStatisticDTOList = typedQuery.getResultList();
-        return new PageImpl<>(distributorStatisticDTOList, pageable, distributorStatisticDTOList.size());
+        return new PageImpl<>(distributorStatisticDTOList, pageable, count);
     }
 
     public Distributor findID(Long distributorID){

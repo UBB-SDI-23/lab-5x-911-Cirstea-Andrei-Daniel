@@ -16,7 +16,7 @@ export const CarModelStatistic = () => {
 
     const update_models = () => {
         fetch(
-            ServerSettings.API_ENDPOINT + EndPoints.backendCarTableStatistic(count)
+            ServerSettings.API_ENDPOINT + EndPoints.CAR_TABLE + EndPoints.STATISTIC
         )
         .then((res) => res.json())
         .then((data) => { setCarModels(data); console.log(data); console.log(count) })
