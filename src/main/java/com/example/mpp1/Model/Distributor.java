@@ -43,4 +43,8 @@ public class Distributor {
     @JsonIgnoreProperties("parent_distributor")
     private List<Shipment> shipments;
 
+    @ManyToOne
+    @JoinColumn(name = "userID_FK")
+    private User user;
+
 }

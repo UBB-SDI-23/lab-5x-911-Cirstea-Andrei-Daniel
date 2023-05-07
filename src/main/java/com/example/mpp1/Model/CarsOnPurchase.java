@@ -29,6 +29,10 @@ public class CarsOnPurchase {
     @JsonIgnoreProperties("carsOnPurchaseList")
     private Purchase purchase;
 
+    @ManyToOne
+    @JoinColumn(name = "userID_FK")
+    private User user;
+
     @Getter
     @Setter
     private Integer count;

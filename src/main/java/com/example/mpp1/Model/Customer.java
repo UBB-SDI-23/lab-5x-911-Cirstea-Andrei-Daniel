@@ -41,4 +41,8 @@ public class Customer {
     @JsonIgnoreProperties("original_customer")
     private List<Purchase> purchases;
 
+    @ManyToOne
+    @JoinColumn(name = "userID_FK")
+    private User user;
+
 }

@@ -41,6 +41,10 @@ public class Purchase {
     @JsonIgnoreProperties("purchase")
     private List<CarsOnPurchase> carsOnPurchaseList;
 
+    @ManyToOne
+    @JoinColumn(name = "userID_FK")
+    private User user;
+
     public String toString() {
         return "Purchase id " + id + " date " + date + " payMethod " + payMethod + " status " + status + " customerID " + original_customer.getId();
     }

@@ -51,6 +51,10 @@ public class CarModel {
     @Setter
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "userID_FK")
+    private User user;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carModel", orphanRemoval = true)
     @JsonIgnoreProperties("carModel")
     private List<CarsOnPurchase> carsOnPurchaseList;
