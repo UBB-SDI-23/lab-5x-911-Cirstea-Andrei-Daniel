@@ -31,16 +31,6 @@ public class UserController {
     @Autowired
     private UserAuthenticationProvider userAuthenticationProvider;
 
-    @PostMapping()
-    public ResponseEntity<?> createUser(@RequestBody User user) {
-        return service.createUser(user);
-    }
-
-//    @PostMapping("/create")
-//    public List<CarModel> createCarModels(@RequestBody List<CarModel> carModels) {
-//        return service.createCarModels(carModels);
-//    }
-
     @GetMapping("/find/{id}")
     public User findID(@PathVariable("id") Long userID){
         return service.findID(userID);

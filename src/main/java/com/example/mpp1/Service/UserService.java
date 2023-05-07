@@ -46,20 +46,6 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-    public ResponseEntity<?> createUser(User user) {
-        if (UserValidator.Validate(user)) {
-            return new ResponseEntity<>("Invalid user password", HttpStatus.BAD_REQUEST);
-        }
-
-        UserProfile default_profile = new UserProfile();
-        default_profile.setUser(user);
-        user.setUserProfile(default_profile);
-        user = user_repository.save(user);
-        user_profile_repository.save(default_profile);
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
     public User login(JwtRequest request) throws Exception {
         User user = user_repository.findByUsername(request.getUsername());
 
@@ -81,7 +67,11 @@ public class UserService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return user_repository.save(user);
+        UserProfile profile = new UserProfile();
+        profile.setUser(user);
+        user = user_repository.save(user);
+        user_profile_repository.save(profile);
+        return user;
     }
 
     public User findID(Long userID){
@@ -95,7 +85,7 @@ public class UserService {
 
     public String deleteUser(Long userID){
         User user = user_repository.findById(userID).get();
-        user_profile_repository.deleteById(user.getUserProfile().getId());
+        user_profile_repository.deleteByUser(user);
         user_repository.deleteById(userID);
         return "User successfully deleted";
     }

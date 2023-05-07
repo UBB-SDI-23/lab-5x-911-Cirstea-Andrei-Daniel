@@ -43,10 +43,6 @@ public class User implements UserDetails {
     @Column(name = "role")
     private List<String> roles = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("user")
-    private UserProfile userProfile;
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());

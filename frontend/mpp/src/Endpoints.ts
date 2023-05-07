@@ -1,3 +1,4 @@
+import { ServerSettings } from './components/ServerIP';
 export class EndPoints {
     static LOGIN_PAGE = "/"
     static REGISTER_PAGE = "/register"
@@ -8,9 +9,19 @@ export class EndPoints {
     static PURCHASE_TABLE = "/api/purchases"
     static DISTRIBUTOR_TABLE = "/api/distributors"
     static CARSONPURCHASE_TABLE = "/api/carsonpurchases"
+    static USER_TABLE = "/api/users"
     static STATISTIC = "/statistic"
     
-    static BACKEND_LOGIN = "/login"
+    static BACKEND_LOGIN_SUFFIX = "/login"
+    static BACKEND_REGISTER_SUFFIX = "/register"
+
+    static backendLogin() : string {
+        return ServerSettings.API_ENDPOINT + this.USER_TABLE + this.BACKEND_LOGIN_SUFFIX;
+    }
+
+    static backendRegister() : string {
+        return ServerSettings.API_ENDPOINT + this.USER_TABLE + this.BACKEND_REGISTER_SUFFIX;
+    }
 
     static FIND_PATH = "/find"
     static AUTOCOMPLETE_PATH = "/autocomplete?query="
