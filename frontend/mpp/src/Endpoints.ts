@@ -1,5 +1,7 @@
 export class EndPoints {
-    static HOME_PAGE = "/"
+    static LOGIN_PAGE = "/"
+    static REGISTER_PAGE = "/register"
+    static HOME_PAGE = "/home"
     static CAR_TABLE = "/api/cars"
     static CUSTOMER_TABLE = "/api/customers"
     static SHIPMENT_TABLE = "/api/shipments"
@@ -8,6 +10,8 @@ export class EndPoints {
     static CARSONPURCHASE_TABLE = "/api/carsonpurchases"
     static STATISTIC = "/statistic"
     
+    static BACKEND_LOGIN = "/login"
+
     static FIND_PATH = "/find"
     static AUTOCOMPLETE_PATH = "/autocomplete?query="
     static PAGE_REQUEST_PATH = "/paged"

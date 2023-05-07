@@ -16,6 +16,7 @@ export const HomePage = () => {
                 <Button component={Link} to={EndPoints.CARSONPURCHASE_TABLE}>Car Orders</Button>
                 <Button component={Link} to={EndPoints.DISTRIBUTOR_TABLE}>Distributors</Button>
                 <Button component={Link} to={EndPoints.SHIPMENT_TABLE}>Shipments</Button>
+                <Button component={Link} to={EndPoints.LOGIN_PAGE}>Login</Button>
             </Toolbar>
         </AppBar>
         </Box>

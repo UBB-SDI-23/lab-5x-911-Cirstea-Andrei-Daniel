@@ -32,13 +32,15 @@ import { ShipmentShowAll } from './components/shipments/ShipmentShowAll'
 import { ShipmentUpdate } from './components/shipments/ShipmentUpdate'
 import { DistributorUpdate } from './components/distributors/DistributorUpdate'
 import { DistributorStatistic } from './components/distributors/DistributorStatistic'
+import { UserLogin } from './components/users/UserLogin'
 
 function App() {
   return (
     <React.Fragment>
       <div className="App">
         <BrowserRouter>
-          <Routes>           
+          <Routes>
+            <Route path={EndPoints.LOGIN_PAGE} element={<UserLogin />}></Route>
             <Route path={EndPoints.HOME_PAGE} element={<HomePage />}></Route>
 
             <Route path={EndPoints.CAR_TABLE} element={<CarModelShowAll />}></Route>
