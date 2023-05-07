@@ -19,7 +19,7 @@ if __name__ == '__main__':
         birthday = fake.date_of_birth()
         description = fake.paragraph(5)
         gender = genders[i]
-        location = fake.location_on_land()
+        location = fake.street_address()
         phone_number = fake.phone_number()
         id = i
         user_id = i
