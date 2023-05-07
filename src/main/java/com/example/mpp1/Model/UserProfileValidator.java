@@ -20,7 +20,7 @@ public class UserProfileValidator {
         }
     }
 
-    static boolean Validate(UserProfile profile) {
+    static public boolean Validate(UserProfile profile) {
         String gender = profile.getGender();
 
         if (!gender.contentEquals("Male") || !gender.contentEquals("Female")) {
