@@ -40,11 +40,11 @@ export const UserLogin = () => {
         const suggestion_endpoint = EndPoints.backendLogin()
         fetch(suggestion_endpoint, request_options)
         .then((response: any) => {
-                    console.log(response)
+                    console.log(response);
                     Authentication.setAuthHeader(response.data.token);
                     navigate_details(EndPoints.HOME_PAGE)
                  })
-        .catch((error) => {});
+        .catch((error) => {console.log(error)});
 
         // Authentication.make_request('POST', EndPoints.backendLogin(), JSON.stringify(login_request))
         // .then(
