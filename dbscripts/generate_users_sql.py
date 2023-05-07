@@ -9,20 +9,21 @@ if __name__ == '__main__':
 
     # create list to store SQL statements
     lines = []
+    
+    # Generate a random password
+    password = fake.password()
+
+    # Hash the password using SHA-256
+    hashed_password = sha256_crypt.hash(password)
 
     # generate fake data and create INSERT SQL statements
     for i in range(GENERATE_COUNT):
         username = fake.user_name()
-        # Generate a random password
-        password = fake.password()
-
-        # Hash the password using SHA-256
-        hashed_password = sha256_crypt.hash(password)
         
         email = fake.email()
         id = i
         
-        if (i % 10000) == 0:
+        if (i % 1000) == 0:
             print(i)
         
         lines.append("('{}', '{}', '{}', '{}')".format(id, email, hashed_password, username))
