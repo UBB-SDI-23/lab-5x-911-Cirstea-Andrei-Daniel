@@ -24,28 +24,44 @@ export const UserLogin = () => {
     }
 
     const login = () => {
-        const request_options = {
-            method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json' 
-            },
-        }
-
         let login_request = new LoginRequest();
         login_request.password = password;
         login_request.username = username;
-        Authentication.make_request('POST', EndPoints.backendLogin(), login_request)
-        .then(
-            (response) => {
-                Authentication.setAuthHeader(response.data.token);
-                navigate_details(EndPoints.HOME_PAGE)
-            })
-        .catch(
-            (error: AxiosError) => {
-                Authentication.setAuthHeader(null);
-                setErrorMessage(error.message)
-            }
-        );
+
+        const request_options = {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin' : '*'
+            },
+            body: JSON.stringify(login_request, null, 2)
+        }
+
+        const suggestion_endpoint = EndPoints.backendLogin()
+        fetch(suggestion_endpoint, request_options)
+        .then((response: any) => {
+                    console.log(response)
+                    Authentication.setAuthHeader(response.data.token);
+                    navigate_details(EndPoints.HOME_PAGE)
+                 })
+        .catch((error) => {});
+
+        // Authentication.make_request('POST', EndPoints.backendLogin(), JSON.stringify(login_request))
+        // .then(
+        //     (response) => {
+        //         Authentication.setAuthHeader(response.data.token);
+        //         navigate_details(EndPoints.HOME_PAGE)
+        //     })
+        // .catch(
+        //     (error: AxiosError) => {
+        //         console.log(error);
+        //         Authentication.setAuthHeader(null);
+        //         setErrorMessage(error.message)
+        //         setDisplayError(true)
+        //     }
+        // );
+
+
     }
 
     let failed_dialog_element;
@@ -76,10 +92,10 @@ export const UserLogin = () => {
 
     return (
         <React.Fragment>
-            <h6>Login</h6>
             <TextField label="Username" variant="standard" defaultValue={username} onChange={(event)=>{
                 setUsername(event.target.value)
             }} />
+            <br></br>
             <TextField label="Password" variant="standard" defaultValue={password} onChange={(event) => {
                 setPassword(event.target.value)
             }} />
@@ -87,8 +103,9 @@ export const UserLogin = () => {
             <Button onClick={() => {login()}}>
                 Login
             </Button>
-            <Button onClick={() => {navigate_details(-1)}}>
-                <KeyboardReturnIcon/>
+
+            <Button onClick={() => {navigate_details(EndPoints.REGISTER_PAGE)}}>
+                Register
             </Button>
 
             {failed_dialog_element}

@@ -33,6 +33,7 @@ import { ShipmentUpdate } from './components/shipments/ShipmentUpdate'
 import { DistributorUpdate } from './components/distributors/DistributorUpdate'
 import { DistributorStatistic } from './components/distributors/DistributorStatistic'
 import { UserLogin } from './components/users/UserLogin'
+import { UserRegister } from './components/users/UserRegister'
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
+            <Route path={EndPoints.REGISTER_PAGE} element={<UserRegister/>}></Route>
             <Route path={EndPoints.LOGIN_PAGE} element={<UserLogin />}></Route>
             <Route path={EndPoints.HOME_PAGE} element={<HomePage />}></Route>
 
