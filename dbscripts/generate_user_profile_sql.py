@@ -17,7 +17,7 @@ if __name__ == '__main__':
     # generate fake data and create INSERT SQL statements
     for i in range(COUNT):
         birthday = fake.date_of_birth()
-        description = fake.paragraph(5)
+        description = fake.paragraph(3)
         gender = genders[i]
         location = fake.street_address()
         phone_number = fake.phone_number()
