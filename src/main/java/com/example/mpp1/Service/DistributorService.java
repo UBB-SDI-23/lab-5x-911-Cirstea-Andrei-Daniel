@@ -106,9 +106,9 @@ public class DistributorService {
         return "Distributor successfully deleted";
     }
 
-    private DistributorDTO convertToDto(Distributor shipment) {
-        DistributorDTO dto = modelMapper.map(shipment, DistributorDTO.class);
-        dto.setShipmentCount(shipment.getShipments().size());
+    private DistributorDTO convertToDto(Distributor distributor) {
+        DistributorDTO dto = modelMapper.map(distributor, DistributorDTO.class);
+        dto.setShipmentCount(distributor.getShipments().size());
         return dto;
     }
 
