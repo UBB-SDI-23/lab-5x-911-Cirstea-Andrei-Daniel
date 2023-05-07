@@ -19,4 +19,6 @@ import java.util.List;
 @Repository
 public interface CarModelRepository extends JpaRepository<CarModel, Long> {
 
+    int countByUserId(Long userId);
+
 }

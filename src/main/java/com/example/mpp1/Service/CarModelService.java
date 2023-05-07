@@ -27,104 +27,104 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-class TempClass {
-    private Long id;
-    private Long unitCount;
-}
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Getter
+//@Setter
+//class TempClass {
+//    private Long id;
+//    private Long unitCount;
+//}
 
 @Service
 public class CarModelService {
     @Autowired
     private CarModelRepository repository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
-    public Page<CarModelStatisticDTO> getCarModelsWithPurchaseCount(Pageable pageable) {
-//        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-//        CriteriaQuery<CarModelStatisticDTO> query = builder.createQuery(CarModelStatisticDTO.class);
-//        Root<CarModel> carModelRoot = query.from(CarModel.class);
-//        Join<CarModel, CarsOnPurchase> carModelCarsOnPurchaseJoin = carModelRoot.join("carsOnPurchaseList", JoinType.LEFT);
+//    @PersistenceContext
+//    private EntityManager entityManager;
 //
-//        query.multiselect(
-//                        carModelRoot.get("id"),
-//                        carModelRoot.get("model"),
-//                        carModelRoot.get("manufacturer"),
-//                        carModelRoot.get("price"),
-//                        carModelRoot.get("manufacture_year"),
-//                        carModelRoot.get("fuel_consumption"),
-//                        builder.coalesce(builder.sum(carModelCarsOnPurchaseJoin.get("count")), 0).alias("unitCount")
-//                ).groupBy(carModelRoot.get("id"))
-//                .orderBy(builder.desc(builder.coalesce(builder.sum(carModelCarsOnPurchaseJoin.get("count")), 0)));
+//    public Page<CarModelStatisticDTO> getCarModelsWithPurchaseCount(Pageable pageable) {
+////        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+////        CriteriaQuery<CarModelStatisticDTO> query = builder.createQuery(CarModelStatisticDTO.class);
+////        Root<CarModel> carModelRoot = query.from(CarModel.class);
+////        Join<CarModel, CarsOnPurchase> carModelCarsOnPurchaseJoin = carModelRoot.join("carsOnPurchaseList", JoinType.LEFT);
+////
+////        query.multiselect(
+////                        carModelRoot.get("id"),
+////                        carModelRoot.get("model"),
+////                        carModelRoot.get("manufacturer"),
+////                        carModelRoot.get("price"),
+////                        carModelRoot.get("manufacture_year"),
+////                        carModelRoot.get("fuel_consumption"),
+////                        builder.coalesce(builder.sum(carModelCarsOnPurchaseJoin.get("count")), 0).alias("unitCount")
+////                ).groupBy(carModelRoot.get("id"))
+////                .orderBy(builder.desc(builder.coalesce(builder.sum(carModelCarsOnPurchaseJoin.get("count")), 0)));
+////
+////        TypedQuery<CarModelStatisticDTO> typedQuery = entityManager.createQuery(query);
+////
+////        System.out.println(pageable.getPageNumber() * pageable.getPageSize());
+////        typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+////        typedQuery.setMaxResults(pageable.getPageSize());
+////
+////        List<CarModelStatisticDTO> resultList = typedQuery.getResultList();
 //
-//        TypedQuery<CarModelStatisticDTO> typedQuery = entityManager.createQuery(query);
+////        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+////        CriteriaQuery<TempClass> query = builder.createQuery(TempClass.class);
+////
+////        Root<CarModel> carModelRoot = query.from(CarModel.class);
+////        Subquery<Long> subquery = query.subquery(Long.class);
+////        Root<CarsOnPurchase> carsOnPurchaseRoot = subquery.from(CarsOnPurchase.class);
+////        subquery.select(builder.coalesce(builder.sum(carsOnPurchaseRoot.get("count")), 0L))
+////                .where(builder.equal(carsOnPurchaseRoot.get("carModel"), carModelRoot));
+////        query.select(builder.construct(
+////                        TempClass.class,
+////                        carModelRoot.get("id").alias("id"),
+////                        builder.coalesce(subquery, 0L).alias("unitCount")))
+////                .orderBy(builder.desc(builder.coalesce(subquery, 0L)));
+////        List<TempClass> tempClassList = entityManager.createQuery(query)
+////                .setFirstResult(pageable.getPageNumber() * pageable.getPageSize())
+////                .setMaxResults(pageable.getPageSize())
+////                .getResultList();
+////
+////        CriteriaQuery<CarModel> car_model_query = builder.createQuery(CarModel.class);
+////        carModelRoot = car_model_query.from(CarModel.class);
 //
-//        System.out.println(pageable.getPageNumber() * pageable.getPageSize());
-//        typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-//        typedQuery.setMaxResults(pageable.getPageSize());
+//        //TypedQuery<TempClass> typedQuery = entityManager.createQuery(query);
 //
-//        List<CarModelStatisticDTO> resultList = typedQuery.getResultList();
-
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<TempClass> query = builder.createQuery(TempClass.class);
-
-        Root<CarModel> carModelRoot = query.from(CarModel.class);
-        Subquery<Long> subquery = query.subquery(Long.class);
-        Root<CarsOnPurchase> carsOnPurchaseRoot = subquery.from(CarsOnPurchase.class);
-        subquery.select(builder.coalesce(builder.sum(carsOnPurchaseRoot.get("count")), 0L))
-                .where(builder.equal(carsOnPurchaseRoot.get("carModel"), carModelRoot));
-        query.select(builder.construct(
-                        TempClass.class,
-                        carModelRoot.get("id").alias("id"),
-                        builder.coalesce(subquery, 0L).alias("unitCount")))
-                .orderBy(builder.desc(builder.coalesce(subquery, 0L)));
-        List<TempClass> tempClassList = entityManager.createQuery(query)
-                .setFirstResult(pageable.getPageNumber() * pageable.getPageSize())
-                .setMaxResults(pageable.getPageSize())
-                .getResultList();
-
-        CriteriaQuery<CarModel> car_model_query = builder.createQuery(CarModel.class);
-        carModelRoot = car_model_query.from(CarModel.class);
-
-        //TypedQuery<TempClass> typedQuery = entityManager.createQuery(query);
-
-// Set pagination
-        //typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        //typedQuery.setMaxResults(pageable.getPageSize());
-
-        //List<TempClass> tempClassList = typedQuery.getResultList();
-
-        car_model_query.select(
-                builder.construct(CarModel.class,
-                    carModelRoot.get("id"),
-                    carModelRoot.get("model"),
-                    carModelRoot.get("manufacturer"),
-                    carModelRoot.get("manufacture_year"),
-                    carModelRoot.get("price"),
-                    carModelRoot.get("fuel_consumption"),
-                        carModelRoot.get("description")
-                )
-        ).where(carModelRoot.get("id").in(tempClassList.stream().map(elem -> elem.getId()).toList()));
-
-        List<CarModel> car_models = entityManager.createQuery(car_model_query).getResultList();
-
-        List<CarModelStatisticDTO> resultList = car_models.stream().map(car_model -> new CarModelStatisticDTO(
-                car_model.getId(),
-                car_model.getModel(),
-                car_model.getManufacturer(),
-                car_model.getPrice(),
-                car_model.getManufacture_year(),
-                car_model.getFuel_consumption(),
-                (Integer)tempClassList.stream().filter(element -> element.getId() == car_model.getId()).findAny().get().getUnitCount().intValue()
-        )).collect(Collectors.toList());
-        resultList.sort((elem1, elem2) -> { return elem1.getUnitCount() < elem2.getUnitCount() ? 1 : -1; });
-
-        return new PageImpl<>(resultList, pageable, resultList.size());
-    }
+//// Set pagination
+//        //typedQuery.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+//        //typedQuery.setMaxResults(pageable.getPageSize());
+//
+//        //List<TempClass> tempClassList = typedQuery.getResultList();
+//
+//        car_model_query.select(
+//                builder.construct(CarModel.class,
+//                    carModelRoot.get("id"),
+//                    carModelRoot.get("model"),
+//                    carModelRoot.get("manufacturer"),
+//                    carModelRoot.get("manufacture_year"),
+//                    carModelRoot.get("price"),
+//                    carModelRoot.get("fuel_consumption"),
+//                        carModelRoot.get("description")
+//                )
+//        ).where(carModelRoot.get("id").in(tempClassList.stream().map(elem -> elem.getId()).toList()));
+//
+//        List<CarModel> car_models = entityManager.createQuery(car_model_query).getResultList();
+//
+//        List<CarModelStatisticDTO> resultList = car_models.stream().map(car_model -> new CarModelStatisticDTO(
+//                car_model.getId(),
+//                car_model.getModel(),
+//                car_model.getManufacturer(),
+//                car_model.getPrice(),
+//                car_model.getManufacture_year(),
+//                car_model.getFuel_consumption(),
+//                (Integer)tempClassList.stream().filter(element -> element.getId() == car_model.getId()).findAny().get().getUnitCount().intValue()
+//        )).collect(Collectors.toList());
+//        resultList.sort((elem1, elem2) -> { return elem1.getUnitCount() < elem2.getUnitCount() ? 1 : -1; });
+//
+//        return new PageImpl<>(resultList, pageable, resultList.size());
+//    }
 
     private ModelMapper modelMapper = new ModelMapper();
 
@@ -138,9 +138,8 @@ public class CarModelService {
     }
 
     public ResponseEntity<?> createCarModel(CarModel carModel) {
-        if (carModel.getModel() == null || carModel.getManufacturer() == null || carModel.getModel().equals("")
-                || carModel.getManufacturer().equals("")) {
-            return new ResponseEntity<>("Invalid car model or manufacturer", HttpStatus.BAD_REQUEST);
+        if (CarModelValidator.validate(carModel)) {
+            return new ResponseEntity<>("Invalid car model", HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<>(repository.save(carModel), HttpStatus.OK);
@@ -160,6 +159,10 @@ public class CarModelService {
 
     public CarModel findID(Long carID){
         return repository.findById(carID).get();
+    }
+
+    public Integer findCountForUser(Long userID) {
+        return repository.countByUserId(userID);
     }
 
     public CarModel updateCarModel(CarModel carModel, Long carID){

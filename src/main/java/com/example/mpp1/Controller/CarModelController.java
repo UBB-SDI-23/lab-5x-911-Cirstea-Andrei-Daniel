@@ -53,14 +53,14 @@ public class CarModelController {
         return service.findID(carID);
     }
 
-    @GetMapping("/statistic")
-    public Page<CarModelStatisticDTO> getCarModelsSortedByTotalUnitsSold(
-            @RequestParam(defaultValue = "0", required = false) Integer page,
-            @RequestParam(defaultValue = "10", required = false) Integer page_size
-    ) {
-        Pageable page_request = PageRequest.of(page, page_size);
-        return service.getCarModelsWithPurchaseCount(page_request);
-    }
+//    @GetMapping("/statistic")
+//    public Page<CarModelStatisticDTO> getCarModelsSortedByTotalUnitsSold(
+//            @RequestParam(defaultValue = "0", required = false) Integer page,
+//            @RequestParam(defaultValue = "10", required = false) Integer page_size
+//    ) {
+//        Pageable page_request = PageRequest.of(page, page_size);
+//        return service.getCarModelsWithPurchaseCount(page_request);
+//    }
 
     @PutMapping("/{id}")
     public CarModel updateCarModel(@RequestBody CarModel carModel, @PathVariable("id") Long carID){

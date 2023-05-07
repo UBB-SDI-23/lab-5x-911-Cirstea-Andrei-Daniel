@@ -66,6 +66,10 @@ public class CustomerService {
         return repository.findById(carID).get();
     }
 
+    public Integer findCountForUser(Long userID) {
+        return repository.countByUserId(userID);
+    }
+
     public Customer updateCustomer(Customer customer, Long customerID){
         Customer old_customer = findID(customerID);
         old_customer = customer;

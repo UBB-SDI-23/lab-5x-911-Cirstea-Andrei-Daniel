@@ -69,6 +69,10 @@ public class CarsOnPurchaseService {
         return repository.findById(id).get();
     }
 
+    public Integer findCountForUser(Long userID) {
+        return repository.countByUserId(userID);
+    }
+
     public CarsOnPurchase updateCarOnPurchase(CarsOnPurchase carsOnPurchase, Long id){
         CarsOnPurchase old_carsOnPurchase = findID(id);
         old_carsOnPurchase = carsOnPurchase;

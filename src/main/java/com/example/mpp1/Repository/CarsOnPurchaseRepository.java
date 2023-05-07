@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CarsOnPurchaseRepository extends JpaRepository<CarsOnPurchase, Long> {
+
+    int countByUserId(Long userId);
+
 }

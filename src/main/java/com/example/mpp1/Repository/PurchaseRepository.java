@@ -11,4 +11,6 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
 
     List<Purchase> findAllByStatusEquals(String status);
 
+    int countByUserId(Long userId);
+
 }

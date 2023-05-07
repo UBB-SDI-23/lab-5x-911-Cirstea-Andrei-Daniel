@@ -11,5 +11,6 @@ import java.util.List;
 @Repository
 public interface DistributorRepository extends JpaRepository<Distributor, Long> {
 
+    int countByUserId(Long userId);
 
 }

@@ -45,6 +45,10 @@ public class PurchaseService {
         return repository.findById(purchaseID).get();
     }
 
+    public Integer findCountForUser(Long userID) {
+        return repository.countByUserId(userID);
+    }
+
     public Purchase updatePurchase(Purchase purchase, Long purchaseID){
         Purchase old_purchase = findID(purchaseID);
         old_purchase = purchase;

@@ -95,6 +95,10 @@ public class DistributorService {
         return repository.findById(distributorID).get();
     }
 
+    public Integer findCountForUser(Long userID) {
+        return repository.countByUserId(userID);
+    }
+
     public Distributor updateDistributor(Distributor distributor, Long distributorID){
         Distributor old_distributor = findID(distributorID);
         old_distributor = distributor;

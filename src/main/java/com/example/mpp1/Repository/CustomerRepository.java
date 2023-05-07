@@ -18,5 +18,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
     List<Customer> findByFirstNameContainingAndLastNameContaining(String firstName, String lastName, Pageable pageable);
 
+    int countByUserId(Long userId);
 
 }
