@@ -28,24 +28,6 @@ export const UserLogin = () => {
         login_request.password = password;
         login_request.username = username;
 
-        // const request_options = {
-        //     method: 'POST',
-        //     headers: { 
-        //         'Content-Type': 'application/json',
-        //         //'Access-Control-Allow-Origin' : '*'
-        //     },
-        //     body: JSON.stringify(login_request)
-        // }
-
-        // const suggestion_endpoint = EndPoints.backendLogin()
-        // fetch(suggestion_endpoint, request_options)
-        // .then((response: any) => {
-        //             console.log(response);
-        //             //Authentication.setAuthHeader(response.data.token);
-        //             //navigate_details(EndPoints.HOME_PAGE)
-        //          })
-        // .catch((error) => {console.log(error)});
-
         Authentication.make_request('POST', EndPoints.backendLogin(), JSON.stringify(login_request))
         .then(
             (response) => {
@@ -57,7 +39,7 @@ export const UserLogin = () => {
             (error: AxiosError) => {
                 console.log(error);
                 Authentication.setAuthHeader(null);
-                setErrorMessage(error.message)
+                setErrorMessage(error.response?.data as string)
                 setDisplayError(true)
             }
         );
