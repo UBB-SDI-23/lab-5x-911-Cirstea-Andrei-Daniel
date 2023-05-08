@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(HttpMethod.POST, "/api/users/login", "/api/users/register").permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().authenticated()).cors().disable()
         ;
         return http.build();
     }
