@@ -68,4 +68,8 @@ public class User implements UserDetails {
         return true;
     }
 
+    public String toString() {
+        return "Id: " +  id + ", Username: " + username + ", Password: " + password + ", Email: " + email + ", Roles: " + roles.toString();
+    }
+
 }

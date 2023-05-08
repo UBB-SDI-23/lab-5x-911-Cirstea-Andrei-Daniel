@@ -60,13 +60,15 @@ public class UserController {
         }
         catch (Exception exception)  {
             System.out.println(exception.toString());
-            return ResponseEntity.badRequest().header("Description", exception.toString()).body(exception.toString());
+            return ResponseEntity.badRequest().header("Description", exception.toString()).body(exception.getMessage());
         }
     }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User user) {
         try {
+            System.out.println("Register entered " + user.toString());
+
             User createdUser = service.register(user);
             UserDTO dto = new UserDTO();
             dto.setId(user.getId());
