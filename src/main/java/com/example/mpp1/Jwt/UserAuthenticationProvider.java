@@ -53,8 +53,7 @@ public class UserAuthenticationProvider {
 
         DecodedJWT decoded = verifier.verify(token);
 
-        Long id = Long.parseLong(decoded.getIssuer());
-        User user = userService.findID(id);
+        User user = userService.findByUsername(decoded.getIssuer());
         return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
     }
 

@@ -98,10 +98,11 @@ export const UserRegister = () => {
         </React.Fragment>
     }
     else {
-        let link = EndPoints.backendConfirmCode(confirmation_code);
+        let link = EndPoints.backendConfirmCodeAPIOnly(confirmation_code);
+        console.log(link)
         current_element = <React.Fragment>
             <h1>Click the button below to confirm your account</h1>
-            <Button component={Link} to={link}>{link}</Button>
+            <Button component={Link} to={link}>Confirm</Button>
             <br></br>
             <Button onClick={() => {navigate_details(-1)}}>
                 <KeyboardReturnIcon />

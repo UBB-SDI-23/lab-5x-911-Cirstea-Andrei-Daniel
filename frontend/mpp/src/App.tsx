@@ -34,14 +34,17 @@ import { DistributorUpdate } from './components/distributors/DistributorUpdate'
 import { DistributorStatistic } from './components/distributors/DistributorStatistic'
 import { UserLogin } from './components/users/UserLogin'
 import { UserRegister } from './components/users/UserRegister'
+import { UserConfirmCode } from './components/users/UserConfirmCode'
 
 function App() {
+  console.log(EndPoints.backendConfirmCodeAPIOnly("") + ":code")
   return (
     <React.Fragment>
       <div className="App">
         <BrowserRouter>
           <Routes>
             <Route path={EndPoints.REGISTER_PAGE} element={<UserRegister/>}></Route>
+            <Route path={EndPoints.backendConfirmCodeAPIOnly("") + ":code"} element={<UserConfirmCode />}></Route>
             <Route path={EndPoints.LOGIN_PAGE} element={<UserLogin />}></Route>
             <Route path={EndPoints.HOME_PAGE} element={<HomePage />}></Route>
 

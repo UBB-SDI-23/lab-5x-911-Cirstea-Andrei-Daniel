@@ -28,7 +28,11 @@ export class EndPoints {
     }
 
     static backendConfirmCode(code: string) : string {
-        return this.backendCodeRegister() + "/" + code;
+        return this.backendCodeRegister() + "/confirm/" + code;
+    }
+
+    static backendConfirmCodeAPIOnly(code: string) : string {
+        return "/api" + this.BACKEND_REGISTER_SUFFIX + "/confirm/" + code;
     }
 
     static FIND_PATH = "/find"
