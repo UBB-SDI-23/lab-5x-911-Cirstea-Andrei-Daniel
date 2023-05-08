@@ -35,6 +35,7 @@ import { DistributorStatistic } from './components/distributors/DistributorStati
 import { UserLogin } from './components/users/UserLogin'
 import { UserRegister } from './components/users/UserRegister'
 import { UserConfirmCode } from './components/users/UserConfirmCode'
+import { UserProfileComponent } from './components/users/UserProfileComponent'
 
 function App() {
   return (
@@ -78,6 +79,8 @@ function App() {
             <Route path={EndPoints.SHIPMENT_TABLE + EndPoints.FIND_PATH + "/:id"} element={<ShipmentDetails/>}></Route>
             <Route path={EndPoints.SHIPMENT_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<ShipmentUpdate/>}></Route>
             <Route path={EndPoints.SHIPMENT_TABLE + EndPoints.VIRTUAL_CREATE} element={<ShipmentCreate/>}></Route>
+
+            {/* <Route path={EndPoints.USER_TABLE + "/find_profile" + "/:id"} element={<UserProfileComponent/>} ></Route> */}
 
           </Routes>
         </BrowserRouter>

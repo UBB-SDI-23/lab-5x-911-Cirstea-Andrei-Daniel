@@ -35,6 +35,10 @@ export class EndPoints {
         return "/api" + this.BACKEND_REGISTER_SUFFIX + "/confirm/" + code;
     }
 
+    static backendUserProfile(id: string) : string {
+        return ServerSettings.API_ENDPOINT + this.USER_TABLE + "/find_profile/" + id;
+    }
+
     static FIND_PATH = "/find"
     static AUTOCOMPLETE_PATH = "/autocomplete?query="
     static PAGE_REQUEST_PATH = "/paged"
