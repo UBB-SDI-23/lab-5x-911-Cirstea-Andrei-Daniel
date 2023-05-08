@@ -58,6 +58,7 @@ public class UserController {
             return ResponseEntity.ok(dto);
         }
         catch (Exception exception)  {
+            System.out.println(exception.toString());
             return ResponseEntity.badRequest().body(exception.toString());
         }
     }
