@@ -62,7 +62,7 @@ function App() {
             <Route path={EndPoints.PURCHASE_TABLE + EndPoints.FIND_PATH + "/:id"} element={<PurchaseDetails/>}></Route>
             <Route path={EndPoints.PURCHASE_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<PurchaseUpdate/>}></Route>
             <Route path={EndPoints.PURCHASE_TABLE + EndPoints.VIRTUAL_CREATE} element={<PurchaseCreate/>}></Route>
-            <Route path={EndPoints.PURCHASE_TABLE + EndPoints.FILTER + "/:status"} element={<PurchaseFilter />}></Route>
+            <Route path={EndPoints.PURCHASE_TABLE + EndPoints.FILTER} element={<PurchaseFilter />}></Route>
 
             <Route path={EndPoints.CARSONPURCHASE_TABLE} element={<CarsOnPurchaseShowAll />}></Route>
             <Route path={EndPoints.CARSONPURCHASE_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CarsOnPurchaseDetails/>}></Route>

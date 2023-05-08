@@ -91,7 +91,9 @@ export const ShowAll = (props: any) => {
 
     let filter_element;
     if (props.has_filter) {
-        // filter_element = <Button onClick={() => {navigate_details(props.table_endpoint + EndPoints.FILTER)}}
+        filter_element = <Button onClick={() => {navigate_details(props.table_endpoint + EndPoints.FILTER)}}>
+            Filter
+        </Button>
     }
 
 
