@@ -78,7 +78,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/register")
+    @PostMapping("/register")
     public ResponseEntity<?> generateConfirmationCode(@RequestBody User user) {
         try {
             return ResponseEntity.ok(new JwtMessage(confirmationService.generateConfirmationCode(user).getValue()));

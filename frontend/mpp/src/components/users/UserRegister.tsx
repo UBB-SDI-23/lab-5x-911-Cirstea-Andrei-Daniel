@@ -31,7 +31,7 @@ export const UserRegister = () => {
         user.username = username;
         user.password = password;
         user.email = email;
-        Authentication.make_request('GET', EndPoints.backendCodeRegister(), JSON.stringify(user))
+        Authentication.make_request('POST', EndPoints.backendCodeRegister(), user)
         .then(
             (response) => {
                 console.log(response);
