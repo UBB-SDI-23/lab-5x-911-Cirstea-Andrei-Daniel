@@ -59,7 +59,7 @@ public class UserService {
         }
 
         User user = value.get();
-        user.setIsEnabled(true);
+        user.setEnabled(true);
         return user_repository.save(user);
     }
 
@@ -77,6 +77,9 @@ public class UserService {
     }
 
     public User register(User user) throws Exception {
+        if (user.getEnabled() == null) {
+            user.setEnabled(false);
+        }
         UserValidator.Validate(user);
 
         User existing_user = user_repository.findByUsername(user.getUsername());

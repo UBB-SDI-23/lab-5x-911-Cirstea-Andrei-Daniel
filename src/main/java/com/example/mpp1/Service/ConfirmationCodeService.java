@@ -21,7 +21,7 @@ public class ConfirmationCodeService {
     private UserService user_service;
 
     public ConfirmationCode generateConfirmationCode(User user) throws Exception {
-        user.setIsEnabled(false);
+        user.setEnabled(false);
         user = user_service.register(user);
 
         ConfirmationCode code = new ConfirmationCode();
