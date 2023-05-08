@@ -77,6 +77,8 @@ public class UserService {
     }
 
     public User register(User user) throws Exception {
+        UserValidator.Validate(user);
+
         User existing_user = user_repository.findByUsername(user.getUsername());
 
         if (existing_user != null) {

@@ -35,8 +35,7 @@ export const UserRegister = () => {
         .then(
             (response) => {
                 console.log(response);
-                Authentication.setAuthHeader(response.data.token);
-                navigate_details(EndPoints.HOME_PAGE)
+                setConfirmationCode(response.data.description);
             }
         )
         .catch(
@@ -101,7 +100,12 @@ export const UserRegister = () => {
     else {
         let link = EndPoints.backendConfirmCode(confirmation_code);
         current_element = <React.Fragment>
+            <h1>Click the button below to confirm your account</h1>
             <Button component={Link} to={link}>{link}</Button>
+            <br></br>
+            <Button onClick={() => {navigate_details(-1)}}>
+                <KeyboardReturnIcon />
+            </Button>
         </React.Fragment>
     }
 

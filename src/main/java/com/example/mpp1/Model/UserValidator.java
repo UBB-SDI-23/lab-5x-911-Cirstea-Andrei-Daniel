@@ -27,9 +27,12 @@ public class UserValidator {
         return contains(value, Character::isDigit);
     }
 
-    static public boolean Validate(User user) {
+    static public void Validate(User user) throws Exception {
         String password = user.getPassword();
 
-        return isPasswordValid(password);
+        boolean is_valid = isPasswordValid(password);
+        if (!is_valid) {
+            throw new Exception("Invalid password: " + password);
+        }
     }
 }
