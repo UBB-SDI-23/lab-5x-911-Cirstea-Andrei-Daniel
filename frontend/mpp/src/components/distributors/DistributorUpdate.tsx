@@ -2,7 +2,7 @@ import { Component, useEffect, useState } from 'react'
 import { ServerSettings } from '../ServerIP';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
-import { Button, TextField } from '@mui/material';
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
@@ -63,10 +63,20 @@ export const DistributorUpdate = () => {
                         setElement(element)
                     }}/>
                     <br></br>
-                    <TextField label="Category" variant="standard" defaultValue={element.category} onChange={(event)=>{
-                        element.category = event.target.value
-                        setElement(element)
-                    }}/>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            defaultValue={element.category}
+                            label="Category"
+                            onChange={(event) => {element.category = event.target.value; setElement(element);}}
+                        >
+                            <MenuItem value={"NewCars"}>NewCars</MenuItem>
+                            <MenuItem value={"OldCars"}>OldCars</MenuItem>
+                            <MenuItem value={"RenovatedCars"}>RenovatedCars</MenuItem>
+                        </Select>
+                    </FormControl>
                     </>
                 }
             </div>

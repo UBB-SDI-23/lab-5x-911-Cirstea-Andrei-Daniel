@@ -1,20 +1,38 @@
 import axios from 'axios';
 import { ServerSettings } from '../components/ServerIP';
+import { UserDTO } from '../models/DTO/UserDTO';
 
-export const getAuthToken = () => {
-    return window.localStorage.getItem('auth_token');
+export const getAuthToken = () : string => {
+    const val = window.localStorage.getItem('auth_token');
+    return val == null ? "" : val;
 };
 
-export const getAuthUsername = () => {
-    return window.localStorage.getItem('auth_username');
+export const getAuthUsername = () : string => {
+    const val = window.localStorage.getItem('auth_username');
+    return val == null ? "" : val;
+}
+
+export const getAuthId = () : number => {
+    const val = window.localStorage.getItem('auth_id');
+    return val == null ? -1 : parseInt(val);
 }
 
 export const setAuthHeader = (token: any) => {
     window.localStorage.setItem('auth_token', token);
 };
 
-export const setAuthUsername = (token: any) => {
-    window.localStorage.setItem('auth_username', token);
+export const setAuthUsername = (username: any) => {
+    window.localStorage.setItem('auth_username', username);
+}
+
+export const setAuthId = (id: any) => {
+    window.localStorage.setItem('auth_id', id);
+}
+
+export const setAuth = (dto: UserDTO) => {
+    setAuthId(dto.id)
+    setAuthUsername(dto.username)
+    setAuthHeader(dto.token)
 }
 
 axios.defaults.baseURL = ServerSettings.API_ENDPOINT;

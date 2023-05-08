@@ -10,117 +10,51 @@ import { Purchase } from '../../models/Purchase';
 import { Customer } from '../../models/Customer';
 import debounce from 'lodash.debounce';
 import * as Authentication from '../../helpers/Authentication';
+import { PurchaseSuggestions } from './PurchaseSuggestions';
+import { PurchaseForm } from './PurchaseForm';
+import { UpdatePage } from '../CRUD/UpdatePage';
+import { CreatePage } from '../CRUD/CreatePage';
 
 export const PurchaseCreate = () => {
   const [element, setElement] = useState<Purchase>(new Purchase())
-  const navigate_back = useNavigate()
+//   const navigate_back = useNavigate()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.PURCHASE_TABLE
+//     const endpoint = ServerSettings.API_ENDPOINT + EndPoints.PURCHASE_TABLE
 
-    const commit_update = () => {
-        Authentication.make_request('POST', endpoint, element)
-        .then((data) => { setElement(data.data) })
-        navigate_back(-1)
-    }
+//     const commit_update = () => {
+//         console.log(element);
+//         Authentication.make_request('POST', endpoint, element)
+//         .then((data) => { setElement(data.data) })
+//         navigate_back(-1)
+//     }
 
-    const [suggestions, setSuggestions] = useState<Customer[]>([])
-    const fetch_suggestions = (query: string) => {
-        const request_options = {
-            method: 'GET'
-        }
+//     useEffect(() => {
+//         element.user.id = Authentication.getAuthId();
+//         element.user.username = Authentication.getAuthUsername();
+//         setElement(element);
+//     }, [])
 
-        const suggestion_endpoint = ServerSettings.API_ENDPOINT + EndPoints.CUSTOMER_TABLE + EndPoints.AUTOCOMPLETE_PATH + query
-        fetch(suggestion_endpoint, request_options)
-        .then((res) => res.json())
-        .then((data) => { setSuggestions(data) })
-    }
+//     const cancel_add = () => {
+//         navigate_back(-1)
+//     }
 
-    const debouncedCallback = useMemo(
-        () => debounce(fetch_suggestions, 300)
-      , [])
+//     let form_result = <PurchaseForm element={element} setElement={setElement} ></PurchaseForm>
 
-      useEffect(() => {
-        return () => {
-            debouncedCallback.cancel();
-        }
-      }, [debouncedCallback])
+//     return (
+//         <React.Fragment>
+//             {form_result}
+//             <div>
+//                 <button onClick={commit_update}>
+//                     <AddIcon/>
+//                 </button>
 
-    const handleInputChange = (event: any, value: any, reason: any) => {
-		console.log("input", value, reason)
+//                 <button onClick={cancel_add}>
+//                     <KeyboardReturnIcon />
+//                 </button>
+//             </div>
+//         </React.Fragment>
+//     )
 
-		if (reason === "input") {
-			debouncedCallback(value)
-		}
-	}
-
-    const cancel_add = () => {
-        navigate_back(-1)
-    }
-
-    let form_result = (
-        <div>
-            <TextField type="date" label="Date" variant="standard" defaultValue={element.date.toString()} onChange={(event)=>{
-                element.date = new Date(Date.parse(event.target.value))
-                setElement(element)
-            }}/>
-            <br></br>
-            <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Pay Method</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    defaultValue={element.payMethod}
-                    label="Age"
-                    onChange={(event) => {element.payMethod = event.target.value; setElement(element);}}
-                >
-                    <MenuItem value={"CreditCard"}>CreditCard</MenuItem>
-                    <MenuItem value={"PayPal"}>PayPal</MenuItem>
-                    <MenuItem value={"Cash"}>Cash</MenuItem>
-                    <MenuItem value={"DebitCard"}>DebitCard</MenuItem>
-                    <MenuItem value={"BankTransfer"}>BankTransfer</MenuItem>
-                </Select>
-            </FormControl>
-
-            {/* <TextField label="Pay Method" variant="standard" defaultValue={element.payMethod} onChange={(event)=>{
-                element.payMethod = event.target.value
-                setElement(element)
-            }}/> */}
-            <br></br>
-            <TextField label="Status" variant="standard" defaultValue={element.status} onChange={(event)=>{
-                element.status = event.target.value
-                setElement(element)
-            }}/>
-            <br></br>
-            <Autocomplete
-                id="customer_id"
-                options={suggestions}
-                getOptionLabel={(option) => option.firstName + " " + option.lastName }
-                renderInput={(params) => <TextField  {...params} label="Customer" variant="outlined" />}
-                onInputChange={handleInputChange}
-                onChange={(event, value) => {
-                    if (value) {
-                        console.log(value);
-                        element.original_customer.id = value.id
-                        setElement(element)
-                    }
-                }}
-            />
-
-        </div>
-    );
-
-    return (
-        <React.Fragment>
-            {form_result}
-            <div>
-                <button onClick={commit_update}>
-                    <AddIcon/>
-                </button>
-
-                <button onClick={cancel_add}>
-                    <KeyboardReturnIcon />
-                </button>
-            </div>
-        </React.Fragment>
-    )
+    return <CreatePage element={element} setElement={setElement} table_endpoint={EndPoints.PURCHASE_TABLE} 
+    form_result={<PurchaseForm element={element} setElement={setElement} ></PurchaseForm>}/>
 }

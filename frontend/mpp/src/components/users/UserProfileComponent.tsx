@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
 import * as Authentication from '../../helpers/Authentication';
@@ -26,10 +26,10 @@ export const UserProfileComponent = () => {
         setDisplayError(false)
     }
 
-    const login = () => {
+    const retrieve_details = () => {
         if (id != undefined) {
             let endpoint = EndPoints.backendUserProfile(id);
-            Authentication.make_request('POST', endpoint, "")
+            Authentication.make_request('GET', endpoint, "")
             .then((data) => { setProfile(data.data) })
             .catch(
                 (error: AxiosError) => {
@@ -41,6 +41,8 @@ export const UserProfileComponent = () => {
             );
         }
     }
+
+    useEffect(retrieve_details, [])
 
     let failed_dialog_element;
     if (display_error) {
@@ -74,10 +76,24 @@ export const UserProfileComponent = () => {
          <React.Fragment>
             <h3>Description: {user_profile.description}</h3>
             <h3>Location: {user_profile.location}</h3>
+            <h3></h3>
+
+            <Button onClick={() => {
+                navigate_details(-1)
+            }}>
+                <KeyboardReturnIcon></KeyboardReturnIcon>
+            </Button>
         </React.Fragment>
     }
     else {
-        profile_element = <div>Waiting for response</div>
+        profile_element = <React.Fragment>
+            <div>Waiting for response</div>
+            <Button onClick={() => {
+                navigate_details(-1)
+            }}>
+                <KeyboardReturnIcon></KeyboardReturnIcon>
+            </Button>
+        </React.Fragment>
     }
 
     return (

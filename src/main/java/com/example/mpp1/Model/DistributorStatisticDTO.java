@@ -10,7 +10,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DistributorStatisticDTO {
-
     @Getter
     @Setter
     private Long id;
@@ -38,8 +37,4 @@ public class DistributorStatisticDTO {
     @Getter
     @Setter
     private Integer averageShipmentPrice;
-
-    @Getter
-    @Setter
-    private User user;
 }

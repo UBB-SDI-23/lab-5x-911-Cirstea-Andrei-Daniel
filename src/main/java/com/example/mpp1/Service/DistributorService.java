@@ -74,9 +74,11 @@ public class DistributorService {
                         root.get("country"),
                         root.get("contactEmail"),
                         root.get("category"),
-                        builder.coalesce(builder.toInteger(avgPrice), 0)))
+                        builder.coalesce(builder.toInteger(avgPrice), 0)
+                ))
                 .groupBy(root)
                 .orderBy(builder.desc(builder.coalesce(builder.toInteger(avgPrice), 0)));
+
         TypedQuery<DistributorStatisticDTO> typedQuery = entityManager.createQuery(query);
 
 // Set pagination

@@ -33,7 +33,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(HttpMethod.POST,"/api/users/login").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/api/**").permitAll()
+                        //.requestMatchers(HttpMethod.GET,"/api/**").permitAll()
+                        //.requestMatchers(HttpMethod.POST,"/api/**").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/users/register/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/api/users/login").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/api/users/register/**").permitAll()

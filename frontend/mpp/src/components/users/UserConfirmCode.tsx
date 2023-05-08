@@ -9,7 +9,6 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 
 export const UserConfirmCode = () => {
-    const [token, setToken] = useState<string>("")
     const [display_error, setDisplayError] = useState<boolean>(false)
     const [error_message, setErrorMessage] = useState<string>("")
     const navigate_details = useNavigate()
@@ -36,8 +35,7 @@ export const UserConfirmCode = () => {
             .then(
                 (response) => {
                     console.log(response);
-                    Authentication.setAuthHeader(response.data.token);
-                    Authentication.setAuthUsername(response.data.username);
+                    Authentication.setAuth(response.data);
                     navigate_details(EndPoints.HOME_PAGE)
                 })
             .catch(

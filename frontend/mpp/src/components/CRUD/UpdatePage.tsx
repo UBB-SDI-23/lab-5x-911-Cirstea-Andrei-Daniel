@@ -1,28 +1,26 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ServerSettings } from '../ServerIP';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
-import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Autocomplete, Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
-import { Distributor } from '../../models/Distributor';
+import { Purchase } from '../../models/Purchase';
+import { Customer } from '../../models/Customer';
+import debounce from 'lodash.debounce';
 import * as Authentication from '../../helpers/Authentication';
-import { DistributorForm } from './DistributorForm';
 
-export const DistributorCreate = () => {
-  const [element, setElement] = useState<Distributor>(new Distributor())
+export const UpdatePage = (props: any) => {
+    const { element, setElement, form_result, table_endpoint } = props;
   const navigate_back = useNavigate()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.DISTRIBUTOR_TABLE
+    const endpoint = ServerSettings.API_ENDPOINT + table_endpoint
 
     const commit_update = () => {
+        console.log(element);
         Authentication.make_request('POST', endpoint, element)
         .then((data) => { setElement(data.data) })
-        navigate_back(-1)
-    }
-
-    const cancel_add = () => {
         navigate_back(-1)
     }
 
@@ -32,7 +30,9 @@ export const DistributorCreate = () => {
         setElement(element);
     }, [])
 
-    let form_result = <DistributorForm element={element} setElement={setElement} />
+    const cancel_add = () => {
+        navigate_back(-1)
+    }
 
     return (
         <React.Fragment>

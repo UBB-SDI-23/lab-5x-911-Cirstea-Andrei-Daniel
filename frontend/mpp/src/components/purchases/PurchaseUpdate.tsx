@@ -2,7 +2,7 @@ import { Component, useEffect, useMemo, useState } from 'react'
 import { ServerSettings } from '../ServerIP';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
-import { Autocomplete, Button, TextField } from '@mui/material';
+import { Autocomplete, Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
@@ -30,14 +30,9 @@ export const PurchaseUpdate = () => {
 
         const [suggestions, setSuggestions] = useState<Customer[]>([])
         const fetch_suggestions = (query: string) => {
-            const request_options = {
-                method: 'GET'
-            }
-
             const suggestion_endpoint = ServerSettings.API_ENDPOINT + EndPoints.CUSTOMER_TABLE + EndPoints.AUTOCOMPLETE_PATH + query
-            fetch(suggestion_endpoint, request_options)
-            .then((res) => res.json())
-            .then((data) => { setSuggestions(data); console.log(data) })
+            Authentication.make_request('GET', suggestion_endpoint, "")
+            .then((data) => { let response_data = data.data; setSuggestions(response_data); console.log(response_data)  })
         }
 
         const debouncedCallback = useMemo(
@@ -61,13 +56,8 @@ export const PurchaseUpdate = () => {
         let form_result : any;
 
         useEffect(() => {
-            fetch(
-                endpoint
-            )
-            .then((res) => res.json())
-            .then((data) => {
-                setElement(data)
-            })
+            Authentication.make_request('GET', endpoint, "")
+            .then((data) => { let response_data = data.data; setElement(response_data) })
         }, [])
 
         form_result = (
@@ -80,15 +70,37 @@ export const PurchaseUpdate = () => {
                         setElement(element)
                     }}/>
                     <br></br>
-                    <TextField label="Pay Method" variant="standard" defaultValue={element.payMethod} onChange={(event)=>{
-                        element.payMethod = event.target.value
-                        setElement(element)
-                    }}/>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Pay Method</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            defaultValue={element.payMethod}
+                            label="Status"
+                            onChange={(event) => {element.payMethod = event.target.value; setElement(element);}}
+                        >
+                            <MenuItem value={"CreditCard"}>CreditCard</MenuItem>
+                            <MenuItem value={"PayPal"}>PayPal</MenuItem>
+                            <MenuItem value={"Cash"}>Cash</MenuItem>
+                            <MenuItem value={"DebitCard"}>DebitCard</MenuItem>
+                            <MenuItem value={"BankTransfer"}>BankTransfer</MenuItem>
+                        </Select>
+                    </FormControl>
                     <br></br>
-                    <TextField label="Status" variant="standard" defaultValue={element.status} onChange={(event)=>{
-                        element.status = event.target.value
-                        setElement(element)
-                    }}/>
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            defaultValue={element.status}
+                            label="Status"
+                            onChange={(event) => {element.status = event.target.value; setElement(element);}}
+                        >
+                            <MenuItem value={"Completed"}>Completed</MenuItem>
+                            <MenuItem value={"Pending"}>Pending</MenuItem>
+                            <MenuItem value={"Failed"}>Failed</MenuItem>
+                        </Select>
+                    </FormControl>
                     <br></br>
                     <Autocomplete
                         id="customer_id"

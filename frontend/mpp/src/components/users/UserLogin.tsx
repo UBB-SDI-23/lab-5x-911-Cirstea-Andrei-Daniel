@@ -32,8 +32,7 @@ export const UserLogin = () => {
         .then(
             (response) => {
                 console.log(response);
-                Authentication.setAuthHeader(response.data.token);
-                Authentication.setAuthUsername(response.data.username);
+                Authentication.setAuth(response.data);
                 navigate_details(EndPoints.HOME_PAGE)
             })
         .catch(
