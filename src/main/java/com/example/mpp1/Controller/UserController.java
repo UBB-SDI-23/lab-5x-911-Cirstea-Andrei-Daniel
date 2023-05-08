@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin(allowCredentials = "true", origins = "http://localhost:5173")
 @RestController
 @RequestMapping(path = "/api/users")
 public class UserController {
