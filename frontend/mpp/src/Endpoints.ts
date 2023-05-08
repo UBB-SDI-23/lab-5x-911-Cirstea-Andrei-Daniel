@@ -27,7 +27,7 @@ export class EndPoints {
         return ServerSettings.API_ENDPOINT + this.USER_TABLE + this.BACKEND_REGISTER_SUFFIX;
     }
 
-    static confirmationCode(code: string) : string {
+    static backendConfirmCode(code: string) : string {
         return this.backendCodeRegister() + "/" + code;
     }
 
