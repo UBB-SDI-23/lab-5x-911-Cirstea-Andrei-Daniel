@@ -61,7 +61,7 @@ public class PurchaseController {
 
     @GetMapping("/statistic/{status}")
     public List<PurchaseStatisticDTO> purchasesWithStatus(@PathVariable("status") String status) {
-        return service.purchasesWithStatusWithCountGreater(status);
+        return service.purchasesWithStatus(status);
     }
 
 }
