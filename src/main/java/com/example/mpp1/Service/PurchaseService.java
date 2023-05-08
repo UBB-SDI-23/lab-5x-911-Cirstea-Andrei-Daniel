@@ -5,6 +5,7 @@ import com.example.mpp1.Repository.PurchaseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -60,15 +61,15 @@ public class PurchaseService {
         return "Interesting successfully deleted";
     }
 
-    public List<PurchaseStatisticDTO> purchasesWithStatus(String status) {
-        List<Purchase> purchases = repository.findAllByStatusEquals(status);
+    public Page<PurchaseStatisticDTO> purchasesWithStatus(String status, Pageable pageable) {
+        Page<Purchase> purchases = repository.findAllByStatusEquals(status, pageable);
         List<PurchaseStatisticDTO> output_list = new ArrayList<PurchaseStatisticDTO>();
         purchases.forEach(purchase -> {
             int current_count = purchase.getCarsOnPurchaseList().stream().mapToInt(CarsOnPurchase::getCount).sum();
             output_list.add(convertToStatisticDTO(purchase, current_count));
         });
         output_list.sort(Comparator.comparing(PurchaseStatisticDTO::getCarsPurchased));
-        return output_list;
+        return new PageImpl<>(output_list, pageable, repository.countByStatus(status));
     }
 
     private PurchaseDTO convertToDto(Purchase element) {
