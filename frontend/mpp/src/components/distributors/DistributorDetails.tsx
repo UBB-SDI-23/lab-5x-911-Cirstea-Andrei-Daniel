@@ -68,7 +68,7 @@ export const DistributorDetails = () => {
 
             <h1>Distributor Details</h1>
             <h3>Name: {element.name}</h3>
-            <h3>Cooperation Start Date: {element.cooperation_start_date.toString()}</h3>
+            <h3>Cooperation Start Date: {element.cooperationStartDate.toString()}</h3>
             <h3>Country: {element.country}</h3>
             <h3>Contact Email: {element.contactEmail}</h3>
             <h3>Category: {element.category}</h3>
