@@ -41,8 +41,8 @@ export const DistributorCreate = () => {
                 setElement(element)
             }}/>
             <br></br>
-            <TextField type="date" label="Cooperation Start Date" variant="standard" defaultValue={element.cooperation_start_date} onChange={(event)=>{
-                element.cooperation_start_date = new Date(Date.parse(event.target.value))
+            <TextField type="date" label="Cooperation Start Date" variant="standard" defaultValue={element.cooperationStartDate} onChange={(event)=>{
+                element.cooperationStartDate = new Date(Date.parse(event.target.value))
                 setElement(element)
             }}/>
             <br></br>

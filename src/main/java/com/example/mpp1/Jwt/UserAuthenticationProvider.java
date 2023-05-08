@@ -45,6 +45,8 @@ public class UserAuthenticationProvider {
     }
 
     public Authentication validateToken(String token) {
+        System.out.println("Validating token: " + token);
+
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
 
         JWTVerifier verifier = com.auth0.jwt.JWT.require(algorithm).build();
