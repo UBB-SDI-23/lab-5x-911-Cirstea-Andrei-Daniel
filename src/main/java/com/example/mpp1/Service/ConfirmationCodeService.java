@@ -21,8 +21,10 @@ public class ConfirmationCodeService {
     private UserService user_service;
 
     public ConfirmationCode generateConfirmationCode(User user) throws Exception {
-        ConfirmationCode code = new ConfirmationCode();
         user.setIsEnabled(false);
+        user = user_service.register(user);
+        
+        ConfirmationCode code = new ConfirmationCode();
         code.setUser(user);
 
         while (true) {
@@ -45,7 +47,6 @@ public class ConfirmationCodeService {
             }
         }
 
-        user_service.register(code.getUser());
         return confirmation_code_repository.save(code);
     }
 

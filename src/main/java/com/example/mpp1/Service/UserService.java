@@ -91,8 +91,12 @@ public class UserService {
         return user;
     }
 
-    public User findID(Long userID){
+    public User findID(Long userID) {
         return user_repository.findById(userID).get();
+    }
+
+    public User findByUsername(String username) {
+        return user_repository.findByUsername(username);
     }
 
     public UserProfileDTO findUserProfile(Long userID) {
