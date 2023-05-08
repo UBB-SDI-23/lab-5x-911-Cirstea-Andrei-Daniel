@@ -34,7 +34,6 @@ export const UserProfileComponent = () => {
             .catch(
                 (error: AxiosError) => {
                     console.log(error);
-                    Authentication.setAuthHeader(null);
                     setErrorMessage(error.response?.data as string)
                     setDisplayError(true)
                 }
@@ -76,8 +75,9 @@ export const UserProfileComponent = () => {
          <React.Fragment>
             <h3>Description: {user_profile.description}</h3>
             <h3>Location: {user_profile.location}</h3>
-            <h3></h3>
-
+            <h3>Birthday: {user_profile.birthday.toString()}</h3>
+            <h3>Gender: {user_profile.gender}</h3>
+            <h3>Phone Number: {user_profile.phone_number}</h3>
             <Button onClick={() => {
                 navigate_details(-1)
             }}>

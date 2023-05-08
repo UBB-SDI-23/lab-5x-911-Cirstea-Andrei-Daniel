@@ -20,7 +20,7 @@ export const DistributorStatistic = () => {
         field: 'averageShipmentPrice', headerName: 'Average Shipment Price', type: 'number', width: 160
     }
     table_columns.push(averagePriceColumn)
-    
+    table_columns.shift()
 
     return  (
         <React.Fragment>

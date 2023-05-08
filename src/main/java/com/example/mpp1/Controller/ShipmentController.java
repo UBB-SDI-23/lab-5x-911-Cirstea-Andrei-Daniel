@@ -47,11 +47,6 @@ public class ShipmentController {
         return service.findID(shipmentID);
     }
 
-    @GetMapping("/filter/{id}")
-    public List<ShipmentDTO> filterByIDHigher(@PathVariable("id") Long id) {
-        return service.filterByIDHigher(id);
-    }
-
     @PutMapping("/{id}")
     public Shipment updateShipment(@RequestBody Shipment shipment, @PathVariable("id") Long shipmentID) {
         return service.updateShipment(shipment, shipmentID);

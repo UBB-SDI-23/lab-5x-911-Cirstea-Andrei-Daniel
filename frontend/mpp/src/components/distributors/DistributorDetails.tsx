@@ -17,7 +17,7 @@ export const DistributorDetails = () => {
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.DISTRIBUTOR_TABLE + "/" + id 
+    const endpoint = EndPoints.backendFind(EndPoints.DISTRIBUTOR_TABLE, id)
 
     let shipment_columns: GridColDef[] = [
         { field: 'expected_arrival', headerName: 'Date', type: 'date', width: 130 },
@@ -70,6 +70,7 @@ export const DistributorDetails = () => {
             <h3>Country: {element.country}</h3>
             <h3>Contact Email: {element.contactEmail}</h3>
             <h3>Category: {element.category}</h3>
+            <h3>User: {element.user.username}</h3>
             {shipment_html}
         </div>
     )

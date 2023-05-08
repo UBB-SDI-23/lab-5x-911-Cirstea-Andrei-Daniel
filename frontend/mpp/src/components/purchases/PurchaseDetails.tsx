@@ -16,7 +16,7 @@ export const PurchaseDetails = () => {
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.PURCHASE_TABLE + "/" + id 
+    const endpoint = EndPoints.backendFind(EndPoints.PURCHASE_TABLE, id)
 
     let cars_on_purchase_columns: GridColDef[] = [
         { field: 'count', headerName: 'Order Count', type: 'number', width: 130 },
@@ -67,6 +67,7 @@ export const PurchaseDetails = () => {
             <h3>Date: {element.date.toString()}</h3>
             <h3>Pay Method: {element.payMethod}</h3>
             <h3>Status: {element.status}</h3>
+            <h3>User: {element.user.username}</h3>
             {purchases_html}
         </div>
     )

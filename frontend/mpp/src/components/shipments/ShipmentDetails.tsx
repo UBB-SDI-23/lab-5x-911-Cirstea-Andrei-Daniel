@@ -15,7 +15,7 @@ export const ShipmentDetails = () => {
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.SHIPMENT_TABLE + "/" + id 
+    const endpoint = EndPoints.backendFind(EndPoints.SHIPMENT_TABLE, id)
 
     useEffect(() => {
         Authentication.make_request('GET', endpoint, "")
@@ -42,6 +42,7 @@ export const ShipmentDetails = () => {
             <h3>Expected Arrival: {element.expectedArrival.toString()}</h3>
             <h3>Arrival: {element.arrival.toString()}</h3>
             <h3>Total Price: {element.totalPrice}</h3>
+            <h3>User: {element.user.username}</h3>
         </div>
     )
 }

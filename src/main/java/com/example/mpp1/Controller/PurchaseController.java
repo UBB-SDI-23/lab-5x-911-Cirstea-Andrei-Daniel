@@ -59,9 +59,9 @@ public class PurchaseController {
         return service.deletePurchase(purchaseID);
     }
 
-    @GetMapping("/statistic/{status}/{count}")
-    public List<PurchaseStatisticDTO> purchasesWithStatusWithCountGreater(@PathVariable("status") String status, @PathVariable("count") Long count) {
-        return service.purchasesWithStatusWithCountGreater(status, count);
+    @GetMapping("/statistic/{status}")
+    public List<PurchaseStatisticDTO> purchasesWithStatus(@PathVariable("status") String status) {
+        return service.purchasesWithStatusWithCountGreater(status);
     }
 
 }

@@ -89,6 +89,11 @@ export const ShowAll = (props: any) => {
         </Button>
     }
 
+    let filter_element;
+    if (props.has_filter) {
+        // filter_element = <Button onClick={() => {navigate_details(props.table_endpoint + EndPoints.FILTER)}}
+    }
+
 
     const handle_delete_dialog_open = () => {
         set_delete_dialog(true)

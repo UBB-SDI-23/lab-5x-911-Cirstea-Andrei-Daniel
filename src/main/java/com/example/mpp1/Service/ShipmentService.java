@@ -49,11 +49,6 @@ public class ShipmentService {
         return repository.countByUserId(userID);
     }
 
-    public List<ShipmentDTO> filterByIDHigher(Long id) {
-        List<Shipment> list = repository.findByIdGreaterThanEqual(id);
-        return list.stream().map(this::convertToDto).collect(Collectors.toList());
-    }
-
     public Shipment updateShipment(Shipment shipment, Long shipmentID) {
         Shipment old_shipment = findID(shipmentID);
         old_shipment = shipment;

@@ -60,14 +60,12 @@ public class PurchaseService {
         return "Interesting successfully deleted";
     }
 
-    public List<PurchaseStatisticDTO> purchasesWithStatusWithCountGreater(String status, Long count) {
+    public List<PurchaseStatisticDTO> purchasesWithStatus(String status) {
         List<Purchase> purchases = repository.findAllByStatusEquals(status);
         List<PurchaseStatisticDTO> output_list = new ArrayList<PurchaseStatisticDTO>();
         purchases.forEach(purchase -> {
             int current_count = purchase.getCarsOnPurchaseList().stream().mapToInt(CarsOnPurchase::getCount).sum();
-            if (current_count >= count) {
-                output_list.add(convertToStatisticDTO(purchase, current_count));
-            }
+            output_list.add(convertToStatisticDTO(purchase, current_count));
         });
         output_list.sort(Comparator.comparing(PurchaseStatisticDTO::getCarsPurchased));
         return output_list;
@@ -83,7 +81,6 @@ public class PurchaseService {
     private PurchaseStatisticDTO convertToStatisticDTO(Purchase element, Integer totalCount) {
         PurchaseStatisticDTO dto = modelMapper.map(element, PurchaseStatisticDTO.class);
         dto.setCarsPurchased(totalCount);
-        dto.setCustomerID(element.getOriginal_customer().getId());
         return dto;
     }
 

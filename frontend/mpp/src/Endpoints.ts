@@ -11,9 +11,14 @@ export class EndPoints {
     static CARSONPURCHASE_TABLE = "/api/carsonpurchases"
     static USER_TABLE = "/api/users"
     static STATISTIC = "/statistic"
+    static FILTER = "/filter"
     
     static BACKEND_LOGIN_SUFFIX = "/login"
     static BACKEND_REGISTER_SUFFIX = "/register"
+
+    static backendFind(table_endpoint: string, id: string | undefined) : string {
+        return ServerSettings.API_ENDPOINT + table_endpoint + this.FIND_PATH + "/" + id 
+    }
 
     static backendLogin() : string {
         return ServerSettings.API_ENDPOINT + this.USER_TABLE + this.BACKEND_LOGIN_SUFFIX;

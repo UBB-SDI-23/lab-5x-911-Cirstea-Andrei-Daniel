@@ -9,93 +9,98 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import { CarsOnPurchase } from '../../models/CarsOnPurchase';
 import * as Authentication from '../../helpers/Authentication';
+import { UpdatePage } from '../CRUD/UpdatePage';
+import { CarsOnPurchaseForm } from './CarsOnPurchaseForm';
 
 export const CarsOnPurchaseUpdate = () => {
     const [element, setElement] = useState<CarsOnPurchase>(new CarsOnPurchase())
-    const navigate_back = useNavigate()
-        const { id } = useParams()
+    // const navigate_back = useNavigate()
+    //     const { id } = useParams()
 
-        const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CARSONPURCHASE_TABLE + "/" + id
+    //     const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CARSONPURCHASE_TABLE + "/" + id
 
-        const commit_update = () => {
-            Authentication.make_request('PUT', endpoint, element)
-            .then((data) => { let response_data = data.data; setElement(response_data); })
-            navigate_back(-1)
-        }
+    //     const commit_update = () => {
+    //         Authentication.make_request('PUT', endpoint, element)
+    //         .then((data) => { let response_data = data.data; setElement(response_data); })
+    //         navigate_back(-1)
+    //     }
 
-        const cancel_update = () => {
-            navigate_back(-1)
-        }
+    //     const cancel_update = () => {
+    //         navigate_back(-1)
+    //     }
 
-        let form_result : any;
+    //     let form_result : any;
 
-        useEffect(() => {
-            fetch(
-                endpoint
-            )
-            .then((res) => res.json())
-            .then((data) => {
-                setElement(data)
-            })
-        }, [])
+    //     useEffect(() => {
+    //         fetch(
+    //             endpoint
+    //         )
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setElement(data)
+    //         })
+    //     }, [])
 
-        form_result = (
-            <div>
-                {
-                    element.id != -1 &&
-                    <>
-                    {/* <TextField label="Car Model" variant="standard" defaultValue={element.carModel} onChange={(event)=>{
-                        element.carModel = event.target.value
-                        setElement(element)
-                    }}/>
-                    <br></br>
-                    <TextField label="Purchase" variant="standard" defaultValue={element.purchase} onChange={(event)=>{
-                        element.lastName = event.target.value
-                        setElement(element)
-                    }}/> */}
-                    <br></br>
-                    <TextField type="number" label="Count" variant="standard" defaultValue={element.count} onChange={(event)=>{
-                        element.count = parseInt(event.target.value)
-                        setElement(element)
-                    }}/>
-                    <br></br>
-                    <TextField type="number" label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
-                        element.priority = parseInt(event.target.value)
-                        setElement(element)
-                    }} />
-                    <br></br>
-                    {/* <TextField label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
-                        element.priority = event.target.value
-                        setElement(element)
-                    }} /> */}
-                    </>
-                }
-            </div>
-        );
+    //     form_result = (
+    //         <div>
+    //             {
+    //                 element.id != -1 &&
+    //                 <>
+    //                 {/* <TextField label="Car Model" variant="standard" defaultValue={element.carModel} onChange={(event)=>{
+    //                     element.carModel = event.target.value
+    //                     setElement(element)
+    //                 }}/>
+    //                 <br></br>
+    //                 <TextField label="Purchase" variant="standard" defaultValue={element.purchase} onChange={(event)=>{
+    //                     element.lastName = event.target.value
+    //                     setElement(element)
+    //                 }}/> */}
+    //                 <br></br>
+    //                 <TextField type="number" label="Count" variant="standard" defaultValue={element.count} onChange={(event)=>{
+    //                     element.count = parseInt(event.target.value)
+    //                     setElement(element)
+    //                 }}/>
+    //                 <br></br>
+    //                 <TextField type="number" label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
+    //                     element.priority = parseInt(event.target.value)
+    //                     setElement(element)
+    //                 }} />
+    //                 <br></br>
+    //                 {/* <TextField label="Priority" variant="standard" defaultValue={element.priority} onChange={(event)=>{
+    //                     element.priority = event.target.value
+    //                     setElement(element)
+    //                 }} /> */}
+    //                 </>
+    //             }
+    //         </div>
+    //     );
 
-        let return_element = <Button onClick={() => navigate_back(-1)}>
-            <KeyboardReturnIcon/>
-        </Button>
+    //     let return_element = <Button onClick={() => navigate_back(-1)}>
+    //         <KeyboardReturnIcon/>
+    //     </Button>
 
-        if (element === undefined) {
-            return <React.Fragment>
-                {return_element}
-                <div>Oops! The Car Order with id {id} was not found!</div>
-            </React.Fragment>
-        } 
+    //     if (element === undefined) {
+    //         return <React.Fragment>
+    //             {return_element}
+    //             <div>Oops! The Car Order with id {id} was not found!</div>
+    //         </React.Fragment>
+    //     } 
 
-        return (
-            <React.Fragment>
-            {form_result}
-            <div>
-                <button onClick={commit_update}>
-                    <EditIcon/>
-                </button>
+    //     return (
+    //         <React.Fragment>
+    //         {form_result}
+    //         <div>
+    //             <button onClick={commit_update}>
+    //                 <EditIcon/>
+    //             </button>
 
-                <button onClick={cancel_update}>
-                    <KeyboardReturnIcon/>
-                </button>
-            </div>
-            </React.Fragment>
-        )
+    //             <button onClick={cancel_update}>
+    //                 <KeyboardReturnIcon/>
+    //             </button>
+    //         </div>
+    //         </React.Fragment>
+    //     )
+
+    return <UpdatePage element={element} setElement={setElement} description={"Car Order"} table_endpoint={EndPoints.CARSONPURCHASE_TABLE}
+        form_result={<CarsOnPurchaseForm element={element} setElement={setElement} />}/>
 }

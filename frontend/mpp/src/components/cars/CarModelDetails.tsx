@@ -9,13 +9,13 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import * as Authentication from '../../helpers/Authentication';
 
 export const CarModelDetails = () => {
-  const [carModel, setCarModel] = useState<CarModel>()
+  const [element, setCarModel] = useState<CarModel>()
   const [purchases_html, set_purchases_html] = useState((<h3>No Purchases</h3>))
   const navigate_details = useNavigate()
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CAR_TABLE + "/" + id 
+    const endpoint = EndPoints.backendFind(EndPoints.CAR_TABLE, id)
 
     useEffect(() => {
         Authentication.make_request('GET', endpoint, "")
@@ -50,7 +50,7 @@ export const CarModelDetails = () => {
         <KeyboardReturnIcon/>
     </Button>
 
-    if (carModel === undefined) {
+    if (element === undefined) {
         return <React.Fragment>
             {return_element}
             <div>Oops! The Car Model with id {id} was not found!</div>
@@ -62,11 +62,13 @@ export const CarModelDetails = () => {
             {return_element}
 
             <h1>Car Model Details</h1>
-            <h3>Model: {carModel.model}</h3>
-            <h3>Manufacturer: {carModel.manufacturer}</h3>
-            <h3>Manufacture Year: {carModel.manufacture_year}</h3>
-            <h3>Price: {carModel.price}</h3>
-            <h3>Fuel Consumption: {carModel.fuel_consumption}</h3>
+            <h3>Model: {element.model}</h3>
+            <h3>Manufacturer: {element.manufacturer}</h3>
+            <h3>Manufacture Year: {element.manufacture_year}</h3>
+            <h3>Price: {element.price}</h3>
+            <h3>Fuel Consumption: {element.fuel_consumption}</h3>
+            <h3>User: {element.user.username}</h3>
+            <h3>Orders</h3>
             {purchases_html}
         </div>
     )

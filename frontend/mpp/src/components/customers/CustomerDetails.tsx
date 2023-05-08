@@ -17,7 +17,7 @@ export const CustomerDetails = () => {
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CUSTOMER_TABLE + "/" + id 
+    const endpoint = EndPoints.backendFind(EndPoints.CUSTOMER_TABLE, id)
 
     let purchase_columns: GridColDef[] = [
         { field: 'date', headerName: 'Date', type: 'date', width: 130 },
@@ -70,6 +70,7 @@ export const CustomerDetails = () => {
             <h3>Phone Number: {element.telephone_number}</h3>
             <h3>Email: {element.email_address}</h3>
             <h3>Priority: {element.priority}</h3>
+            <h3>User: {element.user.username}</h3>
             {purchases_html}
         </div>
     )

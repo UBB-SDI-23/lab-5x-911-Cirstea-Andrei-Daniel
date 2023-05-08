@@ -17,7 +17,7 @@ export const CarsOnPurchaseDetails = () => {
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CARSONPURCHASE_TABLE + "/" + id 
+    const endpoint = EndPoints.backendFind(EndPoints.CARSONPURCHASE_TABLE, id)
 
     useEffect(() => {
         Authentication.make_request('GET', endpoint, "")
@@ -45,6 +45,7 @@ export const CarsOnPurchaseDetails = () => {
             <h3>Car Model: {element.carModel.manufacturer} {element.carModel.model}</h3>
             <h3>Count: {element.count}</h3>
             <h3>Priority: {element.priority}</h3>
+            <h3>User: {element.user.username}</h3>
         </div>
     )
 }
