@@ -8,6 +8,7 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import { Purchase } from '../../models/Purchase';
 import { Shipment } from '../../models/Shipment';
+import * as Authentication from '../../helpers/Authentication';
 
 export const ShipmentCreate = () => {
   const [element, setElement] = useState<Shipment>(new Shipment())
@@ -16,18 +17,8 @@ export const ShipmentCreate = () => {
     const endpoint = ServerSettings.API_ENDPOINT + EndPoints.SHIPMENT_TABLE
 
     const commit_update = () => {
-        const request_options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(element, null, 2)
-        };
-
-        fetch(
-            endpoint,
-            request_options
-        )
-        .then((res) => res.json())
-        .then((data) => {setElement(data); })
+        Authentication.make_request('POST', endpoint, element)
+        .then((data) => { setElement(data.data) })
         navigate_back(-1)
     }
 

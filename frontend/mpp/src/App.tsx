@@ -10,7 +10,6 @@ import { EndPoints } from './Endpoints'
 import { CarModelDetails } from './components/cars/CarModelDetails'
 import { CarModelUpdate } from './components/cars/CarModelUpdate'
 import { CarModelCreate } from './components/cars/CarModelCreate'
-import { CarModelStatistic } from './components/cars/CarModelStatistic'
 import { CarsOnPurchaseDetails } from './components/cars_on_purchase/CarsOnPurchaseDetails'
 import { CarsOnPurchaseShowAll } from './components/cars_on_purchase/CarsOnPurchaseShowAll'
 import { CarsOnPurchaseUpdate } from './components/cars_on_purchase/CarsOnPurchaseUpdate'
@@ -52,7 +51,6 @@ function App() {
             <Route path={EndPoints.CAR_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CarModelDetails/>}></Route>
             <Route path={EndPoints.CAR_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<CarModelUpdate/>}></Route>
             <Route path={EndPoints.CAR_TABLE + EndPoints.VIRTUAL_CREATE} element={<CarModelCreate/>}></Route>
-            {/* <Route path={EndPoints.CAR_TABLE + EndPoints.STATISTIC} element={<CarModelStatistic/>}></Route> */}
 
             <Route path={EndPoints.CUSTOMER_TABLE} element={<CustomerShowAll />}></Route>
             <Route path={EndPoints.CUSTOMER_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CustomerDetails/>}></Route>

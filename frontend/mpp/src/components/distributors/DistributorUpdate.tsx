@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import { Distributor } from '../../models/Distributor';
+import * as Authentication from '../../helpers/Authentication';
 
 export const DistributorUpdate = () => {
     const [element, setElement] = useState<Distributor>(new Distributor())
@@ -16,18 +17,8 @@ export const DistributorUpdate = () => {
         const endpoint = ServerSettings.API_ENDPOINT + EndPoints.DISTRIBUTOR_TABLE + "/" + id
 
         const commit_update = () => {
-            const request_options = {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(element, null, 2)
-            };
-
-            fetch(
-                endpoint,
-                request_options
-            )
-            .then((res) => res.json())
-            .then((data) => {setElement(data); console.log(data)})
+            Authentication.make_request('PUT', endpoint, element)
+            .then((data) => { let response_data = data.data; setElement(response_data); })
             navigate_back(-1)
         }
 

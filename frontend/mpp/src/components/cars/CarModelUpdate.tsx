@@ -7,6 +7,7 @@ import { Button, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
+import * as Authentication from '../../helpers/Authentication';
 
 export const CarModelUpdate = () => {
     const [carModel, setCarModel] = useState<CarModel>(new CarModel())
@@ -16,18 +17,8 @@ export const CarModelUpdate = () => {
         const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CAR_TABLE + "/" + id
 
         const commit_update = () => {
-            const request_options = {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(carModel, null, 2)
-            };
-
-            fetch(
-                endpoint,
-                request_options
-            )
-            .then((res) => res.json())
-            .then((data) => setCarModel(data))
+            Authentication.make_request('PUT', endpoint, carModel)
+            .then((data) => { setCarModel(data.data) })
             navigate_back(-1)
         }
 

@@ -8,6 +8,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Customer } from '../../models/Customer';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
+import * as Authentication from '../../helpers/Authentication';
 
 export const CustomerDetails = () => {
   const [element, setElement] = useState<Customer>(new Customer())
@@ -25,15 +26,12 @@ export const CustomerDetails = () => {
     ];
 
     useEffect(() => {
-        fetch(
-            endpoint
-        )
-        .then((res) => res.json())
-        .then((data) => { console.log(data); setElement(data);
-         if (!(data.purchases === undefined || data.purchases.length == 0)) {
+        Authentication.make_request('GET', endpoint, "")
+        .then((data) => { let response_data = data.data; console.log(response_data); setElement(response_data);
+         if (!(response_data.purchases === undefined || response_data.purchases.length == 0)) {
             set_purchases_html(<Box sx={{ height: 650, width: '100%' }}>
                     <DataGrid
-                        rows={data.purchases}
+                        rows={response_data.purchases}
                         columns={purchase_columns}
                         initialState={{
                             pagination: {

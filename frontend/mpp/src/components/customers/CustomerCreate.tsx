@@ -7,6 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import { Customer } from '../../models/Customer';
+import * as Authentication from '../../helpers/Authentication';
 
 export const CustomerCreate = () => {
   const [element, setElement] = useState<Customer>(new Customer())
@@ -15,18 +16,8 @@ export const CustomerCreate = () => {
     const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CUSTOMER_TABLE
 
     const commit_update = () => {
-        const request_options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(element, null, 2)
-        };
-
-        fetch(
-            endpoint,
-            request_options
-        )
-        .then((res) => res.json())
-        .then((data) => {setElement(data); })
+        Authentication.make_request('POST', endpoint, element)
+        .then((data) => { setElement(data.data) })
         navigate_back(-1)
     }
 

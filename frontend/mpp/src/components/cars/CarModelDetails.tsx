@@ -6,6 +6,7 @@ import { EndPoints } from '../../Endpoints';
 import { Box, Button, TextField } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import * as Authentication from '../../helpers/Authentication';
 
 export const CarModelDetails = () => {
   const [carModel, setCarModel] = useState<CarModel>()
@@ -17,15 +18,12 @@ export const CarModelDetails = () => {
     const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CAR_TABLE + "/" + id 
 
     useEffect(() => {
-        fetch(
-            endpoint
-        )
-        .then((res) => res.json())
-        .then((data) => { console.log(data); setCarModel(data);
-         if (!(data.carsOnPurchaseList === undefined || data.carsOnPurchaseList.length == 0)) {
+        Authentication.make_request('GET', endpoint, "")
+        .then((data) => { let response_data = data.data; console.log(response_data); setCarModel(response_data) 
+         if (!(response_data.carsOnPurchaseList === undefined || response_data.carsOnPurchaseList.length == 0)) {
             set_purchases_html(<Box sx={{ height: 650, width: '100%' }}>
                     <DataGrid
-                        rows={data.carsOnPurchaseList}
+                        rows={response_data.carsOnPurchaseList}
                         columns={cars_on_purchase_columns}
                         initialState={{
                             pagination: {

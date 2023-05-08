@@ -9,6 +9,7 @@ import React from 'react';
 import { Customer } from '../../models/Customer';
 import { Purchase } from '../../models/Purchase';
 import debounce from 'lodash.debounce';
+import * as Authentication from '../../helpers/Authentication';
 
 export const PurchaseUpdate = () => {
     const [element, setElement] = useState<Purchase>(new Purchase())
@@ -18,18 +19,8 @@ export const PurchaseUpdate = () => {
         const endpoint = ServerSettings.API_ENDPOINT + EndPoints.PURCHASE_TABLE + "/" + id
 
         const commit_update = () => {
-            const request_options = {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(element, null, 2)
-            };
-
-            fetch(
-                endpoint,
-                request_options
-            )
-            .then((res) => res.json())
-            .then((data) => setElement(data))
+            Authentication.make_request('PUT', endpoint, element)
+            .then((data) => { let response_data = data.data; setElement(response_data); })
             navigate_back(-1)
         }
 

@@ -8,6 +8,7 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import { Shipment } from '../../models/Shipment';
 import { Distributor } from '../../models/Distributor';
+import * as Authentication from '../../helpers/Authentication';
 
 export const DistributorDetails = () => {
   const [element, setElement] = useState<Distributor>(new Distributor())
@@ -25,15 +26,12 @@ export const DistributorDetails = () => {
     ];
 
     useEffect(() => {
-        fetch(
-            endpoint
-        )
-        .then((res) => res.json())
-        .then((data) => { console.log(data); setElement(data); 
-            if (!(data.shipments === undefined || data.shipments.length == 0)) {
+        Authentication.make_request('GET', endpoint, "")
+        .then((data) => { let response_data = data.data; console.log(response_data); setElement(response_data);
+            if (!(response_data.shipments === undefined || response_data.shipments.length == 0)) {
                 set_shipment_html(<Box sx={{ height: 650, width: '100%' }}>
                         <DataGrid
-                            rows={data.purchases}
+                            rows={response_data.purchases}
                             columns={shipment_columns}
                             initialState={{
                                 pagination: {
