@@ -38,6 +38,10 @@ public class User implements UserDetails {
     @Setter
     private String password;
 
+    @Getter
+    @Setter
+    private Boolean isEnabled;
+
     @ElementCollection
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
@@ -65,11 +69,15 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isEnabled;
     }
 
     public String toString() {
-        return "Id: " +  id + ", Username: " + username + ", Password: " + password + ", Email: " + email + ", Roles: " + roles.toString();
+        return "Id: " +  id + ", Username: " + username + ", Password: " + password + ", isEnabled: " + isEnabled + ", Email: " + email + ", Roles: " + roles.toString();
+    }
+
+    public User deepCopy() {
+        return new User(getId(), new String(getUsername()), new String(getEmail()), new String(getPassword()), isEnabled, new ArrayList<>(getRoles()));
     }
 
 }

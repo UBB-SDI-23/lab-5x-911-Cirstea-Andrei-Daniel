@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class JwtError {
+public class JwtMessage {
 
     @Getter
     @Setter

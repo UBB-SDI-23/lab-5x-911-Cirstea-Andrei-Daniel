@@ -2,6 +2,7 @@ package com.example.mpp1.Service;
 
 
 import com.example.mpp1.Jwt.JwtRequest;
+import com.example.mpp1.Jwt.UserAuthenticationProvider;
 import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.UserProfileRepository;
 import com.example.mpp1.Repository.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -45,6 +47,21 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    public List<User> getUsers() {
+        return user_repository.findAll();
+    }
+
+    public User enableUser(Long userID) throws Exception {
+        Optional<User> value = user_repository.findById(userID);
+        if (!value.isPresent()) {
+            throw new Exception("Invalid user id when trying to enable");
+        }
+
+        User user = value.get();
+        user.setIsEnabled(true);
+        return user_repository.save(user);
+    }
 
     public User login(JwtRequest request) throws Exception {
         User user = user_repository.findByUsername(request.getUsername());

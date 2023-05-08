@@ -19,8 +19,16 @@ export class EndPoints {
         return ServerSettings.API_ENDPOINT + this.USER_TABLE + this.BACKEND_LOGIN_SUFFIX;
     }
 
-    static backendRegister() : string {
+    static backendCodeRegister() : string {
+        return ServerSettings.API_ENDPOINT + "/api" + this.BACKEND_REGISTER_SUFFIX;
+    }
+
+    static backendDirectRegister() : string {
         return ServerSettings.API_ENDPOINT + this.USER_TABLE + this.BACKEND_REGISTER_SUFFIX;
+    }
+
+    static confirmationCode(code: string) : string {
+        return this.backendCodeRegister() + "/" + code;
     }
 
     static FIND_PATH = "/find"
