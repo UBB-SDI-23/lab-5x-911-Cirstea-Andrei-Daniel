@@ -49,6 +49,8 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody JwtRequest request) {
         try {
+            System.out.println("Login entered " + request.toString());
+
             User user = service.login(request);
             UserDTO dto = new UserDTO();
             dto.setId(user.getId());

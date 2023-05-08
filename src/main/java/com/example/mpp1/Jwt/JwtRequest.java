@@ -17,4 +17,8 @@ public class JwtRequest {
     @Setter
     private String password;
 
+    public String toString() {
+        return "Username: " + username + "; Password: " + password;
+    }
+
 }
