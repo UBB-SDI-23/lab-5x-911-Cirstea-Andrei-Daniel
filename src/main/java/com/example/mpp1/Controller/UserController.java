@@ -60,7 +60,7 @@ public class UserController {
         }
         catch (Exception exception)  {
             System.out.println(exception.toString());
-            return ResponseEntity.badRequest().header("Description", exception.toString()).build();
+            return ResponseEntity.badRequest().header("Description", exception.toString()).body(exception.toString());
         }
     }
 
