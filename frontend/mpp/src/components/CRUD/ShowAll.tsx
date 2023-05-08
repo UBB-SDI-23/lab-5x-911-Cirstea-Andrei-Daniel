@@ -292,6 +292,7 @@ export const ShowAll = (props: any) => {
         </Button>
 
         {statistic_element}
+        {filter_element}
 
         {data_grid}
     </div>
