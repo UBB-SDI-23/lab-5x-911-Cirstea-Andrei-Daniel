@@ -13,6 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import MuiPagination from '@mui/material/Pagination';
 import { TablePaginationProps } from '@mui/material/TablePagination';
+import * as Authentication from '../../helpers/Authentication';
 
 export const ShowAll = (props: any) => {
   const navigate_details = useNavigate()
@@ -33,13 +34,17 @@ export const ShowAll = (props: any) => {
   const [successful_dialog, set_successful_dialog] = useState(false)
   const [failed_dialog, set_failed_dialog] = useState(false)
 
+  
 
   const update_elements = () => {
-      fetch(
-          ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" + current_page
-      )
-      .then((res) => res.json())
-      .then((data) => { console.log(data); setElements(data.content); setElementCount(data.totalElements); setPageCount(data.totalPages); })
+    Authentication.make_request('GET', ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" + current_page, "")
+    .then((data) => { 
+        let response_data = data.data; 
+        setElements(response_data.content);
+         setElementCount(response_data.totalElements);
+          setPageCount(response_data.totalPages); 
+          console.log(data) }
+        );
   }
 
   const update_page =  (page: number) => {

@@ -8,6 +8,7 @@ import React from 'react';
 import { ServerSettings } from '../ServerIP';
 import { EndPoints } from '../../Endpoints';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
+import * as Authentication from '../../helpers/Authentication';
 
 export const ShowAllTable = (props: any) => {
     const [elements, setElements] = useState<any>()
@@ -20,11 +21,14 @@ export const ShowAllTable = (props: any) => {
     const [current_page, setCurrentPage] = useState<number>(0)
 
     const update_elements = () => {
-        fetch(
-            ServerSettings.API_ENDPOINT + props.table_endpoint + props.request_endpoint + "?page=" + current_page
-        )
-        .then((res) => res.json())
-        .then((data) => {setElements(data.content); setElementCount(data.totalElements); setPageCount(data.totalPages); console.log(data) })
+        Authentication.make_request('GET', ServerSettings.API_ENDPOINT + props.table_endpoint + props.request_endpoint + "?page=" + current_page, "")
+        .then((data) => { 
+            let response_data = data.data; 
+            setElements(response_data.content);
+             setElementCount(response_data.totalElements);
+              setPageCount(response_data.totalPages); 
+              console.log(data) }
+            );
     }
 
     useEffect(() => {
