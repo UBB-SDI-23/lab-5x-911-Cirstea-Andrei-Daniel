@@ -1,5 +1,6 @@
 package com.example.mpp1.Controller;
 
+import com.example.mpp1.Jwt.JwtError;
 import com.example.mpp1.Jwt.JwtRequest;
 import com.example.mpp1.Jwt.UserAuthenticationProvider;
 import com.example.mpp1.Model.*;
@@ -59,7 +60,7 @@ public class UserController {
         }
         catch (Exception exception)  {
             System.out.println(exception.toString());
-            return ResponseEntity.badRequest().body(exception.toString());
+            return ResponseEntity.badRequest().body(new JwtError(exception.toString()));
         }
     }
 
