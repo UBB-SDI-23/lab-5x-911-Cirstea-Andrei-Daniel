@@ -7,7 +7,6 @@ import com.example.mpp1.Service.ConfirmationCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "/api/register")
 public class ConfirmationCodeController {
