@@ -5,9 +5,17 @@ export const getAuthToken = () => {
     return window.localStorage.getItem('auth_token');
 };
 
+export const getAuthUsername = () => {
+    return window.localStorage.getItem('auth_username');
+}
+
 export const setAuthHeader = (token: any) => {
     window.localStorage.setItem('auth_token', token);
 };
+
+export const setAuthUsername = (token: any) => {
+    window.localStorage.setItem('auth_username', token);
+}
 
 axios.defaults.baseURL = ServerSettings.API_ENDPOINT;
 axios.defaults.headers.post['Content-Type'] = 'application/json';

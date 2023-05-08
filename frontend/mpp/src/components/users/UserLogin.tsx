@@ -33,6 +33,7 @@ export const UserLogin = () => {
             (response) => {
                 console.log(response);
                 Authentication.setAuthHeader(response.data.token);
+                Authentication.setAuthUsername(response.data.username);
                 navigate_details(EndPoints.HOME_PAGE)
             })
         .catch(

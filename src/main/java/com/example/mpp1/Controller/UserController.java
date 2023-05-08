@@ -103,6 +103,7 @@ public class UserController {
         UserDTO dto = new UserDTO();
         dto.setId(user.getId());
         dto.setToken(userAuthenticationProvider.createToken(user.getUsername()));
+        dto.setUsername(user.getUsername());
         return dto;
     }
 

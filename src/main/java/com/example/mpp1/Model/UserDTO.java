@@ -12,6 +12,10 @@ public class UserDTO {
 
     @Getter
     @Setter
+    private String username;
+
+    @Getter
+    @Setter
     private String token;
 
 }
