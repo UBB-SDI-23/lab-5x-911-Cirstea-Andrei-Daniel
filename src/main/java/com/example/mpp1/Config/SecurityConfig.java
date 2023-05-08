@@ -31,9 +31,11 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers(HttpMethod.POST, "/api/users/login", "/api/users/register").permitAll()
-                        .anyRequest().authenticated()).cors().disable()
-        ;
+                        .requestMatchers(HttpMethod.POST,"/api/users/login").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/**").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/users/register/**").permitAll()
+                        .anyRequest().authenticated()
+                );
         return http.build();
     }
 }
