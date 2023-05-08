@@ -32,9 +32,9 @@ export const UserLogin = () => {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin' : '*'
+                //'Access-Control-Allow-Origin' : '*'
             },
-            body: JSON.stringify(login_request, null, 2)
+            body: JSON.stringify(login_request)
         }
 
         const suggestion_endpoint = EndPoints.backendLogin()
