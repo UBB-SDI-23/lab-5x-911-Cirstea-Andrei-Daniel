@@ -23,7 +23,7 @@ public class ConfirmationCodeService {
     public ConfirmationCode generateConfirmationCode(User user) throws Exception {
         user.setIsEnabled(false);
         user = user_service.register(user);
-        
+
         ConfirmationCode code = new ConfirmationCode();
         code.setUser(user);
 

@@ -85,8 +85,8 @@ public class UserService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         UserProfile profile = new UserProfile();
-        profile.setUser(user);
         user = user_repository.save(user);
+        profile.setUser(user);
         user_profile_repository.save(profile);
         return user;
     }
