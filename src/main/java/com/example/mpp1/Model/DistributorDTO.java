@@ -37,4 +37,8 @@ public class DistributorDTO {
     @Setter
     private Integer shipmentCount;
 
+    @Getter
+    @Setter
+    private User user;
+
 }

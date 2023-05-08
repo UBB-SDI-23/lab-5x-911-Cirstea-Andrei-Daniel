@@ -33,4 +33,8 @@ public class PurchaseDTO {
     @Setter
     private Integer carsPurchased;
 
+    @Getter
+    @Setter
+    private User user;
+
 }

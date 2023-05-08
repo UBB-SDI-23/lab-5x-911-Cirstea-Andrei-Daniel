@@ -36,4 +36,8 @@ public class CustomerDTO {
     @Setter
     private Integer purchaseCount;
 
+    @Getter
+    @Setter
+    private User user;
+
 }

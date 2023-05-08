@@ -37,7 +37,6 @@ import { UserRegister } from './components/users/UserRegister'
 import { UserConfirmCode } from './components/users/UserConfirmCode'
 
 function App() {
-  console.log(EndPoints.backendConfirmCodeAPIOnly("") + ":code")
   return (
     <React.Fragment>
       <div className="App">

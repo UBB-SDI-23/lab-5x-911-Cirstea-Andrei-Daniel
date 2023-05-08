@@ -38,4 +38,8 @@ public class DistributorStatisticDTO {
     @Getter
     @Setter
     private Integer averageShipmentPrice;
+
+    @Getter
+    @Setter
+    private User user;
 }

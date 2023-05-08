@@ -1,5 +1,6 @@
 import { CarsOnPurchase } from "./CarsOnPurchase";
 import { Customer } from "./Customer";
+import { User } from "./User";
 
 export class Purchase {
     id: number = -1;
@@ -8,4 +9,5 @@ export class Purchase {
     status: string = "";
     original_customer: Customer = new Customer();
     car_models: CarsOnPurchase[] = [];
+    user: User = new User();
 }

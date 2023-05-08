@@ -1,5 +1,6 @@
 import { CarModel } from "./CarModel";
 import { Purchase } from "./Purchase";
+import { User } from "./User";
 
 export class CarsOnPurchase {
     id: number = -1;
@@ -7,4 +8,5 @@ export class CarsOnPurchase {
     priority: number = 0;
     carModel: CarModel = new CarModel();
     purchase: Purchase = new Purchase();
+    user: User = new User();
 }

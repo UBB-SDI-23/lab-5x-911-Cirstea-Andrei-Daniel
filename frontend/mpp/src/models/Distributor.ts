@@ -1,4 +1,5 @@
 import { Shipment } from "./Shipment";
+import { User } from "./User";
 
 
 export class Distributor {
@@ -9,4 +10,5 @@ export class Distributor {
     contactEmail : string = "";
     category : string = "";
     shipments: Shipment[] = [];
+    user: User = new User();
 }

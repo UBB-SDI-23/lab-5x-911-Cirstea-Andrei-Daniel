@@ -39,7 +39,7 @@ export const ShowAll = (props: any) => {
           ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" + current_page
       )
       .then((res) => res.json())
-      .then((data) => {setElements(data.content); setElementCount(data.totalElements); setPageCount(data.totalPages); })
+      .then((data) => { console.log(data); setElements(data.content); setElementCount(data.totalElements); setPageCount(data.totalPages); })
   }
 
   const update_page =  (page: number) => {

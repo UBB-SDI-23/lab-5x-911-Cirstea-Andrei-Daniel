@@ -30,4 +30,8 @@ public class PurchaseStatisticDTO {
     @Setter
     private Integer carsPurchased;
 
+    @Getter
+    @Setter
+    private User user;
+
 }

@@ -18,4 +18,8 @@ public class CarsOnPurchaseDTO {
     @Setter
     private Integer priority;
 
+    @Getter
+    @Setter
+    private User user;
+
 }
