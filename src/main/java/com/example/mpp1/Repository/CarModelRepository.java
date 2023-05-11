@@ -19,6 +19,8 @@ import java.util.List;
 @Repository
 public interface CarModelRepository extends JpaRepository<CarModel, Long> {
 
+    Page<CarModel> findAllByOrderById(Pageable pageable);
+
     int countByUserId(Long userId);
 
 }

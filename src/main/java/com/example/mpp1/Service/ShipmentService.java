@@ -30,7 +30,7 @@ public class ShipmentService {
 
     public Page<ShipmentDTO> getPage(Pageable page) {
         //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
-        return repository.findAll(page).map(this::convertToDto);
+        return repository.findAllByOrderById(page).map(this::convertToDto);
     }
 
     public Shipment createShipment(Shipment shipment) {

@@ -1,5 +1,6 @@
 package com.example.mpp1.Repository;
 
+import com.example.mpp1.Model.Customer;
 import com.example.mpp1.Model.Purchase;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,8 @@ import java.util.List;
 
 @Repository
 public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
+
+    Page<Purchase> findAllByOrderById(Pageable pageable);
 
     List<Purchase> findAllByStatusEquals(String status);
 

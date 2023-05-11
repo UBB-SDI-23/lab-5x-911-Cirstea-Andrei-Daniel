@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import { CarModel } from '../../models/CarModel'
 import { ServerSettings } from "../ServerIP"
 import { Link, useNavigate } from 'react-router-dom'
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, IconButton, Pagination } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControlLabel, IconButton, Pagination, PaginationItem, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import { EndPoints } from '../../Endpoints';
 import React from 'react';
@@ -11,7 +11,7 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { ShowAllTable } from '../CRUD/ShowAllTable';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import MuiPagination from '@mui/material/Pagination';
+import MuiPagination, { PaginationProps } from '@mui/material/Pagination';
 import { TablePaginationProps } from '@mui/material/TablePagination';
 import * as Authentication from '../../helpers/Authentication';
 
@@ -231,6 +231,8 @@ export const ShowAll = (props: any) => {
             count={page_count} 
             color="primary"
             onChange={handlePageChange}
+            siblingCount={5}
+            boundaryCount={5}
             {...props}
             page={current_page + 1}
           />
@@ -256,6 +258,7 @@ export const ShowAll = (props: any) => {
     if (true) {
         columns.push(action_column)
     }
+
     let data_grid = (
         <React.Fragment>
             <Box sx={{ height: 650, width: '100%' }}>

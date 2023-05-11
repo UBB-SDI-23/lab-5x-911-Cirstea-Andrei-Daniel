@@ -49,7 +49,7 @@ public class CarModelService {
 
     public Page<CarModelDTO> getPage(Pageable page) {
         //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
-        return repository.findAll(page).map(this::convertToDto);
+        return repository.findAllByOrderById(page).map(this::convertToDto);
     }
 
     public CarModel createCarModel(CarModel carModel) throws Exception {
