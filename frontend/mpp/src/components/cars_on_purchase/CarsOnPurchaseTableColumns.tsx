@@ -6,13 +6,13 @@ import { UserColumn } from '../CRUD/ShowAllUserColumn';
 export const CarsOnPurchaseTableColumns = () => {
     let table_columns: GridColDef[] = [
         { field: 'carModel', headerName: 'Car Model', width: 130, 
-            renderCell: (params) => (
-            <Link to={EndPoints.CARSONPURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value.model}</Link>
+            renderCell: (params) => (         
+            <Link to={EndPoints.CARSONPURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.row.carModel?.model}</Link>
           ) 
         },
         { field: 'purchase', headerName: 'Purchase', width: 130,
           renderCell: (params) => (
-            <Link to={EndPoints.CARSONPURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value.customer.name}</Link>
+            <Link to={EndPoints.CARSONPURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.row.purchase?.name}</Link>
           ) 
         },
         { field: 'count', headerName: 'Count', type: 'number', width: 160,
