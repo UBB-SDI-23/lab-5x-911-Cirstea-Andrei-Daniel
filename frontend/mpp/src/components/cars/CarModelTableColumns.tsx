@@ -1,12 +1,13 @@
 import { DataGrid, GridActionsCellItem, GridColDef, GridRenderCellParams, GridRowParams, GridValueGetterParams } from '@mui/x-data-grid'
 import { EndPoints } from '../../Endpoints'
 import { Link } from 'react-router-dom'
+import { UserColumn } from '../CRUD/ShowAllUserColumn';
 
 export const CarModelTableColumns = () => {
     let table_columns: GridColDef[] = [
         { field: 'model', headerName: 'Model', width: 130, 
             renderCell: (params) => (
-              <Link to={EndPoints.CAR_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
+              <Link to={EndPoints.CAR_TABLE + EndPoints.FIND_PATH + "/" + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
             ) 
         },
         { field: 'manufacturer', headerName: 'Manufacturer', width: 130 },
@@ -24,6 +25,8 @@ export const CarModelTableColumns = () => {
           width: 160,
         },
       ];
+
+      table_columns.unshift(UserColumn());
 
     return table_columns;
 }

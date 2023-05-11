@@ -10,7 +10,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DistributorStatisticDTO {
-
     @Getter
     @Setter
     private Long id;

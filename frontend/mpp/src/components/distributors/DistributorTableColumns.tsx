@@ -1,6 +1,7 @@
 import { DataGrid, GridActionsCellItem, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
+import { UserColumn } from '../CRUD/ShowAllUserColumn';
 
 export const DistributorTableColumns = () => {
     let table_columns: GridColDef[] = [
@@ -15,6 +16,8 @@ export const DistributorTableColumns = () => {
         { field: 'category', headerName: 'Category', width: 160},
         { field: 'shipmentCount', headerName: 'Shipment Count', type: 'number', width: 160 }
       ];
+
+      table_columns.unshift(UserColumn());
 
     return table_columns;
 }

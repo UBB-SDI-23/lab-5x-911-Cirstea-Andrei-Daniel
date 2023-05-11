@@ -36,4 +36,8 @@ public class CarModelDTO {
     @Setter
     private Integer purchaseCount;
 
+    @Getter
+    @Setter
+    private User user;
+
 }

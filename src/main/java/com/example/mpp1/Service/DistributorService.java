@@ -38,7 +38,7 @@ public class DistributorService {
 
     public Page<DistributorDTO> getPage(Pageable page) {
         //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
-        return repository.findAll(page).map(this::convertToDto);
+        return repository.findAllByOrderById(page).map(this::convertToDto);
     }
 
     public ResponseEntity<?> createDistributor(Distributor distributor) {
@@ -74,9 +74,11 @@ public class DistributorService {
                         root.get("country"),
                         root.get("contactEmail"),
                         root.get("category"),
-                        builder.coalesce(builder.toInteger(avgPrice), 0)))
+                        builder.coalesce(builder.toInteger(avgPrice), 0)
+                ))
                 .groupBy(root)
                 .orderBy(builder.desc(builder.coalesce(builder.toInteger(avgPrice), 0)));
+
         TypedQuery<DistributorStatisticDTO> typedQuery = entityManager.createQuery(query);
 
 // Set pagination
@@ -93,6 +95,10 @@ public class DistributorService {
 
     public Distributor findID(Long distributorID){
         return repository.findById(distributorID).get();
+    }
+
+    public Integer findCountForUser(Long userID) {
+        return repository.countByUserId(userID);
     }
 
     public Distributor updateDistributor(Distributor distributor, Long distributorID){

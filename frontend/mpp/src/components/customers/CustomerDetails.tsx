@@ -8,6 +8,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Customer } from '../../models/Customer';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
+import * as Authentication from '../../helpers/Authentication';
 
 export const CustomerDetails = () => {
   const [element, setElement] = useState<Customer>(new Customer())
@@ -16,7 +17,7 @@ export const CustomerDetails = () => {
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CUSTOMER_TABLE + "/" + id 
+    const endpoint = EndPoints.backendFind(EndPoints.CUSTOMER_TABLE, id)
 
     let purchase_columns: GridColDef[] = [
         { field: 'date', headerName: 'Date', type: 'date', width: 130 },
@@ -25,15 +26,12 @@ export const CustomerDetails = () => {
     ];
 
     useEffect(() => {
-        fetch(
-            endpoint
-        )
-        .then((res) => res.json())
-        .then((data) => { console.log(data); setElement(data);
-         if (!(data.purchases === undefined || data.purchases.length == 0)) {
+        Authentication.make_request('GET', endpoint, "")
+        .then((data) => { let response_data = data.data; console.log(response_data); setElement(response_data);
+         if (!(response_data.purchases === undefined || response_data.purchases.length == 0)) {
             set_purchases_html(<Box sx={{ height: 650, width: '100%' }}>
                     <DataGrid
-                        rows={data.purchases}
+                        rows={response_data.purchases}
                         columns={purchase_columns}
                         initialState={{
                             pagination: {
@@ -72,6 +70,7 @@ export const CustomerDetails = () => {
             <h3>Phone Number: {element.telephone_number}</h3>
             <h3>Email: {element.email_address}</h3>
             <h3>Priority: {element.priority}</h3>
+            <h3>User: {element.user.username}</h3>
             {purchases_html}
         </div>
     )

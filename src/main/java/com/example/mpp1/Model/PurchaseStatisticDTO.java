@@ -24,10 +24,6 @@ public class PurchaseStatisticDTO {
 
     @Getter
     @Setter
-    private Long customerID;
-
-    @Getter
-    @Setter
     private Integer carsPurchased;
 
 }

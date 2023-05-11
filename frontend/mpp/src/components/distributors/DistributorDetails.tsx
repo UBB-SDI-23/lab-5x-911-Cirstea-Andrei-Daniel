@@ -8,6 +8,7 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import { Shipment } from '../../models/Shipment';
 import { Distributor } from '../../models/Distributor';
+import * as Authentication from '../../helpers/Authentication';
 
 export const DistributorDetails = () => {
   const [element, setElement] = useState<Distributor>(new Distributor())
@@ -16,7 +17,7 @@ export const DistributorDetails = () => {
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.DISTRIBUTOR_TABLE + "/" + id 
+    const endpoint = EndPoints.backendFind(EndPoints.DISTRIBUTOR_TABLE, id)
 
     let shipment_columns: GridColDef[] = [
         { field: 'expected_arrival', headerName: 'Date', type: 'date', width: 130 },
@@ -25,15 +26,12 @@ export const DistributorDetails = () => {
     ];
 
     useEffect(() => {
-        fetch(
-            endpoint
-        )
-        .then((res) => res.json())
-        .then((data) => { console.log(data); setElement(data); 
-            if (!(data.shipments === undefined || data.shipments.length == 0)) {
+        Authentication.make_request('GET', endpoint, "")
+        .then((data) => { let response_data = data.data; console.log(response_data); setElement(response_data);
+            if (!(response_data.shipments === undefined || response_data.shipments.length == 0)) {
                 set_shipment_html(<Box sx={{ height: 650, width: '100%' }}>
                         <DataGrid
-                            rows={data.purchases}
+                            rows={response_data.purchases}
                             columns={shipment_columns}
                             initialState={{
                                 pagination: {
@@ -68,10 +66,11 @@ export const DistributorDetails = () => {
 
             <h1>Distributor Details</h1>
             <h3>Name: {element.name}</h3>
-            <h3>Cooperation Start Date: {element.cooperation_start_date.toString()}</h3>
+            <h3>Cooperation Start Date: {element.cooperationStartDate.toString()}</h3>
             <h3>Country: {element.country}</h3>
             <h3>Contact Email: {element.contactEmail}</h3>
             <h3>Category: {element.category}</h3>
+            <h3>User: {element.user.username}</h3>
             {shipment_html}
         </div>
     )

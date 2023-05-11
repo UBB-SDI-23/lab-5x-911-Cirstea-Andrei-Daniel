@@ -30,7 +30,7 @@ public class ShipmentService {
 
     public Page<ShipmentDTO> getPage(Pageable page) {
         //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
-        return repository.findAll(page).map(this::convertToDto);
+        return repository.findAllByOrderById(page).map(this::convertToDto);
     }
 
     public Shipment createShipment(Shipment shipment) {
@@ -45,9 +45,8 @@ public class ShipmentService {
         return repository.findById(shipmentID).get();
     }
 
-    public List<ShipmentDTO> filterByIDHigher(Long id) {
-        List<Shipment> list = repository.findByIdGreaterThanEqual(id);
-        return list.stream().map(this::convertToDto).collect(Collectors.toList());
+    public Integer findCountForUser(Long userID) {
+        return repository.countByUserId(userID);
     }
 
     public Shipment updateShipment(Shipment shipment, Long shipmentID) {

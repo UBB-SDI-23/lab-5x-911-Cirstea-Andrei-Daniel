@@ -10,7 +10,6 @@ import { EndPoints } from './Endpoints'
 import { CarModelDetails } from './components/cars/CarModelDetails'
 import { CarModelUpdate } from './components/cars/CarModelUpdate'
 import { CarModelCreate } from './components/cars/CarModelCreate'
-import { CarModelStatistic } from './components/cars/CarModelStatistic'
 import { CarsOnPurchaseDetails } from './components/cars_on_purchase/CarsOnPurchaseDetails'
 import { CarsOnPurchaseShowAll } from './components/cars_on_purchase/CarsOnPurchaseShowAll'
 import { CarsOnPurchaseUpdate } from './components/cars_on_purchase/CarsOnPurchaseUpdate'
@@ -32,20 +31,27 @@ import { ShipmentShowAll } from './components/shipments/ShipmentShowAll'
 import { ShipmentUpdate } from './components/shipments/ShipmentUpdate'
 import { DistributorUpdate } from './components/distributors/DistributorUpdate'
 import { DistributorStatistic } from './components/distributors/DistributorStatistic'
+import { UserLogin } from './components/users/UserLogin'
+import { UserRegister } from './components/users/UserRegister'
+import { UserConfirmCode } from './components/users/UserConfirmCode'
+import { UserProfileComponent } from './components/users/UserProfileComponent'
+import { PurchaseFilter } from './components/purchases/PurchaseFilter'
 
 function App() {
   return (
     <React.Fragment>
       <div className="App">
         <BrowserRouter>
-          <Routes>           
+          <Routes>
+            <Route path={EndPoints.REGISTER_PAGE} element={<UserRegister/>}></Route>
+            <Route path={EndPoints.backendConfirmCodeAPIOnly("") + ":code"} element={<UserConfirmCode />}></Route>
+            <Route path={EndPoints.LOGIN_PAGE} element={<UserLogin />}></Route>
             <Route path={EndPoints.HOME_PAGE} element={<HomePage />}></Route>
 
             <Route path={EndPoints.CAR_TABLE} element={<CarModelShowAll />}></Route>
             <Route path={EndPoints.CAR_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CarModelDetails/>}></Route>
             <Route path={EndPoints.CAR_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<CarModelUpdate/>}></Route>
             <Route path={EndPoints.CAR_TABLE + EndPoints.VIRTUAL_CREATE} element={<CarModelCreate/>}></Route>
-            {/* <Route path={EndPoints.CAR_TABLE + EndPoints.STATISTIC} element={<CarModelStatistic/>}></Route> */}
 
             <Route path={EndPoints.CUSTOMER_TABLE} element={<CustomerShowAll />}></Route>
             <Route path={EndPoints.CUSTOMER_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CustomerDetails/>}></Route>
@@ -56,6 +62,7 @@ function App() {
             <Route path={EndPoints.PURCHASE_TABLE + EndPoints.FIND_PATH + "/:id"} element={<PurchaseDetails/>}></Route>
             <Route path={EndPoints.PURCHASE_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<PurchaseUpdate/>}></Route>
             <Route path={EndPoints.PURCHASE_TABLE + EndPoints.VIRTUAL_CREATE} element={<PurchaseCreate/>}></Route>
+            <Route path={EndPoints.PURCHASE_TABLE + EndPoints.FILTER} element={<PurchaseFilter />}></Route>
 
             <Route path={EndPoints.CARSONPURCHASE_TABLE} element={<CarsOnPurchaseShowAll />}></Route>
             <Route path={EndPoints.CARSONPURCHASE_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CarsOnPurchaseDetails/>}></Route>
@@ -72,6 +79,8 @@ function App() {
             <Route path={EndPoints.SHIPMENT_TABLE + EndPoints.FIND_PATH + "/:id"} element={<ShipmentDetails/>}></Route>
             <Route path={EndPoints.SHIPMENT_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<ShipmentUpdate/>}></Route>
             <Route path={EndPoints.SHIPMENT_TABLE + EndPoints.VIRTUAL_CREATE} element={<ShipmentCreate/>}></Route>
+
+            {/* <Route path={EndPoints.USER_TABLE + "/find_profile" + "/:id"} element={<UserProfileComponent/>} ></Route> */}
 
           </Routes>
         </BrowserRouter>

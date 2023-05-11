@@ -8,6 +8,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import { CarModel } from '../../models/CarModel';
 import React from 'react';
+import { UserColumn } from '../CRUD/ShowAllUserColumn';
 
 export const PurchaseTableColumns = () => {
     let table_columns: GridColDef[] = [
@@ -25,6 +26,8 @@ export const PurchaseTableColumns = () => {
             width: 160  
         }
       ];
+
+      table_columns.unshift(UserColumn());
 
     return table_columns;
 }

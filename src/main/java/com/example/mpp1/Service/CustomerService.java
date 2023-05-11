@@ -33,7 +33,7 @@ public class CustomerService {
 
     public Page<CustomerDTO> getPage(Pageable page) {
         //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
-        return repository.findAll(page).map(this::convertToDto);
+        return repository.findAllByOrderById(page).map(this::convertToDto);
     }
 
     public ResponseEntity<?> createCustomer(Customer customer) {
@@ -64,6 +64,10 @@ public class CustomerService {
 
     public Customer findID(Long carID) {
         return repository.findById(carID).get();
+    }
+
+    public Integer findCountForUser(Long userID) {
+        return repository.countByUserId(userID);
     }
 
     public Customer updateCustomer(Customer customer, Long customerID){

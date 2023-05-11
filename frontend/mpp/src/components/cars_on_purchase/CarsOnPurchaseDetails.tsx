@@ -9,6 +9,7 @@ import { Customer } from '../../models/Customer';
 import { CarsOnPurchase } from '../../models/CarsOnPurchase';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
+import * as Authentication from '../../helpers/Authentication';
 
 export const CarsOnPurchaseDetails = () => {
   const [element, setElement] = useState<CarsOnPurchase>(new CarsOnPurchase())
@@ -16,14 +17,11 @@ export const CarsOnPurchaseDetails = () => {
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.CARSONPURCHASE_TABLE + "/" + id 
+    const endpoint = EndPoints.backendFind(EndPoints.CARSONPURCHASE_TABLE, id)
 
     useEffect(() => {
-        fetch(
-            endpoint
-        )
-        .then((res) => res.json())
-        .then((data) => { console.log(data); setElement(data); })
+        Authentication.make_request('GET', endpoint, "")
+        .then((data) => { console.log(data.data); setElement(data.data); })
     }, [])
 
     let return_element = <Button onClick={() => navigate_details(-1)}>
@@ -47,6 +45,7 @@ export const CarsOnPurchaseDetails = () => {
             <h3>Car Model: {element.carModel.manufacturer} {element.carModel.model}</h3>
             <h3>Count: {element.count}</h3>
             <h3>Priority: {element.priority}</h3>
+            <h3>User: {element.user.username}</h3>
         </div>
     )
 }

@@ -38,14 +38,14 @@ public class User implements UserDetails {
     @Setter
     private String password;
 
+    @Getter
+    @Setter
+    private Boolean enabled;
+
     @ElementCollection
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     private List<String> roles = new ArrayList<>();
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("user")
-    private UserProfile userProfile;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -69,7 +69,15 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
+    }
+
+    public String toString() {
+        return "Id: " +  id + ", Username: " + username + ", Password: " + password + ", enabled: " + enabled + ", Email: " + email + ", Roles: " + roles.toString();
+    }
+
+    public User deepCopy() {
+        return new User(getId(), new String(getUsername()), new String(getEmail()), new String(getPassword()), enabled, new ArrayList<>(getRoles()));
     }
 
 }

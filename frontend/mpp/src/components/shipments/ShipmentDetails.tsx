@@ -7,6 +7,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import { Shipment } from '../../models/Shipment';
+import * as Authentication from '../../helpers/Authentication';
 
 export const ShipmentDetails = () => {
   const [element, setElement] = useState<Shipment>(new Shipment())
@@ -14,14 +15,11 @@ export const ShipmentDetails = () => {
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.SHIPMENT_TABLE + "/" + id 
+    const endpoint = EndPoints.backendFind(EndPoints.SHIPMENT_TABLE, id)
 
     useEffect(() => {
-        fetch(
-            endpoint
-        )
-        .then((res) => res.json())
-        .then((data) => { console.log(data); setElement(data); })
+        Authentication.make_request('GET', endpoint, "")
+        .then((data) => { let response_data = data.data; console.log(response_data); setElement(response_data) });
     }, [])
 
     let return_element = <Button onClick={() => navigate_details(-1)}>
@@ -44,6 +42,7 @@ export const ShipmentDetails = () => {
             <h3>Expected Arrival: {element.expectedArrival.toString()}</h3>
             <h3>Arrival: {element.arrival.toString()}</h3>
             <h3>Total Price: {element.totalPrice}</h3>
+            <h3>User: {element.user.username}</h3>
         </div>
     )
 }

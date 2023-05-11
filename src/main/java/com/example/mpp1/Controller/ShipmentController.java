@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "/api/shipments")
 public class ShipmentController {
@@ -46,11 +45,6 @@ public class ShipmentController {
     @GetMapping("/find/{id}")
     public Shipment findID(@PathVariable("id") Long shipmentID){
         return service.findID(shipmentID);
-    }
-
-    @GetMapping("/filter/{id}")
-    public List<ShipmentDTO> filterByIDHigher(@PathVariable("id") Long id) {
-        return service.filterByIDHigher(id);
     }
 
     @PutMapping("/{id}")

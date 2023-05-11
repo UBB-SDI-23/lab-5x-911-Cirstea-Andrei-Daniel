@@ -31,7 +31,7 @@ public class CarsOnPurchaseService {
 
     public Page<CarsOnPurchaseDTO> getPage(Pageable page) {
         //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
-        return repository.findAll(page).map(this::convertToDto);
+        return repository.findAllByOrderById(page).map(this::convertToDto);
     }
 
     public CarsOnPurchase createCarsOnPurchase(CarsOnPurchase carsOnPurchase) {
@@ -67,6 +67,10 @@ public class CarsOnPurchaseService {
 
     public CarsOnPurchase findID(Long id) {
         return repository.findById(id).get();
+    }
+
+    public Integer findCountForUser(Long userID) {
+        return repository.countByUserId(userID);
     }
 
     public CarsOnPurchase updateCarOnPurchase(CarsOnPurchase carsOnPurchase, Long id){

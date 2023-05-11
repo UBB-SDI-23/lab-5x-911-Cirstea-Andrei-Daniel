@@ -7,6 +7,7 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Purchase } from '../../models/Purchase';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
+import * as Authentication from '../../helpers/Authentication';
 
 export const PurchaseDetails = () => {
   const [element, setElement] = useState<Purchase>(new Purchase())
@@ -15,7 +16,7 @@ export const PurchaseDetails = () => {
 
     const { id } = useParams()
 
-    const endpoint = ServerSettings.API_ENDPOINT + EndPoints.PURCHASE_TABLE + "/" + id 
+    const endpoint = EndPoints.backendFind(EndPoints.PURCHASE_TABLE, id)
 
     let cars_on_purchase_columns: GridColDef[] = [
         { field: 'count', headerName: 'Order Count', type: 'number', width: 130 },
@@ -23,15 +24,12 @@ export const PurchaseDetails = () => {
     ];
 
     useEffect(() => {
-        fetch(
-            endpoint
-        )
-        .then((res) => res.json())
-        .then((data) => { console.log(data); setElement(data);
-         if (!(data.carsOnPurchaseList === undefined || data.carsOnPurchaseList.length == 0)) {
+        Authentication.make_request('GET', endpoint, "")
+        .then((data) => { let response_data = data.data; console.log(response_data); setElement(response_data);
+         if (!(response_data.carsOnPurchaseList === undefined || response_data.carsOnPurchaseList.length == 0)) {
             set_purchases_html(<Box sx={{ height: 650, width: '100%' }}>
                     <DataGrid
-                        rows={data.carsOnPurchaseList}
+                        rows={response_data.carsOnPurchaseList}
                         columns={cars_on_purchase_columns}
                         initialState={{
                             pagination: {
@@ -69,6 +67,7 @@ export const PurchaseDetails = () => {
             <h3>Date: {element.date.toString()}</h3>
             <h3>Pay Method: {element.payMethod}</h3>
             <h3>Status: {element.status}</h3>
+            <h3>User: {element.user.username}</h3>
             {purchases_html}
         </div>
     )

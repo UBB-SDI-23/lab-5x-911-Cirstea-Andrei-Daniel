@@ -1,4 +1,5 @@
 import { Purchase } from "./Purchase";
+import { User } from "./User";
 
 export class Customer {
     id : number = -1;
@@ -8,4 +9,5 @@ export class Customer {
     email_address : string = "";
     priority : string = "";
     purchases : Purchase[] = [];
+    user: User = new User();
 }

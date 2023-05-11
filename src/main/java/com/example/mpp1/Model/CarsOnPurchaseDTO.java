@@ -12,10 +12,22 @@ public class CarsOnPurchaseDTO {
 
     @Getter
     @Setter
+    private CarModel carModel;
+
+    @Getter
+    @Setter
+    private Purchase purchase;
+
+    @Getter
+    @Setter
     private Integer count;
 
     @Getter
     @Setter
     private Integer priority;
+
+    @Getter
+    @Setter
+    private User user;
 
 }

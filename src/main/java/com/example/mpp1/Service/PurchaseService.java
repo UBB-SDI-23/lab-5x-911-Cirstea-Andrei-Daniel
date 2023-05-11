@@ -5,6 +5,7 @@ import com.example.mpp1.Repository.PurchaseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class PurchaseService {
 
     public Page<PurchaseDTO> getPage(Pageable page) {
         //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
-        return repository.findAll(page).map(this::convertToDto);
+        return repository.findAllByOrderById(page).map(this::convertToDto);
     }
 
     public Purchase createPurchase(Purchase purchase) {
@@ -45,6 +46,10 @@ public class PurchaseService {
         return repository.findById(purchaseID).get();
     }
 
+    public Integer findCountForUser(Long userID) {
+        return repository.countByUserId(userID);
+    }
+
     public Purchase updatePurchase(Purchase purchase, Long purchaseID){
         Purchase old_purchase = findID(purchaseID);
         old_purchase = purchase;
@@ -56,17 +61,15 @@ public class PurchaseService {
         return "Interesting successfully deleted";
     }
 
-    public List<PurchaseStatisticDTO> purchasesWithStatusWithCountGreater(String status, Long count) {
-        List<Purchase> purchases = repository.findAllByStatusEquals(status);
+    public Page<PurchaseStatisticDTO> purchasesWithStatus(String status, Pageable pageable) {
+        Page<Purchase> purchases = repository.findAllByStatusEquals(status, pageable);
         List<PurchaseStatisticDTO> output_list = new ArrayList<PurchaseStatisticDTO>();
         purchases.forEach(purchase -> {
             int current_count = purchase.getCarsOnPurchaseList().stream().mapToInt(CarsOnPurchase::getCount).sum();
-            if (current_count >= count) {
-                output_list.add(convertToStatisticDTO(purchase, current_count));
-            }
+            output_list.add(convertToStatisticDTO(purchase, current_count));
         });
         output_list.sort(Comparator.comparing(PurchaseStatisticDTO::getCarsPurchased));
-        return output_list;
+        return new PageImpl<>(output_list, pageable, repository.countByStatus(status));
     }
 
     private PurchaseDTO convertToDto(Purchase element) {
@@ -79,7 +82,6 @@ public class PurchaseService {
     private PurchaseStatisticDTO convertToStatisticDTO(Purchase element, Integer totalCount) {
         PurchaseStatisticDTO dto = modelMapper.map(element, PurchaseStatisticDTO.class);
         dto.setCarsPurchased(totalCount);
-        dto.setCustomerID(element.getOriginal_customer().getId());
         return dto;
     }
 
