@@ -3,6 +3,7 @@ package com.example.mpp1.Jwt;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.mpp1.Model.User;
 import com.example.mpp1.Model.UserDTO;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Map;
 
 import static org.springframework.security.config.Elements.JWT;
 
@@ -46,15 +48,28 @@ public class UserAuthenticationProvider {
 
     public Authentication validateToken(String token) {
         System.out.println("Validating token: " + token);
+        DecodedJWT decoded = getDecodedToken(token);
+        String username = getUsernameFromToken(decoded);
+        User user = userService.findByUsername(username);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 
+        System.out.println(authentication.getPrincipal());
+
+        return authentication;
+    }
+
+    public DecodedJWT getDecodedToken(String token) {
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
-
         JWTVerifier verifier = com.auth0.jwt.JWT.require(algorithm).build();
+        return verifier.verify(token);
+    }
 
-        DecodedJWT decoded = verifier.verify(token);
+    public String getUsernameFromToken(DecodedJWT decoded) {
+        return decoded.getIssuer();
+    }
 
-        User user = userService.findByUsername(decoded.getIssuer());
-        return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+    public Map<String, Claim> getClaimsFromToken(DecodedJWT decoded) {
+        return decoded.getClaims();
     }
 
 }

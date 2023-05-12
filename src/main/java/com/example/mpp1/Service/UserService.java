@@ -10,6 +10,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,24 +28,6 @@ public class UserService {
 
     @Autowired
     private UserProfileRepository user_profile_repository;
-
-    @Autowired
-    private CarModelService car_model_service;
-
-    @Autowired
-    private CarsOnPurchaseService cars_on_purchase_service;
-
-    @Autowired
-    private CustomerService customer_service;
-
-    @Autowired
-    private DistributorService distributor_service;
-
-    @Autowired
-    private PurchaseService purchase_service;
-
-    @Autowired
-    private ShipmentService shipment_service;
 
     private ModelMapper modelMapper = new ModelMapper();
 
@@ -104,9 +90,21 @@ public class UserService {
         return user_repository.findByUsername(username);
     }
 
-    public UserProfileDTO findUserProfile(Long userID) {
-        UserProfile user_profile = user_profile_repository.findByUserId(userID);
-        return convertToDto(user_profile);
+    public UserProfile findUserProfile(Long userID) {
+        return user_profile_repository.findByUserId(userID);
+    }
+
+    public void ValidateUser(IWithUser with_user, String role) throws Exception {
+        // Check to see if the request user is the same as the session one
+        User session_user = getCurrentUser();
+
+        if (!with_user.getUser().getId().equals(session_user.getId())) {
+            // Check to see if their role is only ROLE_REGULAR
+            UserRole userRole = session_user.getRoles().get(0);
+            if (userRole.getName().compareTo(role) == 0) {
+                throw new Exception("Cannot update the car model of user " + with_user.getUser().getId() + " while having role " + role);
+            }
+        }
     }
 
     public String deleteUser(Long userID){
@@ -116,18 +114,13 @@ public class UserService {
         return "User successfully deleted";
     }
 
-    private UserProfileDTO convertToDto(UserProfile element) {
-        UserProfileDTO dto = modelMapper.map(element, UserProfileDTO.class);
-        List<Integer> entity_count = dto.getEntity_count();
-        User user = element.getUser();
-        Long user_id = user.getId();
-        entity_count.add(car_model_service.findCountForUser(user_id));
-        entity_count.add(customer_service.findCountForUser(user_id));
-        entity_count.add(distributor_service.findCountForUser(user_id));
-        entity_count.add(purchase_service.findCountForUser(user_id));
-        entity_count.add(shipment_service.findCountForUser(user_id));
-        entity_count.add(cars_on_purchase_service.findCountForUser(user_id));
-        return dto;
+    public User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            UserDetails user_details = (UserDetails)principal;
+            return findByUsername(user_details.getUsername());
+        }
+        return null;
     }
 
 }

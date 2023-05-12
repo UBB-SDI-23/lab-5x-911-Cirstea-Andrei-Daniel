@@ -4,8 +4,8 @@ import com.example.mpp1.Jwt.JwtMessage;
 import com.example.mpp1.Jwt.JwtRequest;
 import com.example.mpp1.Jwt.UserAuthenticationProvider;
 import com.example.mpp1.Model.*;
-import com.example.mpp1.Service.ConfirmationCodeService;
-import com.example.mpp1.Service.UserService;
+import com.example.mpp1.Service.*;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +31,24 @@ public class UserController {
     @Autowired
     private ConfirmationCodeService confirmationService;
 
+    @Autowired
+    private CarModelService carModelService;
+
+    @Autowired
+    private CarsOnPurchaseService carsOnPurchaseService;
+
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private DistributorService distributorService;
+
+    @Autowired
+    private PurchaseService purchaseService;
+
+    @Autowired
+    private ShipmentService shipmentService;
+
     @GetMapping("/users")
     public List<User> getAll() {
         return service.getUsers();
@@ -43,7 +61,7 @@ public class UserController {
 
     @GetMapping("/users/find_profile/{id}")
     public UserProfileDTO findUserProfile(@PathVariable("id") Long userID) {
-        return service.findUserProfile(userID);
+        return convertToProfileDto(service.findUserProfile(userID));
     }
 
     @DeleteMapping("/users/{id}")
@@ -104,6 +122,28 @@ public class UserController {
         dto.setId(user.getId());
         dto.setToken(userAuthenticationProvider.createToken(user.getUsername()));
         dto.setUsername(user.getUsername());
+        return dto;
+    }
+
+    private UserProfileDTO convertToProfileDto(UserProfile element) {
+        UserProfileDTO dto = new UserProfileDTO();
+        dto.setId(element.getId());
+        dto.setBirthday(element.getBirthday());
+        dto.setDescription(element.getDescription());
+        dto.setLocation(element.getLocation());
+        dto.setGender(element.getGender());
+        dto.setPhone_number(element.getPhone_number());
+
+        List<Integer> entity_count = dto.getEntity_count();
+        User user = element.getUser();
+        Long user_id = user.getId();
+        entity_count.add(carModelService.findCountForUser(user_id));
+        entity_count.add(customerService.findCountForUser(user_id));
+        entity_count.add(distributorService.findCountForUser(user_id));
+        entity_count.add(purchaseService.findCountForUser(user_id));
+        entity_count.add(shipmentService.findCountForUser(user_id));
+        entity_count.add(carsOnPurchaseService.findCountForUser(user_id));
+        dto.setEntity_count(entity_count);
         return dto;
     }
 

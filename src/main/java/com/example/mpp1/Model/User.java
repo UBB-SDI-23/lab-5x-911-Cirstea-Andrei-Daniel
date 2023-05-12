@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "user_table")
+@Table(name = "user_table", indexes = @Index(columnList = "username"))
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,14 +42,17 @@ public class User implements UserDetails {
     @Setter
     private Boolean enabled;
 
-    @ElementCollection
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    private List<String> roles = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "userID"),
+            inverseJoinColumns = @JoinColumn(name = "roleID")
+    )
+    private List<UserRole> roles = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return roles.stream().map(elem -> new SimpleGrantedAuthority(elem.getName())).collect(Collectors.toList());
     }
 
     @Override

@@ -11,17 +11,19 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+//@Repository
+//public interface CustomerRepository extends JpaRepository<Customer, Long> {
+//
+//    Page<Customer> findAllByOrderById(Pageable pageable);
+//
+//
+//
+//    int countByUserId(Long userId);
+//
+//}
+
+
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
-
-//    @Query("select u from Customer u where u.firstName LIKE CONCAT('%',:firstName,'%') AND u.lastName LIKE CONCAT('%', :lastName, '%') LIMIT 20")
-//    List<Customer> searchByFirstAndOrLastName(@Param("firstName") String firstName,
-//                                              @Param("lastName") String lastName);
-
-    Page<Customer> findAllByOrderById(Pageable pageable);
-
+public interface CustomerRepository extends BasicRepository<Customer> {
     List<Customer> findByFirstNameContainingAndLastNameContaining(String firstName, String lastName, Pageable pageable);
-
-    int countByUserId(Long userId);
-
 }

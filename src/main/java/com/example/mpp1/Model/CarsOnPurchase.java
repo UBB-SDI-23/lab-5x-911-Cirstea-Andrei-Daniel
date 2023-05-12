@@ -3,6 +3,7 @@ package com.example.mpp1.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,7 +13,7 @@ import lombok.*;
         @Index(name = "idx_carsonpurchase_purchase", columnList = "purchaseID_FK"),
         @Index(name = "idx_carsonpurchase_car_model", columnList = "carModelID_FK")
 })
-public class CarsOnPurchase {
+public class CarsOnPurchase implements IModel<CarsOnPurchaseDTO> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -40,5 +41,14 @@ public class CarsOnPurchase {
     @Getter
     @Setter
     private Integer priority;
+
+    public void Validate() throws Exception {
+        CarsOnPurchaseValidator.Validate(this);
+    }
+
+    public CarsOnPurchaseDTO toDTO() {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(this, CarsOnPurchaseDTO.class);
+    }
 
 }
