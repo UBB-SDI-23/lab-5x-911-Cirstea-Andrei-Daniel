@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { ServerSettings } from '../components/ServerIP';
 import { UserDTO } from '../models/DTO/UserDTO';
+import { UserRole } from '../models/UserRole';
 
 export const getAuthToken = () : string => {
     const val = window.localStorage.getItem('auth_token');
@@ -17,6 +18,15 @@ export const getAuthId = () : number => {
     return val == null ? -1 : parseInt(val);
 }
 
+export const getAuthRole = () : UserRole => {
+    const val = window.localStorage.getItem('auth_role');
+    let role = new UserRole();
+    if (val != null) {
+        role = JSON.parse(val);
+    }
+    return role;
+}
+
 export const setAuthHeader = (token: any) => {
     window.localStorage.setItem('auth_token', token);
 };
@@ -29,10 +39,21 @@ export const setAuthId = (id: any) => {
     window.localStorage.setItem('auth_id', id);
 }
 
+export const setAuthRole = (role: UserRole) => {
+    window.localStorage.setItem('auth_role', JSON.stringify(role));
+}
+
 export const setAuth = (dto: UserDTO) => {
     setAuthId(dto.id)
     setAuthUsername(dto.username)
     setAuthHeader(dto.token)
+    if (dto.roles.length > 0) {
+        setAuthRole(dto.roles[0])
+    }
+    else {
+        let empty_role = new UserRole()
+        setAuthRole(empty_role);
+    }
 }
 
 axios.defaults.baseURL = ServerSettings.API_ENDPOINT;

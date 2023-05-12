@@ -122,6 +122,7 @@ public class UserController {
         dto.setId(user.getId());
         dto.setToken(userAuthenticationProvider.createToken(user.getUsername()));
         dto.setUsername(user.getUsername());
+        dto.setRoles(user.getRoles());
         return dto;
     }
 
