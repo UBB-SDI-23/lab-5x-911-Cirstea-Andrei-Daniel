@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Table, TableBody, TableCell, TableHead, TableRow, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
@@ -75,9 +75,32 @@ export const UserProfileComponent = () => {
          <React.Fragment>
             <h3>Description: {user_profile.description}</h3>
             <h3>Location: {user_profile.location}</h3>
-            <h3>Birthday: {user_profile.birthday.toString()}</h3>
+            <h3>Birthday: {new Date(user_profile.birthday).toLocaleString()}</h3>
             <h3>Gender: {user_profile.gender}</h3>
             <h3>Phone Number: {user_profile.phone_number}</h3>
+            <h3>Entities created</h3>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Car Models</TableCell>
+                        <TableCell>Customers</TableCell>
+                        <TableCell>Distributors</TableCell>
+                        <TableCell>Purchases</TableCell>
+                        <TableCell>Shipments</TableCell>
+                        <TableCell>Car Orders</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow>
+                        <TableCell>{user_profile.entity_count[0]}</TableCell>
+                        <TableCell>{user_profile.entity_count[1]}</TableCell>
+                        <TableCell>{user_profile.entity_count[2]}</TableCell>
+                        <TableCell>{user_profile.entity_count[3]}</TableCell>
+                        <TableCell>{user_profile.entity_count[4]}</TableCell>
+                        <TableCell>{user_profile.entity_count[5]}</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
             <Button onClick={() => {
                 navigate_details(-1)
             }}>

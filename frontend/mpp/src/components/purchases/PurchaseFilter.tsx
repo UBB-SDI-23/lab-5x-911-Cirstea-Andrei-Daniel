@@ -9,7 +9,7 @@ import { ShowAllTable } from "../CRUD/ShowAllTable"
 import { PurchaseTableColumns } from "./PurchaseTableColumns"
 
 export const PurchaseFilter = () => {
-    const [status, setStatus] = useState<string>("")
+    const [status, setStatus] = useState<string>("Completed")
     const navigate_details = useNavigate()
     let table_columns = PurchaseTableColumns()
     table_columns.pop()

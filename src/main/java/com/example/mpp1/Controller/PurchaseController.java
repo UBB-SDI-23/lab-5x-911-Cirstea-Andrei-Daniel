@@ -94,9 +94,21 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/api/purchases")
 public class PurchaseController extends ControllerBase<PurchaseDTO, Purchase> {
 
+    private final PurchaseService service;
+
     @Autowired
     public PurchaseController(PurchaseService service) {
         super(service);
+        this.service = service;
+    }
+
+    @GetMapping("/filter/{status}")
+    public Page<PurchaseStatisticDTO> purchasesWithStatus(@PathVariable("status") String status,
+                                                          @RequestParam(defaultValue = "0", required = false) Integer page,
+                                                          @RequestParam(defaultValue = "10", required = false) Integer page_size
+    ) {
+        Pageable page_request = PageRequest.of(page, page_size);
+        return service.purchasesWithStatus(status, page_request);
     }
 
 }
