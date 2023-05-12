@@ -97,6 +97,8 @@ export const UserProfileComponent = () => {
     }
 
     return (
-        {profile_element}
+        <React.Fragment>
+            {profile_element}
+        </React.Fragment>
     )
 }

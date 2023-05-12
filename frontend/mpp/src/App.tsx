@@ -80,7 +80,7 @@ function App() {
             <Route path={EndPoints.SHIPMENT_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<ShipmentUpdate/>}></Route>
             <Route path={EndPoints.SHIPMENT_TABLE + EndPoints.VIRTUAL_CREATE} element={<ShipmentCreate/>}></Route>
 
-            {/* <Route path={EndPoints.USER_TABLE + "/find_profile" + "/:id"} element={<UserProfileComponent/>} ></Route> */}
+            <Route path={EndPoints.USER_TABLE + "/find_profile/:id"} element={<UserProfileComponent/>} ></Route>
 
           </Routes>
         </BrowserRouter>

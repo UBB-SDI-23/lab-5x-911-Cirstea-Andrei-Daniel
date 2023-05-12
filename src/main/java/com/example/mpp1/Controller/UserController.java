@@ -13,6 +13,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -135,7 +136,7 @@ public class UserController {
         dto.setGender(element.getGender());
         dto.setPhone_number(element.getPhone_number());
 
-        List<Integer> entity_count = dto.getEntity_count();
+        List<Integer> entity_count = new ArrayList<>();
         User user = element.getUser();
         Long user_id = user.getId();
         entity_count.add(carModelService.findCountForUser(user_id));

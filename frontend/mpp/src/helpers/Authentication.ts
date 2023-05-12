@@ -47,13 +47,7 @@ export const setAuth = (dto: UserDTO) => {
     setAuthId(dto.id)
     setAuthUsername(dto.username)
     setAuthHeader(dto.token)
-    if (dto.roles.length > 0) {
-        setAuthRole(dto.roles[0])
-    }
-    else {
-        let empty_role = new UserRole()
-        setAuthRole(empty_role);
-    }
+    setAuthRole(dto.role);
 }
 
 axios.defaults.baseURL = ServerSettings.API_ENDPOINT;
