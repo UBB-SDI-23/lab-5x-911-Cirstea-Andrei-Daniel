@@ -42,17 +42,14 @@ public class User implements UserDetails {
     @Setter
     private Boolean enabled;
 
-    @ManyToMany
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(name = "userID"),
-            inverseJoinColumns = @JoinColumn(name = "roleID")
-    )
-    private List<UserRole> roles = new ArrayList<>();
+    @ManyToOne
+    private UserRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(elem -> new SimpleGrantedAuthority(elem.getName())).collect(Collectors.toList());
+        ArrayList<GrantedAuthority> arrayList = new ArrayList<>();
+        arrayList.add(new SimpleGrantedAuthority(role.getName()));
+        return arrayList;
     }
 
     @Override
@@ -76,11 +73,11 @@ public class User implements UserDetails {
     }
 
     public String toString() {
-        return "Id: " +  id + ", Username: " + username + ", Password: " + password + ", enabled: " + enabled + ", Email: " + email + ", Roles: " + roles.toString();
+        return "Id: " +  id + ", Username: " + username + ", Password: " + password + ", enabled: " + enabled + ", Email: " + email + ", Roles: " + role.getName();
     }
 
     public User deepCopy() {
-        return new User(getId(), new String(getUsername()), new String(getEmail()), new String(getPassword()), enabled, new ArrayList<>(getRoles()));
+        return new User(getId(), new String(getUsername()), new String(getEmail()), new String(getPassword()), enabled, new UserRole(role.getId(), role.getName()));
     }
 
 }

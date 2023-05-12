@@ -100,7 +100,7 @@ public class UserService {
 
         if (!with_user.getUser().getId().equals(session_user.getId())) {
             // Check to see if their role is only ROLE_REGULAR
-            UserRole userRole = session_user.getRoles().get(0);
+            UserRole userRole = session_user.getRole();
             if (userRole.getName().compareTo(role) == 0) {
                 throw new Exception("Cannot update the car model of user " + with_user.getUser().getId() + " while having role " + role);
             }

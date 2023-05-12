@@ -22,6 +22,6 @@ public class UserDTO {
 
     @Getter
     @Setter
-    private List<UserRole> roles;
+    private UserRole role;
 
 }
