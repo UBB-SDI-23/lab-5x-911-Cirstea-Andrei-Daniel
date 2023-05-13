@@ -7,10 +7,10 @@ export const ShipmentForm = (props: any) => {
 
     let form_result;
     if (initial_empty || element.id != -1) {
-        let expected_date = new Date(element.cooperationStartDate)
+        let expected_date = new Date(element.expectedArrival)
         let expected_formattedDate = DateToTextFieldInput(expected_date)
 
-        let arrival_date = new Date(element.cooperationStartDate)
+        let arrival_date = new Date(element.arrival)
         let arrival_formattedDate = DateToTextFieldInput(arrival_date)
 
         form_result = (

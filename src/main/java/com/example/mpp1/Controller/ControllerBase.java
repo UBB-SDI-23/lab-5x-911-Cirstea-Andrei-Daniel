@@ -80,6 +80,7 @@ public class ControllerBase<DTO, Model extends IModel<DTO>> {
     }
 
     @DeleteMapping("/{id}")
+    @RolesAllowed({"ROLE_REGULAR", "ROLE_MODERATOR", "ROLE_ADMIN"})
     public ResponseEntity<?> deleteCarModel(@PathVariable("id") Long id) {
         try {
             return new ResponseEntity<>(service.delete(id), HttpStatus.OK);

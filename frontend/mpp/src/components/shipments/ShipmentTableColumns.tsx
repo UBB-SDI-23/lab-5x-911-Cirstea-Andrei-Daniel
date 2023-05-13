@@ -15,7 +15,7 @@ export const ShipmentTableColumns = () => {
             <Link to={EndPoints.frontendFind(EndPoints.SHIPMENT_TABLE, params.id.valueOf().toString())}>{new Date(params.value).toLocaleString()}</Link>
           ) 
         },
-        { field: 'totalPrice', headerName: 'Status', type: "number", width: 160},
+        { field: 'totalPrice', headerName: 'Total Price', type: "number", width: 160},
       ];
 
       table_columns.unshift(UserColumn());
