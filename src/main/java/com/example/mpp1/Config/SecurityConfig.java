@@ -38,17 +38,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(HttpMethod.POST,"/api/users/login").permitAll()
 
-                        .requestMatchers(HttpMethod.GET,"/api/**").permitAll()
-                        .requestMatchers(HttpMethod.POST,"/api/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE,"/api/**").permitAll()
-
                         .requestMatchers(HttpMethod.POST,"/api/users/register/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/api/users/login").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/api/users/register/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/register").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "/api/register/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/register/**").permitAll()
-                        .anyRequest().authenticated()
+                        //.anyRequest().authenticated()
                 );
         return http.build();
     }

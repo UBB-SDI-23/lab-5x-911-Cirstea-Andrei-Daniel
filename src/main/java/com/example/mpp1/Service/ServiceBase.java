@@ -62,24 +62,24 @@ public class ServiceBase<R, T extends IModel<R>> {
         return repository.countByUserId(userID);
     }
 
-    public T ValidateUserRole(Long elementID) throws Exception {
+    public T ValidateUserRole(Long elementID, String action_string) throws Exception {
         // Check to see if the request user is the same as the session one
         T element = findID(elementID);
         if (element == null) {
             throw new Exception(model_string + " with id " + elementID + " doesn't exist");
         }
-        user_service.ValidateUser(element, "ROLE_REGULAR");
+        user_service.ValidateUser(element, "ROLE_REGULAR", action_string + model_string);
         return element;
     }
 
     public T update(T element, Long id) throws Exception {
-        T old_element = ValidateUserRole(id);
+        T old_element = ValidateUserRole(id, "update the");
         old_element = element;
         return repository.save(old_element);
     }
 
     public String delete(Long id) throws Exception {
-        ValidateUserRole(id);
+        ValidateUserRole(id, "delete the");
         repository.deleteById(id);
         return model_string + " successfully deleted";
     }

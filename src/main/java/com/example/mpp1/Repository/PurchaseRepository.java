@@ -27,9 +27,9 @@ import java.util.List;
 
 @Repository
 public interface PurchaseRepository extends BasicRepository<Purchase> {
-    List<Purchase> findAllByStatusEquals(String status);
+    List<Purchase> findAllByStatusEqualsOrderById(String status);
 
-    Page<Purchase> findAllByStatusEquals(String status, Pageable pageable);
+    Page<Purchase> findAllByStatusEqualsOrderById(String status, Pageable pageable);
 
     Long countByStatus(String status);
 }

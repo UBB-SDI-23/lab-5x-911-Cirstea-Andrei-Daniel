@@ -8,6 +8,12 @@ import * as Authentication from '../helpers/Authentication';
 
 export const HomePage = () => {
     let username = Authentication.getAuthUsername();
+    let role = Authentication.getAuthRole();
+    let display_role;
+    if (role.name == "ROLE_ADMIN") {
+        display_role = <Button component={Link} to={EndPoints.USER_TABLE + "/change_role"}>Change Role</Button>
+    }
+
     return (
         <React.Fragment>
             <h1>Logged in as {username}</h1>
@@ -23,6 +29,7 @@ export const HomePage = () => {
                     <Button component={Link} to={EndPoints.DISTRIBUTOR_TABLE}>Distributors</Button>
                     <Button component={Link} to={EndPoints.SHIPMENT_TABLE}>Shipments</Button>
                     <Button component={Link} to={EndPoints.LOGIN_PAGE}>Login</Button>
+                    {display_role}
                 </Toolbar>
             </AppBar>
             </Box>

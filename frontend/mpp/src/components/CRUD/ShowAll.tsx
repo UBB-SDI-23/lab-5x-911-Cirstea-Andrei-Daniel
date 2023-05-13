@@ -125,11 +125,10 @@ export const ShowAll = (props: any) => {
         const endpoint = ServerSettings.API_ENDPOINT + props.table_endpoint + "/" + delete_id
     
         handle_delete_dialog_close()
-        fetch(
+        Authentication.make_request(
+            'DELETE',
             endpoint,
-            {
-                method: "DELETE"
-            }
+            ""
         )
         .then((res) => { 
             update_elements()

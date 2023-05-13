@@ -121,7 +121,7 @@ public class PurchaseService extends ServiceBase<PurchaseDTO, Purchase> {
     }
 
     public Page<PurchaseStatisticDTO> purchasesWithStatus(String status, Pageable pageable) {
-        Page<Purchase> purchases = repository.findAllByStatusEquals(status, pageable);
+        Page<Purchase> purchases = repository.findAllByStatusEqualsOrderById(status, pageable);
         List<PurchaseStatisticDTO> output_list = new ArrayList<PurchaseStatisticDTO>();
         purchases.forEach(purchase -> {
             int current_count = purchase.getCarsOnPurchaseList().stream().mapToInt(CarsOnPurchase::getCount).sum();

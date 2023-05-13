@@ -118,6 +118,19 @@ public class UserController {
         }
     }
 
+    @PostMapping("/users/{id}/role/{new_role}")
+    public ResponseEntity<?> changeUserRole(@PathVariable("new_role") String new_role, @PathVariable String id) {
+        UserRole role = new UserRole();
+        role.setName(new_role);
+        Long user_id = Long.parseLong(id);
+        try {
+            return ResponseEntity.ok(service.changeUserRole(user_id, role));
+        }
+        catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
     private UserDTO convertToDTO(User user) {
         UserDTO dto = new UserDTO();
         dto.setId(user.getId());

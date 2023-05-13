@@ -36,6 +36,7 @@ import { UserRegister } from './components/users/UserRegister'
 import { UserConfirmCode } from './components/users/UserConfirmCode'
 import { UserProfileComponent } from './components/users/UserProfileComponent'
 import { PurchaseFilter } from './components/purchases/PurchaseFilter'
+import { UserChangeRole } from './components/users/UserChangeRole'
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
             <Route path={EndPoints.SHIPMENT_TABLE + EndPoints.VIRTUAL_CREATE} element={<ShipmentCreate/>}></Route>
 
             <Route path={EndPoints.USER_TABLE + "/find_profile/:id"} element={<UserProfileComponent/>} ></Route>
+            <Route path={EndPoints.USER_TABLE + "/change_role"} element={<UserChangeRole/>}></Route>
 
           </Routes>
         </BrowserRouter>

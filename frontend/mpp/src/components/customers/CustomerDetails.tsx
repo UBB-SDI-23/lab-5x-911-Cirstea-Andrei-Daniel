@@ -9,6 +9,7 @@ import { Customer } from '../../models/Customer';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import * as Authentication from '../../helpers/Authentication';
+import { PurchaseTableColumns } from '../purchases/PurchaseTableColumns';
 
 export const CustomerDetails = () => {
   const [element, setElement] = useState<Customer>(new Customer())
@@ -19,11 +20,8 @@ export const CustomerDetails = () => {
 
     const endpoint = EndPoints.backendFind(EndPoints.CUSTOMER_TABLE, id)
 
-    let purchase_columns: GridColDef[] = [
-        { field: 'date', headerName: 'Date', type: 'date', width: 130 },
-        { field: 'payMethod', headerName: 'Pay Method', width: 130 },
-        { field: 'status', headerName: 'Status', width: 130 },
-    ];
+    let purchase_columns = PurchaseTableColumns();
+    purchase_columns.pop();
 
     useEffect(() => {
         Authentication.make_request('GET', endpoint, "")

@@ -7,7 +7,7 @@ export const CarsOnPurchaseTableColumns = () => {
     let table_columns: GridColDef[] = [
       { field: 'count', headerName: 'Count', type: 'number', width: 160,
             renderCell: (params) => (
-              <Link to={EndPoints.CARSONPURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
+              <Link to={EndPoints.frontendFind(EndPoints.CARSONPURCHASE_TABLE, params.id.valueOf().toString())}>{params.value}</Link>
             )
         },
         {

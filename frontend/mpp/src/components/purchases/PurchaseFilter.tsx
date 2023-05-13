@@ -15,6 +15,10 @@ export const PurchaseFilter = () => {
     table_columns.pop()
     table_columns.shift()
 
+    useEffect(() => {
+
+    }, [status])
+
     return  (
         <React.Fragment>
             <h3>Purchases With Status {status}</h3>             
@@ -27,7 +31,7 @@ export const PurchaseFilter = () => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    defaultValue={status}
+                    defaultValue={"Completed"}
                     label="Status"
                     onChange={(event) => {setStatus(event.target.value);}}
                 >

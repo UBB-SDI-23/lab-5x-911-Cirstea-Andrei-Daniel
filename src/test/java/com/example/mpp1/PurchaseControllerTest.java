@@ -147,9 +147,9 @@ public class PurchaseControllerTest {
         List<Purchase> pending_purchases = new ArrayList<Purchase>();
         pending_purchases.add(purchases.get(1));
 
-        when(repository.findAllByStatusEquals("Completed")).thenReturn(completed_purchases);
-        when(repository.findAllByStatusEquals("Pending")).thenReturn(pending_purchases);
-        when(repository.findAllByStatusEquals("Canceled")).thenReturn(canceled_purchases);
+        //when(repository.findAllByStatusEqualsOrderById("Completed")).thenReturn(completed_purchases);
+        //when(repository.findAllByStatusEqualsOrderById("Pending")).thenReturn(pending_purchases);
+        //when(repository.findAllByStatusEqualsOrderById("Canceled")).thenReturn(canceled_purchases);
 //        assertThat(controller.purchasesWithStatusWithCountGreater("Completed", 1L)).hasSize(3);
 //        assertThat(controller.purchasesWithStatusWithCountGreater("Completed", 2L)).hasSize(2);
 //        assertThat(controller.purchasesWithStatusWithCountGreater("Completed", 4L)).hasSize(1);

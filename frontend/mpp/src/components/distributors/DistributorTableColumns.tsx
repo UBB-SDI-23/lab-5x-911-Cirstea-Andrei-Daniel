@@ -7,7 +7,7 @@ export const DistributorTableColumns = () => {
     let table_columns: GridColDef[] = [
         { field: 'name', headerName: 'Name', width: 180,
           renderCell: (params) => (
-            <Link to={EndPoints.DISTRIBUTOR_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
+            <Link to={EndPoints.frontendFind(EndPoints.DISTRIBUTOR_TABLE, params.id.valueOf().toString())}>{params.value}</Link>
           )
         },
         { field: 'cooperationStartDate', headerName: 'Cooperation Start Date', type: 'Date', width: 200 },

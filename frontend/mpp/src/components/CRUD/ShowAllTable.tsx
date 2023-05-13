@@ -33,7 +33,7 @@ export const ShowAllTable = (props: any) => {
 
     useEffect(() => {
         update_elements()
-    }, [current_page])
+    }, [current_page, props.request_endpoint])
 
 
     const [delete_id, set_delete_id] = useState(props.id)
@@ -70,14 +70,13 @@ export const ShowAllTable = (props: any) => {
         const endpoint = ServerSettings.API_ENDPOINT + props.table_endpoint + "/" + delete_id
     
         handle_delete_dialog_close()
-        fetch(
+        Authentication.make_request(
+            'DELETE',
             endpoint,
-            {
-                method: "DELETE"
-            }
+            ""
         )
         .then((res) => { 
-            props.update()
+            update_elements()
             handle_successful_dialog_open() })
         .catch((exception) => { handle_failed_dialog_open() })
     }
@@ -97,6 +96,8 @@ export const ShowAllTable = (props: any) => {
             count={page_count} 
             color="primary"
             onChange={handlePageChange}
+            siblingCount={5}
+            boundaryCount={5}
             {...props}
             page={current_page + 1}
           />
