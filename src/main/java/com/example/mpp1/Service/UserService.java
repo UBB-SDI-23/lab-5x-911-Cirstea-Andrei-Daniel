@@ -73,6 +73,7 @@ public class UserService {
         if (user.getEnabled() == null) {
             user.setEnabled(false);
         }
+        user.setRole(role_repository.findByName("ROLE_REGULAR"));
         UserValidator.Validate(user);
 
         User existing_user = user_repository.findByUsername(user.getUsername());
