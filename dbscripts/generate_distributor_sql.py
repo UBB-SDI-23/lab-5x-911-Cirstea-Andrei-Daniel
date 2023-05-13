@@ -3,6 +3,7 @@ if __name__ == '__main__':
     fake = Faker()
     
     COUNT = 1000000
+    MAX_USER_ID = 10000 - 1
     
     countries = fake.random_elements(elements=
         ['Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola', 'Antigua and Barbuda', 'Argentina', 
@@ -31,7 +32,7 @@ if __name__ == '__main__':
         elements=["NewCars", "OldCars", "RenovatedCars"],
         length=COUNT, unique=False)
     
-    sql_start_string = "INSERT INTO distributor (distributorid, name, contact_email, country, cooperation_start_date, category) VALUES\n"
+    sql_start_string = "INSERT INTO distributor (distributorid, name, contact_email, country, cooperation_start_date, category, userid_fk) VALUES\n"
 
     # create list to store SQL statements
     lines = []
@@ -42,11 +43,12 @@ if __name__ == '__main__':
         date = fake.date()
         contact_email = fake.email()
         id = i
+        user_id = fake.random_int(0, MAX_USER_ID)
         
         if (i % 10000) == 0:
             print(i)
         
-        lines.append("('{}', '{}', '{}', '{}', '{}', '{}')".format(id, name, contact_email, countries[i], date, categories[i]))
+        lines.append("('{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(id, name, contact_email, countries[i], date, categories[i], user_id))
         if ((i + 1) % 1000) != 0:
             lines[i] += ",\n"
 

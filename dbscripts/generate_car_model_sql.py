@@ -3,6 +3,7 @@ if __name__ == '__main__':
     fake = Faker()
     
     GENERATE_COUNT = 1000000
+    MAX_USER_ID = 10000 - 1
     
     models = fake.random_elements(
         elements=['Accord', 'Acura', 'Altima', 'Armada', 'Avalanche', 'Aveo', 'Azera', 'Beetle', 'Cadenza', 'Camaro', 
@@ -48,7 +49,7 @@ if __name__ == '__main__':
         'Volkswagen'
         ], length=GENERATE_COUNT, unique=False)
     
-    sql_start_string = "INSERT INTO car_model (carid, model, manufacturer, manufacture_year, price, fuel_consumption, description) VALUES\n"
+    sql_start_string = "INSERT INTO car_model (carid, model, manufacturer, manufacture_year, price, fuel_consumption, description, userid_fk) VALUES\n"
 
     # create list to store SQL statements
     lines = []
@@ -59,12 +60,14 @@ if __name__ == '__main__':
         fuel_consumption = fake.random_int(min=1, max=50)
         manufacture_year = fake.random_int(min=2005, max=2023)
         description = fake.paragraph(3)
+        user_id = fake.random_int(0, MAX_USER_ID)
         id = i
         
         if (i % 10000) == 0:
             print(i)
         
-        lines.append("('{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(id, models[i], manufacturers[i], manufacture_year, price, fuel_consumption, description))
+        lines.append("('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(id, models[i], manufacturers[i], manufacture_year, price,
+                                                                               fuel_consumption, description, user_id))
         if ((i + 1) % 1000) != 0:
             lines[i] += ",\n"
 

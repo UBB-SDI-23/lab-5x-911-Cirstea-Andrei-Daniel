@@ -3,8 +3,9 @@ if __name__ == '__main__':
     fake = Faker()
     
     COUNT = 1000000
+    MAX_USER_ID = 10000 - 1
     
-    sql_start_string = "INSERT INTO shipment (shipmentid, expected_arrival, arrival, total_price, distributorid_fk) VALUES\n"
+    sql_start_string = "INSERT INTO shipment (shipmentid, expected_arrival, arrival, total_price, distributorid_fk, userid_fk) VALUES\n"
 
     # create list to store SQL statements
     lines = []
@@ -16,11 +17,12 @@ if __name__ == '__main__':
         total_price = fake.random_int(min=10000, max=10000000 - 1)
         distributor_fk = fake.random_int(min=0, max=1000000 - 1)
         id = i
+        user_id = fake.random_int(0, MAX_USER_ID)
         
         if (i % 10000) == 0:
             print(i)
         
-        lines.append("('{}', '{}', '{}', '{}', '{}')".format(id, expected_arrival, arrival, total_price, distributor_fk))
+        lines.append("('{}', '{}', '{}', '{}', '{}', '{}')".format(id, expected_arrival, arrival, total_price, distributor_fk, user_id))
         if ((i + 1) % 1000) != 0:
             lines[i] += ",\n"
 
