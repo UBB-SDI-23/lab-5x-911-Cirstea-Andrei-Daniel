@@ -7,7 +7,7 @@ import { LoginRequest } from '../../models/LoginRequest';
 import { AxiosError, AxiosStatic } from 'axios';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { User } from '../../models/User';
-import { DataGrid, GridColDef, GridEditCellProps  } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridEditCellProps, GridRenderEditCellParams  } from '@mui/x-data-grid';
 import { table } from 'console';
 
 
@@ -69,22 +69,18 @@ export const UserChangeRole = () => {
         load_users();
     }, [])
 
-    function formatRole(role: string): string {
-        const formattedRole = role.replace(/^ROLE_/, ''); // remove prefix "ROLE_"
-        return formattedRole.charAt(0).toUpperCase() + formattedRole.slice(1).toLowerCase(); // capitalize first letter and convert rest to lowercase
-    }
-
     let table_columns: GridColDef[] = [
         { field: 'username', headerName: 'Username', width: 130 },
         { field: 'role', headerName: 'Role', width: 150, editable:true,
             renderCell: (params) => {
-                return formatRole(params.value)
+                return Authentication.getRoleParsed(params.value)
             },
-            renderEditCell: (params: GridEditCellProps) => (
+            renderEditCell: (params: GridRenderEditCellParams) => (
                 <TextField
                   select
                   value={params.value}
                   onChange={(event) => {
+                    send_change_role_request(params.id.toString(), event.target.value);
                     params.setCellProps({ value: event.target.value });
                   }}
                 >

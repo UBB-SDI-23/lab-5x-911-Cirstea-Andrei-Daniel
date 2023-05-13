@@ -27,6 +27,11 @@ export const getAuthRole = () : UserRole => {
     return role;
 }
 
+export const getRoleParsed = (user_role: UserRole) : string => {
+    const formattedRole = user_role.name.replace(/^ROLE_/, ''); // remove prefix "ROLE_"
+    return formattedRole.charAt(0).toUpperCase() + formattedRole.slice(1).toLowerCase(); // capitalize first letter and convert rest to lowercase
+}
+
 export const setAuthHeader = (token: any) => {
     window.localStorage.setItem('auth_token', token);
 };

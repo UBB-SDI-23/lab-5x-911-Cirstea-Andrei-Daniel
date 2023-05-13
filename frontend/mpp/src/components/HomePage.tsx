@@ -14,9 +14,11 @@ export const HomePage = () => {
         display_role = <Button component={Link} to={EndPoints.USER_TABLE + "/change_role"}>Change Role</Button>
     }
 
+    let parsed_role = Authentication.getRoleParsed(role);
+
     return (
         <React.Fragment>
-            <h1>Logged in as {username}</h1>
+            <h1>Logged in as {username} with role {parsed_role}</h1>
             <br></br>
 
             <Box>
