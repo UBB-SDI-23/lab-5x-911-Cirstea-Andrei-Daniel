@@ -9,6 +9,7 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { User } from '../../models/User';
 import { DataGrid, GridColDef, GridEditCellProps, GridRenderEditCellParams  } from '@mui/x-data-grid';
 import { table } from 'console';
+import { ShowAllTable } from '../CRUD/ShowAllTable';
 
 
 export const UserChangeRole = () => {
@@ -118,27 +119,15 @@ export const UserChangeRole = () => {
         </div>
     }
 
+    let table = <ShowAllTable table_endpoint={EndPoints.USER_TABLE} request_endpoint={EndPoints.PAGE_REQUEST_PATH} update={()=>{}}
+     description={"User"} has_actions={false} table_columns={table_columns}/>
+
     return (
         <React.Fragment>
             <Button onClick={() => {navigate_details(-1)}}>
                 <KeyboardReturnIcon />
             </Button>
-            <React.Fragment>
-                <Box sx={{ height: 650, width: '100%' }}>
-                    <DataGrid
-                        getRowId={(row) => row.id}
-                        rows={users}
-                        columns={table_columns}
-                        rowCount={users.length}
-                        paginationMode="server"
-                        //paginationModel={paginationModel}
-                        //onPaginationModelChange={(model, details) => {setPaginationModel(model); update_page(model.page)}}
-                        pageSizeOptions={[10]}
-                        autoHeight={true}
-                        //components={{ Pagination: CustomPagination }}
-                    />
-                </Box>
-            </React.Fragment>
+            {table}
             
             {failed_dialog_element}
         </React.Fragment>

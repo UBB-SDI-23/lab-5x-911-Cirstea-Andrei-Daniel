@@ -7,6 +7,9 @@ import com.example.mpp1.Model.*;
 import com.example.mpp1.Service.*;
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -53,6 +56,12 @@ public class UserController {
     @GetMapping("/users")
     public List<User> getAll() {
         return service.getUsers();
+    }
+
+    @GetMapping("/users/paged")
+    public Page<User> getAlllPaged(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
+        Pageable page_request = PageRequest.of(page, page_size);
+        return service.getUsersPaged(page_request);
     }
 
     @GetMapping("/users/find/{id}")

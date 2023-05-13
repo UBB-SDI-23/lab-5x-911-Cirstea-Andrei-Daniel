@@ -41,7 +41,7 @@ export const PurchaseFilter = () => {
                 </Select>
             </FormControl>
 
-            <ShowAllTable table_endpoint={EndPoints.PURCHASE_TABLE} request_endpoint={EndPoints.FILTER + "/" + status} 
+            <ShowAllTable table_endpoint={EndPoints.PURCHASE_TABLE} request_endpoint={EndPoints.FILTER + "/" + status} description={"Purchase"}
             update={()=>{}} has_actions={false} table_columns={table_columns} />
         </React.Fragment>
     )

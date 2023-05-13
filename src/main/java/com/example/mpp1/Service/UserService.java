@@ -9,6 +9,8 @@ import com.example.mpp1.Repository.UserProfileRepository;
 import com.example.mpp1.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -41,6 +43,8 @@ public class UserService {
     public List<User> getUsers() {
         return user_repository.findAllByOrderById();
     }
+
+    public Page<User> getUsersPaged(Pageable page) { return user_repository.findAllByOrderById(page); }
 
     public User enableUser(Long userID) throws Exception {
         Optional<User> value = user_repository.findById(userID);
