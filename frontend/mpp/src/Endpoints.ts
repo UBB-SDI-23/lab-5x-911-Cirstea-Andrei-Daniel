@@ -11,11 +11,16 @@ export class EndPoints {
     static CARSONPURCHASE_TABLE = "/api/carsonpurchases"
     static USER_TABLE = "/api/users"
     static ENTRIES_PER_PAGE_TABLE = "/api/entries_per_page"
+    static EXECUTE_SQL = "/api/sql"
     static STATISTIC = "/statistic"
     static FILTER = "/filter"
     
     static BACKEND_LOGIN_SUFFIX = "/login"
     static BACKEND_REGISTER_SUFFIX = "/register"
+
+    static backendExecuteSql(script_name: string) : string {
+        return ServerSettings.API_ENDPOINT + this.EXECUTE_SQL + "/" + script_name
+    }
 
     static backendUserChangeRole(id: string, new_role: string) : string {
         return ServerSettings.API_ENDPOINT + this.USER_TABLE + "/" + id + "/role/" + new_role;

@@ -14,6 +14,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import MuiPagination, { PaginationProps } from '@mui/material/Pagination';
 import { TablePaginationProps } from '@mui/material/TablePagination';
 import * as Authentication from '../../helpers/Authentication';
+import { AxiosError } from 'axios';
 
 export const ShowAll = (props: any) => {
   const navigate_details = useNavigate()
@@ -23,28 +24,54 @@ export const ShowAll = (props: any) => {
   const [current_page, setCurrentPage] = useState<number>(0)
   const [element_count, setElementCount] = useState<number>(0)
   const [page_count, setPageCount] = useState<number>(0)
+  const [entries_per_page, setEntriesPerPage] = useState<number>(0)
 
   const [paginationModel, setPaginationModel] = React.useState({
     page: 0,
-    pageSize: 10,
-    });
+    pageSize: entries_per_page,
+});
 
   const [delete_id, set_delete_id] = useState(props.id)
   const [delete_dialog, set_delete_dialog] = useState(false)
   const [successful_dialog, set_successful_dialog] = useState(false)
   const [failed_dialog, set_failed_dialog] = useState(false)
 
-  
+  useEffect(() => {
+    Authentication.make_request('GET', EndPoints.backendEntriesPerPage(), "")
+    .then((data) => {
+        console.log(data);
+        let response_data = data.data;
+        setEntriesPerPage(response_data);
+        paginationModel.pageSize = response_data;
+        console.log("GET ENTRIES")
+        console.log(paginationModel)
+        setPaginationModel(paginationModel);
+    })
+    .catch(
+        (error: AxiosError) => {
+            console.log(error);
+        }
+    );
+  }, [])
 
   const update_elements = () => {
-    Authentication.make_request('GET', ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" + current_page, "")
-    .then((data) => { 
-        let response_data = data.data; 
-        setElements(response_data.content);
-         setElementCount(response_data.totalElements);
-          setPageCount(response_data.totalPages); 
-          console.log(data) }
-        );
+    console.log(paginationModel.pageSize);
+    if (paginationModel.pageSize > 0) {
+        Authentication.make_request('GET', ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" +
+        current_page + "&page_size=" + paginationModel.pageSize, "")
+        .then((data) => { 
+            let response_data = data.data; 
+            setElements(response_data.content);
+            setElementCount(response_data.totalElements);
+            setPageCount(response_data.totalPages); 
+            console.log(data) }
+            )
+            .catch(
+                (error: AxiosError) => {
+                    console.log(error);
+                }
+            );;
+    }
   }
 
   const update_page =  (page: number) => {
@@ -53,7 +80,7 @@ export const ShowAll = (props: any) => {
 
     useEffect(() => {
         update_elements()
-    }, [current_page])
+    }, [current_page, paginationModel])
 
     let return_element = <Button onClick={() => navigate_details(-1)}>
         <KeyboardReturnIcon/>

@@ -16,26 +16,40 @@ export const ShowAllTable = (props: any) => {
     const [element_count, setElementCount] = useState<number>(0)
     const [paginationModel, setPaginationModel] = React.useState({
         page: 0,
-        pageSize: 10,
+        pageSize: 0,
     });
     const [current_page, setCurrentPage] = useState<number>(0)
 
-    
-
     const update_elements = () => {
-        Authentication.make_request('GET', ServerSettings.API_ENDPOINT + props.table_endpoint + props.request_endpoint + "?page=" + current_page, "")
-        .then((data) => { 
-            let response_data = data.data; 
-            setElements(response_data.content);
-             setElementCount(response_data.totalElements);
-              setPageCount(response_data.totalPages); 
-              console.log(data) }
+        if (paginationModel.pageSize > 0) {
+            Authentication.make_request('GET', ServerSettings.API_ENDPOINT + props.table_endpoint + props.request_endpoint + "?page=" 
+            + current_page + "&page_size=" + paginationModel.pageSize, "")
+            .then((data) => { 
+                let response_data = data.data; 
+                setElements(response_data.content);
+                setElementCount(response_data.totalElements);
+                setPageCount(response_data.totalPages); 
+                console.log(data) }
             );
+        }
     }
 
     useEffect(() => {
+        Authentication.make_request('GET', EndPoints.backendEntriesPerPage(), "")
+        .then((data) => {
+            let response_data = data.data;
+            console.log(response_data)
+            paginationModel.pageSize = response_data;
+            setPaginationModel(paginationModel)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }, [])
+
+    useEffect(() => {
         update_elements()
-    }, [current_page, props.request_endpoint])
+    }, [current_page, paginationModel, props.request_endpoint])
 
 
     const [delete_id, set_delete_id] = useState(props.id)
@@ -220,7 +234,6 @@ export const ShowAllTable = (props: any) => {
                     paginationMode="server"
                     paginationModel={paginationModel}
                     onPaginationModelChange={(model, details) => {setPaginationModel(model); setCurrentPage(model.page)}}
-                    pageSizeOptions={[10]}
                     autoHeight={true}
                     components={{ Pagination: CustomPagination }}
                 />

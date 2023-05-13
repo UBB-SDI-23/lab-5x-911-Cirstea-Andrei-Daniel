@@ -11,7 +11,7 @@ import * as Authentication from '../../helpers/Authentication';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 export const UserEntriesPerPage = () => {
-    const [entries, setEntries] = useState<number>(10)
+    const [entries, setEntries] = useState<number>(-1)
     const [display_error, setDisplayError] = useState<boolean>(false)
     const [error_message, setErrorMessage] = useState<string>("")
     const navigate_details = useNavigate()
@@ -94,6 +94,24 @@ export const UserEntriesPerPage = () => {
         </div>
     }
 
+    let input;
+    if (entries > 0) {
+        input = <TextField type="number" label="Value" variant="standard" defaultValue={entries} 
+        InputProps={{
+            inputProps: { 
+                max: 100, min: 1 
+            }
+        }} 
+        onChange={(event)=>{
+            let value = parseInt(event.target.value);
+            if (value > 0) {
+                change_entries_request(value)
+            }
+        }}/>
+    }
+    else {
+        input=<div>Waiting for database</div>
+    }
 
     return (
         <React.Fragment>
@@ -101,9 +119,7 @@ export const UserEntriesPerPage = () => {
                 <KeyboardReturnIcon />
             </Button>
             <h3>Choose Entries Per Page value</h3>
-            <TextField type="number" label="Value" variant="standard" defaultValue={entries} onChange={(event)=>{
-                    change_entries_request(parseInt(event.target.value))
-            }}/>
+            {input}
             <br></br>
             
             {failed_dialog_element}

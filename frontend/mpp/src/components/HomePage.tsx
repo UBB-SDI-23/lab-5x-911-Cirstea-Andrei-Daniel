@@ -17,6 +17,7 @@ export const HomePage = () => {
         admin_role = <React.Fragment>
             <Button component={Link} to={EndPoints.USER_TABLE + "/change_role"}>Change Role</Button>
             <Button component={Link} to={EndPoints.ENTRIES_PER_PAGE_TABLE}>Change Entries Per Page</Button>
+            <Button component={Link} to={EndPoints.EXECUTE_SQL}>Regnerate Entries</Button>
         </React.Fragment>
     }
 
