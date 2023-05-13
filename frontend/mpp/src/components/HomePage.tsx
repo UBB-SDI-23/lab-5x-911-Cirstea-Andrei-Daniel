@@ -8,6 +8,9 @@ import * as Authentication from '../helpers/Authentication';
 
 export const HomePage = () => {
     let username = Authentication.getAuthUsername();
+    if (username == "null") {
+        username = "Guest"
+    }
     let role = Authentication.getAuthRole();
     let display_role;
     if (role.name == "ROLE_ADMIN") {
@@ -30,8 +33,10 @@ export const HomePage = () => {
                     <Button component={Link} to={EndPoints.CARSONPURCHASE_TABLE}>Car Orders</Button>
                     <Button component={Link} to={EndPoints.DISTRIBUTOR_TABLE}>Distributors</Button>
                     <Button component={Link} to={EndPoints.SHIPMENT_TABLE}>Shipments</Button>
-                    <Button component={Link} to={EndPoints.LOGIN_PAGE}>Login</Button>
+
                     {display_role}
+
+                    <Button component={Link} to={EndPoints.LOGIN_PAGE}>Login</Button>
                 </Toolbar>
             </AppBar>
             </Box>

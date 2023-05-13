@@ -91,6 +91,13 @@ export const UserLogin = () => {
                 Register
             </Button>
 
+            <Button onClick={() => {
+                Authentication.resetAuth()
+                navigate_details(EndPoints.HOME_PAGE)
+            }}>
+                Continue as Guest
+            </Button>
+
             {failed_dialog_element}
         </React.Fragment>
     )

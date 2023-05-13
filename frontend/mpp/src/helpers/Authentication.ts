@@ -22,7 +22,14 @@ export const getAuthRole = () : UserRole => {
     const val = window.localStorage.getItem('auth_role');
     let role = new UserRole();
     if (val != null) {
-        role = JSON.parse(val);
+        if (val != "") {
+            role = JSON.parse(val);
+        }
+        else {
+            role = new UserRole()
+            role.id = -1;
+            role.name = "ROLE_GUEST"
+        }
     }
     return role;
 }
@@ -44,8 +51,12 @@ export const setAuthId = (id: any) => {
     window.localStorage.setItem('auth_id', id);
 }
 
-export const setAuthRole = (role: UserRole) => {
-    window.localStorage.setItem('auth_role', JSON.stringify(role));
+export const setAuthRole = (role: any) => {
+    let data = "";
+    if (role != null) {
+        data = JSON.stringify(role)
+    }
+    window.localStorage.setItem('auth_role', data);
 }
 
 export const setAuth = (dto: UserDTO) => {
@@ -55,6 +66,13 @@ export const setAuth = (dto: UserDTO) => {
     setAuthRole(dto.role);
 }
 
+export const resetAuth = () => {
+    setAuthHeader(null)
+    setAuthId(-1)
+    setAuthUsername(null)
+    setAuthRole(null)
+}
+
 axios.defaults.baseURL = ServerSettings.API_ENDPOINT;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
@@ -62,7 +80,7 @@ axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 export const make_request = (method: any, url: any, data: any) => {
 
     let headers = {};
-    if (getAuthToken() !== null && getAuthToken() !== "null") {
+    if (getAuthToken() !== null && getAuthToken() !== "") {
         headers = {'Authorization': `Bearer ${getAuthToken()}`};
     }
 

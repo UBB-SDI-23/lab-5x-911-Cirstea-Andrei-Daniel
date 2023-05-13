@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem, TextField } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
@@ -10,6 +10,7 @@ import { User } from '../../models/User';
 import { DataGrid, GridColDef, GridEditCellProps, GridRenderEditCellParams  } from '@mui/x-data-grid';
 import { table } from 'console';
 import { ShowAllTable } from '../CRUD/ShowAllTable';
+import { UserRole } from '../../models/UserRole';
 
 
 export const UserChangeRole = () => {
@@ -74,22 +75,39 @@ export const UserChangeRole = () => {
         { field: 'username', headerName: 'Username', width: 130 },
         { field: 'role', headerName: 'Role', width: 150, editable:true,
             renderCell: (params) => {
+                //console.log(params.value);
                 return Authentication.getRoleParsed(params.value)
             },
-            renderEditCell: (params: GridRenderEditCellParams) => (
-                <TextField
-                  select
-                  value={params.value}
-                  onChange={(event) => {
-                    send_change_role_request(params.id.toString(), event.target.value);
-                    params.setCellProps({ value: event.target.value });
-                  }}
-                >
-                  <MenuItem value="ROLE_REGULAR">Regular</MenuItem>
-                  <MenuItem value="ROLE_MODERATOR">Moderator</MenuItem>
-                  <MenuItem value="ROLE_ADMIN">Admin</MenuItem>
-                </TextField>
+            renderEditCell: (params: GridRenderEditCellParams) => {
+                return (
+                <FormControl fullWidth>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={params.value.name}
+                        label="Role"
+                        onChange={(event) => {
+                            send_change_role_request(params.id.toString(), event.target.value);
+                            console.log(params.id);
+                            console.log(params.field),
+                            console.log(event.target.value)
+                            let old_id = params.value.id
+                            let new_user_role = new UserRole();
+                            new_user_role.id = old_id
+                            new_user_role.name = event.target.value
+                            params.api.setEditCellValue({
+                                id: params.id,
+                                field: params.field,
+                                value: new_user_role
+                            });}}
+                    >
+                        <MenuItem value="ROLE_REGULAR">Regular</MenuItem>
+                    <MenuItem value="ROLE_MODERATOR">Moderator</MenuItem>
+                    <MenuItem value="ROLE_ADMIN">Admin</MenuItem>
+                    </Select>
+                </FormControl>
               )
+             }
         }
       ];
 

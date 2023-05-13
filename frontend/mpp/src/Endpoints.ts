@@ -17,7 +17,7 @@ export class EndPoints {
     static BACKEND_REGISTER_SUFFIX = "/register"
 
     static backendUserChangeRole(id: string, new_role: string) : string {
-        return ServerSettings.API_ENDPOINT + this.USER_TABLE + "/" + id + "/role" + new_role;
+        return ServerSettings.API_ENDPOINT + this.USER_TABLE + "/" + id + "/role/" + new_role;
     }
 
     static backendGetUsers() : string {
