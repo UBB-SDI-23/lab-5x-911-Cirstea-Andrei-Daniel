@@ -13,8 +13,13 @@ public class SqlService {
         Process process = Runtime.getRuntime().exec(command);
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line = reader.readLine();
-        if (line != null) {
-            return line;
+        String last_line = line;
+        while (line != null) {
+            last_line = line;
+            line = reader.readLine();
+        }
+        if (last_line != null) {
+            return last_line;
         }
         else {
             throw new Exception("Could not read script output");
