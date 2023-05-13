@@ -80,7 +80,7 @@ axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 export const make_request = (method: any, url: any, data: any) => {
 
     let headers = {};
-    if (getAuthToken() !== null && getAuthToken() !== "") {
+    if (getAuthToken() !== null && getAuthToken() !== "null") {
         headers = {'Authorization': `Bearer ${getAuthToken()}`};
     }
 

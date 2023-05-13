@@ -101,5 +101,5 @@ export const CustomerUpdate = () => {
     //     )
 
     return <UpdatePage element={element} setElement={setElement} description={"Customer"} table_endpoint={EndPoints.CUSTOMER_TABLE}
-        form_result={<CustomerForm element={element} setElement={setElement} />}/>
+        form_result={<CustomerForm element={element} setElement={setElement} initial_empty={false}/>}/>
 }

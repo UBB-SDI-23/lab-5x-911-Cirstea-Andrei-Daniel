@@ -56,5 +56,5 @@ export const PurchaseCreate = () => {
 //     )
 
     return <CreatePage element={element} setElement={setElement} table_endpoint={EndPoints.PURCHASE_TABLE} 
-    form_result={<PurchaseForm element={element} setElement={setElement} />}/>
+    form_result={<PurchaseForm element={element} setElement={setElement} initial_empty={true} />}/>
 }

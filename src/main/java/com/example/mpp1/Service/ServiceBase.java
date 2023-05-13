@@ -74,7 +74,9 @@ public class ServiceBase<R, T extends IModel<R>> {
 
     public T update(T element, Long id) throws Exception {
         T old_element = ValidateUserRole(id, "update the");
+        User old_user = old_element.getUser();
         old_element = element;
+        old_element.setUser(old_user);
         return repository.save(old_element);
     }
 

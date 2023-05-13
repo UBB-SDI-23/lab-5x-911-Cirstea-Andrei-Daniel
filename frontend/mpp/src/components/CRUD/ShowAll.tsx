@@ -243,14 +243,34 @@ export const ShowAll = (props: any) => {
         headerName: 'Options',
         sortable: false,
         type: 'actions',
-        getActions: (params: GridRowParams) => [
-            <GridActionsCellItem icon={<EditIcon/>} onClick={ 
-                () => navigate_details(props.table_endpoint + "/" + params.id + EndPoints.VIRTUAL_UPDATE)
-            } label="Edit" />,
-            <GridActionsCellItem icon={<DeleteIcon/>} onClick={
-                () => main_delete_dialog_open(parseInt(params.id.valueOf().toString()))
-            } label="Delete"/>,
-        ]
+        width: 160,
+        getActions: (params: GridRowParams) => {
+            // If the user is a regular one and the entity does not belong to it then don't allow these columns
+            const role = Authentication.getAuthRole().name;
+            if (role == "ROLE_GUEST") {
+                return [
+                    <div>Insufficient rights</div>
+                ]
+            }
+
+            if (role == "ROLE_REGULAR") {
+                const logged_username = Authentication.getAuthUsername();
+                if (logged_username != params.row.user.username) {
+                    return [
+                        <div>Insufficient rights</div>
+                    ]
+                }
+            }
+
+            return [
+                <GridActionsCellItem icon={<EditIcon/>} onClick={ 
+                    () => navigate_details(props.table_endpoint + "/" + params.id + EndPoints.VIRTUAL_UPDATE)
+                } label="Edit" />,
+                <GridActionsCellItem icon={<DeleteIcon/>} onClick={
+                    () => main_delete_dialog_open(parseInt(params.id.valueOf().toString()))
+                } label="Delete"/>,
+            ]
+        }
     }
 
     let columns = [...props.table_columns]
@@ -281,6 +301,13 @@ export const ShowAll = (props: any) => {
         </React.Fragment>
     )
 
+    let add_button;
+    const role = Authentication.getAuthRole();
+    if (role.name != "ROLE_GUEST") {
+        add_button = <Button onClick={() => navigate_details(props.table_endpoint + EndPoints.VIRTUAL_CREATE)}>
+            <AddIcon />
+        </Button>
+    }
 
     return (
         <React.Fragment>
@@ -289,10 +316,8 @@ export const ShowAll = (props: any) => {
 
         <h1>{props.description}</h1>
         <br></br>
-        <Button onClick={() => navigate_details(props.table_endpoint + EndPoints.VIRTUAL_CREATE)}>
-            <AddIcon />
-        </Button>
-
+        
+        {add_button}
         {statistic_element}
         {filter_element}
 

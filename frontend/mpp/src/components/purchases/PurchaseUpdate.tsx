@@ -150,5 +150,5 @@ export const PurchaseUpdate = () => {
     //     )
 
     return <UpdatePage element={element} setElement={setElement} description={"Purchase"} table_endpoint={EndPoints.PURCHASE_TABLE}
-        form_result={<PurchaseForm element={element} setElement={setElement} />}/>
+        form_result={<PurchaseForm element={element} setElement={setElement} initial_empty={false} />}/>
 }

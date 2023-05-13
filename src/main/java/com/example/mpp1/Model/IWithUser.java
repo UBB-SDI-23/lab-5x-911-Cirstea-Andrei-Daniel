@@ -4,4 +4,6 @@ public interface IWithUser {
 
     User getUser();
 
+    void setUser(User user);
+
 }

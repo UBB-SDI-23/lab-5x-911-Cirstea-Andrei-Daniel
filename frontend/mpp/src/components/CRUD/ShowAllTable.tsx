@@ -20,6 +20,8 @@ export const ShowAllTable = (props: any) => {
     });
     const [current_page, setCurrentPage] = useState<number>(0)
 
+    
+
     const update_elements = () => {
         Authentication.make_request('GET', ServerSettings.API_ENDPOINT + props.table_endpoint + props.request_endpoint + "?page=" + current_page, "")
         .then((data) => { 

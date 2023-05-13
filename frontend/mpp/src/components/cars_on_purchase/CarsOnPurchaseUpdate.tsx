@@ -102,5 +102,5 @@ export const CarsOnPurchaseUpdate = () => {
     //     )
 
     return <UpdatePage element={element} setElement={setElement} description={"Car Order"} table_endpoint={EndPoints.CARSONPURCHASE_TABLE}
-        form_result={<CarsOnPurchaseForm element={element} setElement={setElement} />}/>
+        form_result={<CarsOnPurchaseForm element={element} setElement={setElement} initial_empty={false} />}/>
 }
