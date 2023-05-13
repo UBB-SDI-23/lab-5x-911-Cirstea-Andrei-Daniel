@@ -12,9 +12,12 @@ export const HomePage = () => {
         username = "Guest"
     }
     let role = Authentication.getAuthRole();
-    let display_role;
+    let admin_role;
     if (role.name == "ROLE_ADMIN") {
-        display_role = <Button component={Link} to={EndPoints.USER_TABLE + "/change_role"}>Change Role</Button>
+        admin_role = <React.Fragment>
+            <Button component={Link} to={EndPoints.USER_TABLE + "/change_role"}>Change Role</Button>
+            <Button component={Link} to={EndPoints.ENTRIES_PER_PAGE_TABLE}>Change Entries Per Page</Button>
+        </React.Fragment>
     }
 
     let parsed_role = Authentication.getRoleParsed(role);
@@ -34,7 +37,7 @@ export const HomePage = () => {
                     <Button component={Link} to={EndPoints.DISTRIBUTOR_TABLE}>Distributors</Button>
                     <Button component={Link} to={EndPoints.SHIPMENT_TABLE}>Shipments</Button>
 
-                    {display_role}
+                    {admin_role}
 
                     <Button component={Link} to={EndPoints.LOGIN_PAGE}>Login</Button>
                 </Toolbar>

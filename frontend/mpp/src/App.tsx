@@ -37,6 +37,7 @@ import { UserConfirmCode } from './components/users/UserConfirmCode'
 import { UserProfileComponent } from './components/users/UserProfileComponent'
 import { PurchaseFilter } from './components/purchases/PurchaseFilter'
 import { UserChangeRole } from './components/users/UserChangeRole'
+import { UserEntriesPerPage } from './components/users/UserEntriesPerPage'
 
 function App() {
   return (
@@ -83,6 +84,8 @@ function App() {
 
             <Route path={EndPoints.USER_TABLE + "/find_profile/:id"} element={<UserProfileComponent/>} ></Route>
             <Route path={EndPoints.USER_TABLE + "/change_role"} element={<UserChangeRole/>}></Route>
+
+            <Route path={EndPoints.ENTRIES_PER_PAGE_TABLE} element={<UserEntriesPerPage />}></Route>
 
           </Routes>
         </BrowserRouter>

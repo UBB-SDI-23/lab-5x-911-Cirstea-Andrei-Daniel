@@ -10,6 +10,7 @@ export class EndPoints {
     static DISTRIBUTOR_TABLE = "/api/distributors"
     static CARSONPURCHASE_TABLE = "/api/carsonpurchases"
     static USER_TABLE = "/api/users"
+    static ENTRIES_PER_PAGE_TABLE = "/api/entries_per_page"
     static STATISTIC = "/statistic"
     static FILTER = "/filter"
     
@@ -22,6 +23,10 @@ export class EndPoints {
 
     static backendGetUsers() : string {
         return ServerSettings.API_ENDPOINT + this.USER_TABLE;
+    }
+
+    static backendEntriesPerPage() : string {
+        return ServerSettings.API_ENDPOINT + this.ENTRIES_PER_PAGE_TABLE;
     }
 
     static backendFind(table_endpoint: string, id: string | undefined) : string {

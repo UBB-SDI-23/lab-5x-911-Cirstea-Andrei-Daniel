@@ -21,8 +21,8 @@ public class EntriesPerPageController {
 
     @RolesAllowed({"ROLE_ADMIN"})
     @PostMapping("/{value}")
-    public void set(@PathVariable("value") Integer value) {
-        service.setEntriesPerPage(value);
+    public Integer set(@PathVariable("value") Integer value) {
+        return service.setEntriesPerPage(value);
     }
 
 }

@@ -15,10 +15,11 @@ public class EntriesPerPageService {
         return repository.findAll().get(0).getValue();
     }
 
-    public void setEntriesPerPage(Integer value) {
+    public Integer setEntriesPerPage(Integer value) {
         EntriesPerPage entries = repository.findAll().get(0);
         entries.setValue(value);
-        repository.save(entries);
+        entries = repository.save(entries);
+        return entries.getValue();
     }
 
 }
