@@ -1,5 +1,6 @@
 package com.example.mpp1.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -45,6 +46,7 @@ public class User implements UserDetails {
     @ManyToOne
     private UserRole role;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         ArrayList<GrantedAuthority> arrayList = new ArrayList<>();
@@ -52,30 +54,36 @@ public class User implements UserDetails {
         return arrayList;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return enabled;
     }
 
+    @JsonIgnore
     public String toString() {
         return "Id: " +  id + ", Username: " + username + ", Password: " + password + ", enabled: " + enabled + ", Email: " + email + ", Roles: " + role.getName();
     }
 
+    @JsonIgnore
     public User deepCopy() {
         return new User(getId(), new String(getUsername()), new String(getEmail()), new String(getPassword()), enabled, new UserRole(role.getId(), role.getName()));
     }
