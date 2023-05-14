@@ -1,4 +1,4 @@
-import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, MenuItem, Select, Snackbar, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
@@ -16,6 +16,8 @@ import { UserRole } from '../../models/UserRole';
 export const UserAdminRegenerate = () => {
     const [display_message, setDisplayMessage] = useState<boolean>(false)
     const [message, setMessage] = useState<string>("")
+    const [delete_buttons_enable, set_delete_buttons_enable] = useState<boolean[]>([true, true, true, true, true, true])
+    const [insert_buttons_enable, set_insert_buttons_enable] = useState<boolean[]>([true, true, true, true, true, true])
     const navigate_details = useNavigate()
 
     let role = Authentication.getAuthRole();
@@ -24,6 +26,10 @@ export const UserAdminRegenerate = () => {
             <div>Only admins can modify bulk delete and regenerate data</div>
         )
     }
+
+    useEffect(() => {
+
+    }, [delete_buttons_enable, insert_buttons_enable])
 
     const handle_dialog_open = () => {
         setDisplayMessage(true)
@@ -58,13 +64,18 @@ export const UserAdminRegenerate = () => {
         "insert_cars_on_purchase.sql"
     ]
 
-    const execute_sql = (script_name: string) => {
-        Authentication.make_request('POST', EndPoints.backendExecuteSql(script_name), "")
+    const execute_sql = (status_array: boolean[], script_names: string[], index: number, set_function: any) => {
+        status_array[index] = false
+        set_function(status_array)
+        Authentication.make_request('POST', EndPoints.backendExecuteSql(script_names[index]), "")
         .then(
             (response) => {
                 console.log(response);
                 setMessage(response.data);
                 setDisplayMessage(true)
+
+                status_array[index] = true
+                set_function(status_array)
             }
         )
         .catch(
@@ -72,6 +83,9 @@ export const UserAdminRegenerate = () => {
                 console.log(error);
                 setMessage(error.response?.data as string)
                 setDisplayMessage(true)
+
+                status_array[index] = true
+                set_function(status_array)
             }
         )
     }
@@ -86,7 +100,7 @@ export const UserAdminRegenerate = () => {
             aria-describedby="alert-dialog-description"
             >
             <DialogTitle id="alert-dialog-title">
-                {"Failure"}
+                {"Message"}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
@@ -103,13 +117,15 @@ export const UserAdminRegenerate = () => {
     }
 
     const DeleteButton = (props: any)  => (
-        <Button onClick={() => execute_sql(delete_scripts[props.index])}>
+        <Button disabled={!delete_buttons_enable[props.index]} onClick={() =>
+             execute_sql(delete_buttons_enable, delete_scripts, props.index, set_delete_buttons_enable)}>
           {entity_descriptions[props.index]}
         </Button>
       );
 
     const RegenerateButton = (props: any) => (
-        <Button onClick={() => execute_sql(insert_scripts[props.index])}>
+        <Button disabled={!insert_buttons_enable[props.index]} onClick={() => 
+            execute_sql(insert_buttons_enable, insert_scripts, props.index, set_insert_buttons_enable)}>
             {entity_descriptions[props.index]}
         </Button>
     )
@@ -120,6 +136,13 @@ export const UserAdminRegenerate = () => {
                 <KeyboardReturnIcon />
             </Button>
             <br></br>
+
+            <Snackbar
+                open={display_message}
+                autoHideDuration={6000}
+                onClose={handle_dialog_close}
+                message="This is a toast message!"
+            />
 
             <h3>Delete Data From</h3>
             {delete_scripts.map((script, index) => (
@@ -138,7 +161,7 @@ export const UserAdminRegenerate = () => {
             ))}
             
             
-            {failed_dialog_element}
+            {/* {failed_dialog_element} */}
         </React.Fragment>
     )
 }
