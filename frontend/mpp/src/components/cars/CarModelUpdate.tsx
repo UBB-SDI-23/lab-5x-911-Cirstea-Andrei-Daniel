@@ -10,6 +10,7 @@ import React from 'react';
 import * as Authentication from '../../helpers/Authentication';
 import { UpdatePage } from '../CRUD/UpdatePage';
 import { CarModelForm } from './CarModelForm';
+import { findParentElementFromClassName } from '@mui/x-data-grid/internals';
 
 export const CarModelUpdate = () => {
     const [element, setElement] = useState<CarModel>(new CarModel())
@@ -100,7 +101,7 @@ export const CarModelUpdate = () => {
     //         </React.Fragment>
     //     )
 
-    return <UpdatePage element={element} setElement={setElement} description={"Car Model"} table_endpoint={EndPoints.CAR_TABLE}
-        form_result={<CarModelForm element={element} setElement={setElement} />}/>
+    return <UpdatePage table_endpoint={EndPoints.CAR_TABLE} description={"Car Model"} element={element}
+    setElement={setElement} form_result={<CarModelForm element={element} setElement={setElement} initial_empty={false} />} />
 
 }

@@ -4,12 +4,19 @@ package com.example.mpp1.Service;
 import com.example.mpp1.Jwt.JwtRequest;
 import com.example.mpp1.Jwt.UserAuthenticationProvider;
 import com.example.mpp1.Model.*;
+import com.example.mpp1.Repository.RoleRepository;
 import com.example.mpp1.Repository.UserProfileRepository;
 import com.example.mpp1.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,22 +33,7 @@ public class UserService {
     private UserProfileRepository user_profile_repository;
 
     @Autowired
-    private CarModelService car_model_service;
-
-    @Autowired
-    private CarsOnPurchaseService cars_on_purchase_service;
-
-    @Autowired
-    private CustomerService customer_service;
-
-    @Autowired
-    private DistributorService distributor_service;
-
-    @Autowired
-    private PurchaseService purchase_service;
-
-    @Autowired
-    private ShipmentService shipment_service;
+    private RoleRepository role_repository;
 
     private ModelMapper modelMapper = new ModelMapper();
 
@@ -49,8 +41,10 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public List<User> getUsers() {
-        return user_repository.findAll();
+        return user_repository.findAllByOrderById();
     }
+
+    public Page<User> getUsersPaged(Pageable page) { return user_repository.findAllByOrderById(page); }
 
     public User enableUser(Long userID) throws Exception {
         Optional<User> value = user_repository.findById(userID);
@@ -71,6 +65,9 @@ public class UserService {
         }
 
         if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            if (!user.isEnabled()) {
+                throw new Exception("The user " + request.getUsername() + " has not yet confirmed the code.");
+            }
             return user;
         }
         throw new Exception("Invalid password for username " + request.getUsername());
@@ -80,6 +77,7 @@ public class UserService {
         if (user.getEnabled() == null) {
             user.setEnabled(false);
         }
+        user.setRole(role_repository.findByName("ROLE_REGULAR"));
         UserValidator.Validate(user);
 
         User existing_user = user_repository.findByUsername(user.getUsername());
@@ -104,9 +102,21 @@ public class UserService {
         return user_repository.findByUsername(username);
     }
 
-    public UserProfileDTO findUserProfile(Long userID) {
-        UserProfile user_profile = user_profile_repository.findByUserId(userID);
-        return convertToDto(user_profile);
+    public UserProfile findUserProfile(Long userID) {
+        return user_profile_repository.findByUserId(userID);
+    }
+
+    public void ValidateUser(IWithUser with_user, String role, String message_string) throws Exception {
+        // Check to see if the request user is the same as the session one
+        User session_user = getCurrentUser();
+
+        if (!with_user.getUser().getId().equals(session_user.getId())) {
+            // Check to see if their role is only ROLE_REGULAR
+            UserRole userRole = session_user.getRole();
+            if (userRole.getName().compareTo(role) == 0) {
+                throw new Exception("Cannot " + message_string + " of user " + with_user.getUser().getUsername() + " while having role " + role);
+            }
+        }
     }
 
     public String deleteUser(Long userID){
@@ -116,18 +126,24 @@ public class UserService {
         return "User successfully deleted";
     }
 
-    private UserProfileDTO convertToDto(UserProfile element) {
-        UserProfileDTO dto = modelMapper.map(element, UserProfileDTO.class);
-        List<Integer> entity_count = dto.getEntity_count();
-        User user = element.getUser();
-        Long user_id = user.getId();
-        entity_count.add(car_model_service.findCountForUser(user_id));
-        entity_count.add(customer_service.findCountForUser(user_id));
-        entity_count.add(distributor_service.findCountForUser(user_id));
-        entity_count.add(purchase_service.findCountForUser(user_id));
-        entity_count.add(shipment_service.findCountForUser(user_id));
-        entity_count.add(cars_on_purchase_service.findCountForUser(user_id));
-        return dto;
+    public User changeUserRole(Long userID, UserRole new_role) throws Exception {
+        String role = new_role.getName();
+        new_role = role_repository.findByName(role);
+        if (new_role == null) {
+            throw new Exception("Invalid user role of " + role);
+        }
+        User user = findID(userID);
+        user.setRole(new_role);
+        return user_repository.save(user);
+    }
+
+    public User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            UserDetails user_details = (UserDetails)principal;
+            return findByUsername(user_details.getUsername());
+        }
+        return null;
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.mpp1.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+public class Customer implements IModel<CustomerDTO> {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "customerID")
@@ -44,5 +45,16 @@ public class Customer {
     @ManyToOne
     @JoinColumn(name = "userID_FK")
     private User user;
+
+    public void Validate() throws Exception {
+        CustomerValidator.Validate(this);
+    }
+
+    public CustomerDTO toDTO() {
+        ModelMapper modelMapper = new ModelMapper();
+        CustomerDTO dto = modelMapper.map(this, CustomerDTO.class);
+        dto.setPurchaseCount(getPurchases().size());
+        return dto;
+    }
 
 }

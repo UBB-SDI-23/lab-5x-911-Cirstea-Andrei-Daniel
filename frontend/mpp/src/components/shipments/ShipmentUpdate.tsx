@@ -96,5 +96,5 @@ export const ShipmentUpdate = () => {
     //     )
 
     return <UpdatePage element={element} setElement={setElement} description={"Shipment"} table_endpoint={EndPoints.SHIPMENT_TABLE}
-        form_result={<ShipmentForm element={element} setElement={setElement} />}/>
+        form_result={<ShipmentForm element={element} setElement={setElement} initial_empty={false} />}/>
 }

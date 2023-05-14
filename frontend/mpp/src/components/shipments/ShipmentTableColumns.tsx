@@ -7,15 +7,15 @@ export const ShipmentTableColumns = () => {
     let table_columns: GridColDef[] = [
         { field: 'expectedArrival', headerName: 'Expected Arrival', type: 'Date', width: 130, 
             renderCell: (params) => (
-            <Link to={EndPoints.PURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
+            <Link to={EndPoints.frontendFind(EndPoints.SHIPMENT_TABLE, params.id.valueOf().toString())}>{new Date(params.value).toLocaleString()}</Link>
           ) 
         },
         { field: 'arrival', headerName: 'Arrival', type: 'Date', width: 130,
           renderCell: (params) => (
-            <Link to={EndPoints.PURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
+            <Link to={EndPoints.frontendFind(EndPoints.SHIPMENT_TABLE, params.id.valueOf().toString())}>{new Date(params.value).toLocaleString()}</Link>
           ) 
         },
-        { field: 'totalPrice', headerName: 'Status', type: "number", width: 160},
+        { field: 'totalPrice', headerName: 'Total Price', type: "number", width: 160},
       ];
 
       table_columns.unshift(UserColumn());

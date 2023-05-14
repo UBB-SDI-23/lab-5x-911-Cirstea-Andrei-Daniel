@@ -1,5 +1,6 @@
 package com.example.mpp1.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,7 +15,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "user_table")
+@Table(name = "user_table", indexes = @Index(columnList = "username"))
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,42 +43,49 @@ public class User implements UserDetails {
     @Setter
     private Boolean enabled;
 
-    @ElementCollection
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    private List<String> roles = new ArrayList<>();
+    @ManyToOne
+    private UserRole role;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        ArrayList<GrantedAuthority> arrayList = new ArrayList<>();
+        arrayList.add(new SimpleGrantedAuthority(role.getName()));
+        return arrayList;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return enabled;
     }
 
+    @JsonIgnore
     public String toString() {
-        return "Id: " +  id + ", Username: " + username + ", Password: " + password + ", enabled: " + enabled + ", Email: " + email + ", Roles: " + roles.toString();
+        return "Id: " +  id + ", Username: " + username + ", Password: " + password + ", enabled: " + enabled + ", Email: " + email + ", Roles: " + role.getName();
     }
 
+    @JsonIgnore
     public User deepCopy() {
-        return new User(getId(), new String(getUsername()), new String(getEmail()), new String(getPassword()), enabled, new ArrayList<>(getRoles()));
+        return new User(getId(), new String(getUsername()), new String(getEmail()), new String(getPassword()), enabled, new UserRole(role.getId(), role.getName()));
     }
 
 }

@@ -10,14 +10,36 @@ export class EndPoints {
     static DISTRIBUTOR_TABLE = "/api/distributors"
     static CARSONPURCHASE_TABLE = "/api/carsonpurchases"
     static USER_TABLE = "/api/users"
+    static ENTRIES_PER_PAGE_TABLE = "/api/entries_per_page"
+    static EXECUTE_SQL = "/api/sql"
     static STATISTIC = "/statistic"
     static FILTER = "/filter"
     
     static BACKEND_LOGIN_SUFFIX = "/login"
     static BACKEND_REGISTER_SUFFIX = "/register"
 
+    static backendExecuteSql(script_name: string) : string {
+        return ServerSettings.API_ENDPOINT + this.EXECUTE_SQL + "/" + script_name
+    }
+
+    static backendUserChangeRole(id: string, new_role: string) : string {
+        return ServerSettings.API_ENDPOINT + this.USER_TABLE + "/" + id + "/role/" + new_role;
+    }
+
+    static backendGetUsers() : string {
+        return ServerSettings.API_ENDPOINT + this.USER_TABLE;
+    }
+
+    static backendEntriesPerPage() : string {
+        return ServerSettings.API_ENDPOINT + this.ENTRIES_PER_PAGE_TABLE;
+    }
+
     static backendFind(table_endpoint: string, id: string | undefined) : string {
-        return ServerSettings.API_ENDPOINT + table_endpoint + this.FIND_PATH + "/" + id 
+        return ServerSettings.API_ENDPOINT + this.frontendFind(table_endpoint, id);
+    }
+
+    static frontendFind(table_endpoint: string, id: string | undefined) : string {
+        return table_endpoint + this.FIND_PATH + "/" + id;
     }
 
     static backendLogin() : string {

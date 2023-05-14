@@ -2,6 +2,8 @@ package com.example.mpp1.Model;
 
 import lombok.*;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
@@ -17,5 +19,9 @@ public class UserDTO {
     @Getter
     @Setter
     private String token;
+
+    @Getter
+    @Setter
+    private UserRole role;
 
 }

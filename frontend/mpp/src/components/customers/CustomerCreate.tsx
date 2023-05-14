@@ -71,6 +71,6 @@ export const CustomerCreate = () => {
 //         </React.Fragment>
 //     )
 
-    return <CreatePage element={element} setElement={setElement} table_endpoint={EndPoints.DISTRIBUTOR_TABLE} 
-            form_result={<CustomerForm element={element} setElement={setElement} />}/>
+    return <CreatePage element={element} setElement={setElement} table_endpoint={EndPoints.CUSTOMER_TABLE} 
+            form_result={<CustomerForm element={element} setElement={setElement} initial_empty={true} />}/>
 }

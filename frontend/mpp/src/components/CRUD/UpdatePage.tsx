@@ -13,15 +13,10 @@ export const UpdatePage = (props: any) => {
     const navigate_back = useNavigate()
     const { id } = useParams()
 
-    
     const commit_update = () => {
         const endpoint = ServerSettings.API_ENDPOINT + table_endpoint + "/" + id
         Authentication.make_request('PUT', endpoint, element)
         .then((data) => { let response_data = data.data; setElement(response_data); })
-        navigate_back(-1)
-    }
-
-    const cancel_update = () => {
         navigate_back(-1)
     }
 
@@ -31,6 +26,10 @@ export const UpdatePage = (props: any) => {
         Authentication.make_request('GET', endpoint, "")
         .then((data) => { let response_data = data.data; setElement(response_data) });
     }, [])
+
+    const cancel_update = () => {
+        navigate_back(-1)
+    }
 
     let return_element = <Button onClick={() => navigate_back(-1)}>
         <KeyboardReturnIcon/>

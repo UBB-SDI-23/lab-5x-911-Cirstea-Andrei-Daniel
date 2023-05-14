@@ -14,7 +14,7 @@ export const PurchaseTableColumns = () => {
     let table_columns: GridColDef[] = [
         { field: 'date', headerName: 'Date', type: 'Date', width: 130, 
             renderCell: (params) => (
-            <Link to={EndPoints.PURCHASE_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
+            <Link to={EndPoints.frontendFind(EndPoints.PURCHASE_TABLE, params.id.valueOf().toString())}>{new Date(params.value).toLocaleString()}</Link>
           ) 
         },
         { field: 'payMethod', headerName: 'Pay Method', width: 130 },

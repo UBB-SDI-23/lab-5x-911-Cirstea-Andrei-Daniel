@@ -51,5 +51,5 @@ export const DistributorCreate = () => {
 //     )
 
     return <CreatePage element={element} setElement={setElement} table_endpoint={EndPoints.DISTRIBUTOR_TABLE} 
-        form_result={<DistributorForm element={element} setElement={setElement} />}/>
+        form_result={<DistributorForm element={element} setElement={setElement} initial_empty={true} />}/>
 }

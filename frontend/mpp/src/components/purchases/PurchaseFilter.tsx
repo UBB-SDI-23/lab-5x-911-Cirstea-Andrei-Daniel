@@ -9,11 +9,15 @@ import { ShowAllTable } from "../CRUD/ShowAllTable"
 import { PurchaseTableColumns } from "./PurchaseTableColumns"
 
 export const PurchaseFilter = () => {
-    const [status, setStatus] = useState<string>("")
+    const [status, setStatus] = useState<string>("Completed")
     const navigate_details = useNavigate()
     let table_columns = PurchaseTableColumns()
     table_columns.pop()
     table_columns.shift()
+
+    useEffect(() => {
+
+    }, [status])
 
     return  (
         <React.Fragment>
@@ -27,7 +31,7 @@ export const PurchaseFilter = () => {
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    defaultValue={status}
+                    defaultValue={"Completed"}
                     label="Status"
                     onChange={(event) => {setStatus(event.target.value);}}
                 >
@@ -37,7 +41,7 @@ export const PurchaseFilter = () => {
                 </Select>
             </FormControl>
 
-            <ShowAllTable table_endpoint={EndPoints.PURCHASE_TABLE} request_endpoint={EndPoints.FILTER + "/" + status} 
+            <ShowAllTable table_endpoint={EndPoints.PURCHASE_TABLE} request_endpoint={EndPoints.FILTER + "/" + status} description={"Purchase"}
             update={()=>{}} has_actions={false} table_columns={table_columns} />
         </React.Fragment>
     )

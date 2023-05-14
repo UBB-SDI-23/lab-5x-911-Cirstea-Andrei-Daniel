@@ -3,6 +3,8 @@ package com.example.mpp1.Model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
+import org.springframework.ui.ModelMap;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarModel {
+public class CarModel implements IModel<CarModelDTO> {
     public CarModel(Long id, String model, String manufacturer, Long price, Long manufacture_year, Long fuel_consumption, String description) {
         this.id = id;
         this.model = model;
@@ -58,4 +60,15 @@ public class CarModel {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "carModel", orphanRemoval = true)
     @JsonIgnoreProperties("carModel")
     private List<CarsOnPurchase> carsOnPurchaseList;
+
+    public void Validate() throws Exception {
+        CarModelValidator.Validate(this);
+    }
+
+    public CarModelDTO toDTO() {
+        ModelMapper modelMapper = new ModelMapper();
+        CarModelDTO dto = modelMapper.map(this, CarModelDTO.class);
+        dto.setPurchaseCount(getCarsOnPurchaseList().size());
+        return dto;
+    }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+import org.modelmapper.ModelMapper;
 
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Distributor {
+public class Distributor implements IModel<DistributorDTO> {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "distributorID")
@@ -46,5 +47,16 @@ public class Distributor {
     @ManyToOne
     @JoinColumn(name = "userID_FK")
     private User user;
+
+    public void Validate() throws Exception {
+        DistributorValidator.Validate(this);
+    }
+
+    public DistributorDTO toDTO() {
+        ModelMapper modelMapper = new ModelMapper();
+        DistributorDTO dto = modelMapper.map(this, DistributorDTO.class);
+        dto.setShipmentCount(getShipments().size());
+        return dto;
+    }
 
 }

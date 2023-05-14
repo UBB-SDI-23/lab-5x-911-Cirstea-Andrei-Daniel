@@ -14,7 +14,7 @@ export const CustomerTableColumns = () => {
     let table_columns: GridColDef[] = [
         { field: 'firstName', headerName: 'First Name', width: 130, 
             renderCell: (params) => (
-            <Link to={EndPoints.CUSTOMER_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
+            <Link to={EndPoints.frontendFind(EndPoints.CUSTOMER_TABLE, params.id.valueOf().toString())}>{params.value}</Link>
           ) 
         },
         { field: 'lastName', headerName: 'Last Name', width: 130 },

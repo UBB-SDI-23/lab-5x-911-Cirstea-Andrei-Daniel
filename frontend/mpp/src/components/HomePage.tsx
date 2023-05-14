@@ -8,9 +8,24 @@ import * as Authentication from '../helpers/Authentication';
 
 export const HomePage = () => {
     let username = Authentication.getAuthUsername();
+    if (username == "null") {
+        username = "Guest"
+    }
+    let role = Authentication.getAuthRole();
+    let admin_role;
+    if (role.name == "ROLE_ADMIN") {
+        admin_role = <React.Fragment>
+            <Button component={Link} to={EndPoints.USER_TABLE + "/change_role"}>Change Role</Button>
+            <Button component={Link} to={EndPoints.ENTRIES_PER_PAGE_TABLE}>Change Entries Per Page</Button>
+            <Button component={Link} to={EndPoints.EXECUTE_SQL}>Regnerate Entries</Button>
+        </React.Fragment>
+    }
+
+    let parsed_role = Authentication.getRoleParsed(role);
+
     return (
         <React.Fragment>
-            <h1>Logged in as {username}</h1>
+            <h1>Logged in as {username} with role {parsed_role}</h1>
             <br></br>
 
             <Box>
@@ -22,6 +37,9 @@ export const HomePage = () => {
                     <Button component={Link} to={EndPoints.CARSONPURCHASE_TABLE}>Car Orders</Button>
                     <Button component={Link} to={EndPoints.DISTRIBUTOR_TABLE}>Distributors</Button>
                     <Button component={Link} to={EndPoints.SHIPMENT_TABLE}>Shipments</Button>
+
+                    {admin_role}
+
                     <Button component={Link} to={EndPoints.LOGIN_PAGE}>Login</Button>
                 </Toolbar>
             </AppBar>

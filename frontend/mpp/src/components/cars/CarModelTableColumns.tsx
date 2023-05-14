@@ -7,7 +7,7 @@ export const CarModelTableColumns = () => {
     let table_columns: GridColDef[] = [
         { field: 'model', headerName: 'Model', width: 130, 
             renderCell: (params) => (
-              <Link to={EndPoints.CAR_TABLE + EndPoints.FIND_PATH + "/" + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
+              <Link to={EndPoints.frontendFind(EndPoints.CAR_TABLE, params.id.valueOf().toString())}>{params.value}</Link>
             ) 
         },
         { field: 'manufacturer', headerName: 'Manufacturer', width: 130 },

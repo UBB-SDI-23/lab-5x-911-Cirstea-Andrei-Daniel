@@ -1,5 +1,6 @@
 package com.example.mpp1.Service;
 
+import com.example.mpp1.Jwt.JwtAuthFilter;
 import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.CarModelRepository;
 import jakarta.persistence.EntityManager;
@@ -27,80 +28,88 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@NoArgsConstructor
-//@AllArgsConstructor
-//@Getter
-//@Setter
-//class TempClass {
-//    private Long id;
-//    private Long unitCount;
+//@Service
+//public class CarModelService {
+//    @Autowired
+//    private CarModelRepository repository;
+//
+//    private ModelMapper modelMapper = new ModelMapper();
+//
+//    @Autowired
+//    private UserService user_service;
+//
+//    public List<CarModelDTO> getAll() {
+//        return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
+//    }
+//
+//    public Page<CarModelDTO> getPage(Pageable page) {
+//        return repository.findAllByOrderById(page).map(this::convertToDto);
+//    }
+//
+//    public CarModel createCarModel(CarModel carModel) throws Exception {
+//        CarModelValidator.Validate(carModel);
+//        return repository.save(carModel);
+//    }
+//
+//    public List<CarModel> createCarModels(List<CarModel> carModels) {
+//        carModels = carModels.stream().filter(carModel -> {
+//            try {
+//                CarModelValidator.Validate(carModel);
+//                return true;
+//            }
+//            catch (Exception exception) {
+//                return false;
+//            }
+//        }).toList();
+//
+//        return repository.saveAll(carModels);
+//    }
+//
+//    public CarModel findID(Long carID) throws Exception {
+//        return repository.findById(carID).orElseThrow(() -> new Exception("The car model with id" + carID + "doesn't exist"));
+//    }
+//
+//    public Integer findCountForUser(Long userID) {
+//        return repository.countByUserId(userID);
+//    }
+//
+//    public CarModel ValidateUserRole(Long elementID) throws Exception {
+//        // Check to see if the request user is the same as the session one
+//        CarModel element = findID(elementID);
+//        if (element == null) {
+//            throw new Exception("Car Model with id " + elementID + " doesn't exist");
+//        }
+//        user_service.ValidateUser(element, "ROLE_REGULAR");
+//        return element;
+//    }
+//
+//    public CarModel updateCarModel(CarModel carModel, Long carID) throws Exception {
+//        CarModel old_carModel = ValidateUserRole(carID);
+//        old_carModel = carModel;
+//        return repository.save(old_carModel);
+//    }
+//
+//    public String deleteCarModel(Long carID) throws Exception {
+//        ValidateUserRole(carID);
+//        repository.deleteById(carID);
+//        return "Car Model successfully deleted";
+//    }
+//
+//    private CarModelDTO convertToDto(CarModel element) {
+//        CarModelDTO dto = modelMapper.map(element, CarModelDTO.class);
+//        dto.setPurchaseCount(element.getCarsOnPurchaseList().size());
+//        return dto;
+//    }
+//
 //}
 
 @Service
-public class CarModelService {
+public class CarModelService extends ServiceBase<CarModelDTO, CarModel> {
+
     @Autowired
-    private CarModelRepository repository;
-
-    private ModelMapper modelMapper = new ModelMapper();
-
-    public List<CarModelDTO> getAll() {
-        return repository.findAll().stream().map(this::convertToDto).collect(Collectors.toList());
-    }
-
-    public Page<CarModelDTO> getPage(Pageable page) {
-        //return repository.findAll(page).stream().map(this::convertToDto).collect(Collectors.toList());
-        return repository.findAllByOrderById(page).map(this::convertToDto);
-    }
-
-    public CarModel createCarModel(CarModel carModel) throws Exception {
-        CarModelValidator.Validate(carModel);
-        return repository.save(carModel);
-    }
-
-    public List<CarModel> createCarModels(List<CarModel> carModels) {
-        carModels = carModels.stream().filter(carModel -> {
-            try {
-                CarModelValidator.Validate(carModel);
-                return true;
-            }
-            catch (Exception exception) {
-                return false;
-            }
-        }).toList();
-
-        return repository.saveAll(carModels);
-    }
-
-    public CarModel findID(Long carID) throws Exception {
-        return repository.findById(carID).orElseThrow(() -> new Exception("The car model with id" + carID + "doesn't exist"));
-    }
-
-    public Integer findCountForUser(Long userID) {
-        return repository.countByUserId(userID);
-    }
-
-    public CarModel updateCarModel(CarModel carModel, Long carID) throws Exception {
-        CarModel old_carModel = findID(carID);
-        old_carModel = carModel;
-        return repository.save(old_carModel);
-    }
-
-    public String deleteCarModel(Long carID) throws Exception {
-        CarModel car_model = findID(carID);
-        repository.deleteById(carID);
-        return "Car successfully deleted";
-    }
-
-    private CarModelDTO convertToDto(CarModel element) {
-        CarModelDTO dto = modelMapper.map(element, CarModelDTO.class);
-        dto.setPurchaseCount(element.getCarsOnPurchaseList().size());
-        return dto;
-    }
-
-    private CarModelStatisticDTO convertToStatisticDto(CarModel element) {
-        CarModelStatisticDTO dto = modelMapper.map(element, CarModelStatisticDTO.class);
-        dto.setUnitCount(element.getCarsOnPurchaseList().stream().mapToInt(value -> value.getCount()).sum());
-        return dto;
+    public CarModelService(CarModelRepository repository, UserService user_service) {
+        super(repository, "Car Model", user_service);
     }
 
 }
+

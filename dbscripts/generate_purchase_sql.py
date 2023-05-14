@@ -3,6 +3,7 @@ if __name__ == '__main__':
     fake = Faker()
     
     COUNT = 1000000
+    MAX_USER_ID = 10000 - 1
     
     pay_methods = fake.random_elements(
         elements=["CreditCard", "PayPal", "Cash", "DebitCard", "BankTransfer"],
@@ -12,7 +13,7 @@ if __name__ == '__main__':
         elements=["Completed", "Pending", "Failed"],
         length=COUNT, unique=False)
     
-    sql_start_string = "INSERT INTO purchase (purchaseid_pk, date, pay_method, status, customerid_fk) VALUES\n"
+    sql_start_string = "INSERT INTO purchase (purchaseid_pk, date, pay_method, status, customerid_fk, userid_fk) VALUES\n"
 
     # create list to store SQL statements
     lines = []
@@ -24,11 +25,12 @@ if __name__ == '__main__':
         contact_email = fake.email()
         customer_id = fake.random_int(min=0, max=COUNT - 1)
         id = i
+        user_id = fake.random_int(0, MAX_USER_ID)
         
         if (i % 10000) == 0:
             print(i)
         
-        lines.append("('{}', '{}', '{}', '{}', '{}')".format(id, date, pay_methods[i], statuses[i], customer_id))
+        lines.append("('{}', '{}', '{}', '{}', '{}', '{}')".format(id, date, pay_methods[i], statuses[i], customer_id, user_id))
         if ((i + 1) % 1000) != 0:
             lines[i] += ",\n"
 

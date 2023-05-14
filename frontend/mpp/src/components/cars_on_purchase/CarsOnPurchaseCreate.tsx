@@ -72,5 +72,5 @@ export const CarsOnPuchaseCreate = () => {
 //     )
 
     return <CreatePage element={element} setElement={setElement} table_endpoint={EndPoints.CARSONPURCHASE_TABLE} 
-            form_result={<CarsOnPurchaseForm element={element} setElement={setElement} />}/>
+            form_result={<CarsOnPurchaseForm element={element} setElement={setElement} initial_empty={true} />}/>
 }

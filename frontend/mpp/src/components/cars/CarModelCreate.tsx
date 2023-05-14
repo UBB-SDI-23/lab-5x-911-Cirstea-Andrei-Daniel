@@ -72,5 +72,5 @@ export const CarModelCreate = () => {
 //     )
 
     return <CreatePage element={element} setElement={setElement} table_endpoint={EndPoints.CAR_TABLE} 
-                form_result={<CarModelForm element={element} setElement={setElement} />}/>
+                form_result={<CarModelForm element={element} setElement={setElement} initial_empty={true} />}/>
 }

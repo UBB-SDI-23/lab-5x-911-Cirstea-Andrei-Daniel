@@ -2,6 +2,7 @@ package com.example.mpp1.Controller;
 
 import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.DistributorRepository;
+import com.example.mpp1.Service.CustomerService;
 import com.example.mpp1.Service.DistributorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,56 +17,77 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+//@RestController
+//@RequestMapping(path = "/api/distributors")
+//public class DistributorController {
+//
+//    @Autowired
+//    private DistributorService service;
+//
+//    @GetMapping()
+//    public List<DistributorDTO> getAll() {
+//        return service.getAll();
+//    }
+//
+//    @GetMapping("/paged")
+//    public Page<DistributorDTO> getPage(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
+//        Pageable page_request = PageRequest.of(page, page_size);
+//        return service.getPage(page_request);
+//    }
+//
+//    @PostMapping()
+//    public ResponseEntity<?> createDistributor(@RequestBody Distributor distributor) {
+//        return service.createDistributor(distributor);
+//    }
+//
+//    @PostMapping("/create")
+//    public List<Distributor> createDistributors(@RequestBody List<Distributor> distributors) {
+//        return service.createDistributors(distributors);
+//    }
+//
+//    @GetMapping("/statistic")
+//    public Page<DistributorStatisticDTO> getDistributorsStatistic(
+//            @RequestParam(defaultValue = "0", required = false) Integer page,
+//            @RequestParam(defaultValue = "10", required = false) Integer page_size
+//    ) {
+//        Pageable page_request = PageRequest.of(page, page_size);
+//        return service.getDistributorsSortedByAverageShipmentPrice(page_request);
+//    }
+//
+//    @GetMapping("/find/{id}")
+//    public Distributor findID(@PathVariable("id") Long distributorID){
+//        return service.findID(distributorID);
+//    }
+//
+//    @PutMapping("/{id}")
+//    public ResponseEntity<?> updateDistributor(@RequestBody Distributor distributor, @PathVariable("id") Long distributorID) {
+//        try {
+//            return new ResponseEntity<>(service.updateDistributor(distributor, distributorID), HttpStatus.OK);
+//        }
+//        catch (Exception exception) {
+//            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<?> deleteDistributor(@PathVariable("id") Long distributorID) {
+//        try {
+//            return new ResponseEntity<>(service.deleteDistributor(distributorID), HttpStatus.OK);
+//        }
+//        catch (Exception exception) {
+//            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+//        }
+//    }
+//
+//}
+
 @RestController
 @RequestMapping(path = "/api/distributors")
-public class DistributorController {
+public class DistributorController extends ControllerBase<DistributorDTO, Distributor> {
 
     @Autowired
-    private DistributorService service;
-
-    @GetMapping()
-    public List<DistributorDTO> getAll() {
-        return service.getAll();
-    }
-
-    @GetMapping("/paged")
-    public Page<DistributorDTO> getPage(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
-        Pageable page_request = PageRequest.of(page, page_size);
-        return service.getPage(page_request);
-    }
-
-    @PostMapping()
-    public ResponseEntity<?> createDistributor(@RequestBody Distributor distributor) {
-        return service.createDistributor(distributor);
-    }
-
-    @PostMapping("/create")
-    public List<Distributor> createDistributors(@RequestBody List<Distributor> distributors) {
-        return service.createDistributors(distributors);
-    }
-
-    @GetMapping("/statistic")
-    public Page<DistributorStatisticDTO> getDistributorsStatistic(
-            @RequestParam(defaultValue = "0", required = false) Integer page,
-            @RequestParam(defaultValue = "10", required = false) Integer page_size
-    ) {
-        Pageable page_request = PageRequest.of(page, page_size);
-        return service.getDistributorsSortedByAverageShipmentPrice(page_request);
-    }
-
-    @GetMapping("/find/{id}")
-    public Distributor findID(@PathVariable("id") Long distributorID){
-        return service.findID(distributorID);
-    }
-
-    @PutMapping("/{id}")
-    public Distributor updateDistributor(@RequestBody Distributor distributor, @PathVariable("id") Long distributorID){
-        return service.updateDistributor(distributor, distributorID);
-    }
-
-    @DeleteMapping("/{id}")
-    public String deleteDistributor(@PathVariable("id") Long distributorID){
-        return service.deleteDistributor(distributorID);
+    public DistributorController(DistributorService service) {
+        super(service);
     }
 
 }

@@ -7,10 +7,14 @@ export const DistributorTableColumns = () => {
     let table_columns: GridColDef[] = [
         { field: 'name', headerName: 'Name', width: 180,
           renderCell: (params) => (
-            <Link to={EndPoints.DISTRIBUTOR_TABLE + '/' + parseInt(params.id.valueOf().toString())}>{params.value}</Link>
+            <Link to={EndPoints.frontendFind(EndPoints.DISTRIBUTOR_TABLE, params.id.valueOf().toString())}>{params.value}</Link>
           )
         },
-        { field: 'cooperationStartDate', headerName: 'Cooperation Start Date', type: 'Date', width: 200 },
+        { field: 'cooperationStartDate', headerName: 'Cooperation Start Date', type: 'Date', width: 200,
+        renderCell: (params) => (
+            <div>{new Date(params.value).toLocaleString()}</div>
+        ) 
+        },
         { field: 'country', headerName: 'Country', width: 160},
         { field: 'contactEmail', headerName: 'Contact Email', width: 160},
         { field: 'category', headerName: 'Category', width: 160},

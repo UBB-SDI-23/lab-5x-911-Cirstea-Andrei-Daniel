@@ -36,6 +36,9 @@ import { UserRegister } from './components/users/UserRegister'
 import { UserConfirmCode } from './components/users/UserConfirmCode'
 import { UserProfileComponent } from './components/users/UserProfileComponent'
 import { PurchaseFilter } from './components/purchases/PurchaseFilter'
+import { UserChangeRole } from './components/users/UserChangeRole'
+import { UserEntriesPerPage } from './components/users/UserEntriesPerPage'
+import { UserAdminRegenerate } from './components/users/UserAdminRegenerate'
 
 function App() {
   return (
@@ -80,7 +83,12 @@ function App() {
             <Route path={EndPoints.SHIPMENT_TABLE + "/:id" + EndPoints.VIRTUAL_UPDATE} element={<ShipmentUpdate/>}></Route>
             <Route path={EndPoints.SHIPMENT_TABLE + EndPoints.VIRTUAL_CREATE} element={<ShipmentCreate/>}></Route>
 
-            {/* <Route path={EndPoints.USER_TABLE + "/find_profile" + "/:id"} element={<UserProfileComponent/>} ></Route> */}
+            <Route path={EndPoints.USER_TABLE + "/find_profile/:id"} element={<UserProfileComponent/>} ></Route>
+            <Route path={EndPoints.USER_TABLE + "/change_role"} element={<UserChangeRole/>}></Route>
+
+            <Route path={EndPoints.ENTRIES_PER_PAGE_TABLE} element={<UserEntriesPerPage />}></Route>
+
+            <Route path={EndPoints.EXECUTE_SQL} element={<UserAdminRegenerate />}></Route>
 
           </Routes>
         </BrowserRouter>

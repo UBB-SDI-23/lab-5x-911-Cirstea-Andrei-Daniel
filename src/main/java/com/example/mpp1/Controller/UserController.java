@@ -4,15 +4,19 @@ import com.example.mpp1.Jwt.JwtMessage;
 import com.example.mpp1.Jwt.JwtRequest;
 import com.example.mpp1.Jwt.UserAuthenticationProvider;
 import com.example.mpp1.Model.*;
-import com.example.mpp1.Service.ConfirmationCodeService;
-import com.example.mpp1.Service.UserService;
+import com.example.mpp1.Service.*;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +35,33 @@ public class UserController {
     @Autowired
     private ConfirmationCodeService confirmationService;
 
+    @Autowired
+    private CarModelService carModelService;
+
+    @Autowired
+    private CarsOnPurchaseService carsOnPurchaseService;
+
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private DistributorService distributorService;
+
+    @Autowired
+    private PurchaseService purchaseService;
+
+    @Autowired
+    private ShipmentService shipmentService;
+
     @GetMapping("/users")
     public List<User> getAll() {
         return service.getUsers();
+    }
+
+    @GetMapping("/users/paged")
+    public Page<User> getAlllPaged(@RequestParam(defaultValue = "0", required = false) Integer page, @RequestParam(defaultValue = "10", required = false) Integer page_size) {
+        Pageable page_request = PageRequest.of(page, page_size);
+        return service.getUsersPaged(page_request);
     }
 
     @GetMapping("/users/find/{id}")
@@ -43,7 +71,7 @@ public class UserController {
 
     @GetMapping("/users/find_profile/{id}")
     public UserProfileDTO findUserProfile(@PathVariable("id") Long userID) {
-        return service.findUserProfile(userID);
+        return convertToProfileDto(service.findUserProfile(userID));
     }
 
     @DeleteMapping("/users/{id}")
@@ -99,11 +127,47 @@ public class UserController {
         }
     }
 
+    @PostMapping("/users/{id}/role/{new_role}")
+    public ResponseEntity<?> changeUserRole(@PathVariable("new_role") String new_role, @PathVariable String id) {
+        UserRole role = new UserRole();
+        role.setName(new_role);
+        Long user_id = Long.parseLong(id);
+        try {
+            return ResponseEntity.ok(service.changeUserRole(user_id, role));
+        }
+        catch (Exception exception) {
+            return ResponseEntity.badRequest().body(exception.getMessage());
+        }
+    }
+
     private UserDTO convertToDTO(User user) {
         UserDTO dto = new UserDTO();
         dto.setId(user.getId());
         dto.setToken(userAuthenticationProvider.createToken(user.getUsername()));
         dto.setUsername(user.getUsername());
+        dto.setRole(user.getRole());
+        return dto;
+    }
+
+    private UserProfileDTO convertToProfileDto(UserProfile element) {
+        UserProfileDTO dto = new UserProfileDTO();
+        dto.setId(element.getId());
+        dto.setBirthday(element.getBirthday());
+        dto.setDescription(element.getDescription());
+        dto.setLocation(element.getLocation());
+        dto.setGender(element.getGender());
+        dto.setPhone_number(element.getPhone_number());
+
+        List<Integer> entity_count = new ArrayList<>();
+        User user = element.getUser();
+        Long user_id = user.getId();
+        entity_count.add(carModelService.findCountForUser(user_id));
+        entity_count.add(customerService.findCountForUser(user_id));
+        entity_count.add(distributorService.findCountForUser(user_id));
+        entity_count.add(purchaseService.findCountForUser(user_id));
+        entity_count.add(shipmentService.findCountForUser(user_id));
+        entity_count.add(carsOnPurchaseService.findCountForUser(user_id));
+        dto.setEntity_count(entity_count);
         return dto;
     }
 

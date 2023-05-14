@@ -70,5 +70,5 @@ export const DistributorUpdate = () => {
     //     )
 
     return <UpdatePage element={element} setElement={setElement} description={"Distributor"} table_endpoint={EndPoints.DISTRIBUTOR_TABLE}
-        form_result={<DistributorForm element={element} setElement={setElement} />}/>
+        form_result={<DistributorForm element={element} setElement={setElement} initial_empty={false} />}/>
 }
