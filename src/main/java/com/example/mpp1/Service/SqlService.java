@@ -15,10 +15,12 @@ public class SqlService {
         String line = reader.readLine();
         String last_line = line;
         while (line != null) {
+            System.out.println(line);
             last_line = line;
             line = reader.readLine();
         }
         if (last_line != null) {
+            System.out.println("Last line is " + last_line);
             return last_line;
         }
         else {
