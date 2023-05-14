@@ -80,7 +80,11 @@ public class User implements UserDetails {
 
     @JsonIgnore
     public String toString() {
-        return "Id: " +  id + ", Username: " + username + ", Password: " + password + ", enabled: " + enabled + ", Email: " + email + ", Roles: " + role.getName();
+        String base_string = "Id: " +  id + ", Username: " + username + ", Password: " + password + ", enabled: " + enabled + ", Email: " + email + ", Role: ";
+        if (role != null) {
+            base_string += role.getName();
+        }
+        return base_string;
     }
 
     @JsonIgnore
