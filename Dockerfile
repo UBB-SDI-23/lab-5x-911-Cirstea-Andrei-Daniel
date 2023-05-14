@@ -14,7 +14,7 @@ RUN chmod +x /wait
 CMD /wait
 
 RUN chmod +x /docker-entrypoint-initdb.d/execute_sql_script.sh
-CMD ["/docker-entrypoint-initdb.d/execute_sql_script.sh", "/docker-entrypoint-initdb.d/init-db.sql"]
+RUN /docker-entrypoint-initdb.d/execute_sql_script.sh "/docker-entrypoint-initdb.d/init-db.sql"
 
 CMD ["java", "-jar", "application.jar"]
 
