@@ -137,12 +137,12 @@ export const UserAdminRegenerate = () => {
             </Button>
             <br></br>
 
-            <Snackbar
+            {/* <Snackbar
                 open={display_message}
                 autoHideDuration={6000}
                 onClose={handle_dialog_close}
                 message="This is a toast message!"
-            />
+            /> */}
 
             <h3>Delete Data From</h3>
             {delete_scripts.map((script, index) => (
@@ -161,7 +161,7 @@ export const UserAdminRegenerate = () => {
             ))}
             
             
-            {/* {failed_dialog_element} */}
+            {failed_dialog_element}
         </React.Fragment>
     )
 }
