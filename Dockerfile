@@ -15,7 +15,6 @@ CMD /wait
 
 RUN chmod +x /docker-entrypoint-initdb.d/dbscripts/execute_sql_script.sh
 
-CMD ["/docker-entrypoint-initdb.d/execute_sql_script.sh", "/docker-entrypoint-initdb.d/init-db.sql" ]
 CMD ["java", "-jar", "application.jar"]
 
 EXPOSE 8080
