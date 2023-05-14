@@ -29,8 +29,7 @@ services:
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
       - ./dbscripts:/docker-entrypoint-initdb.d
-      - ./execute_sql_script.sh:/docker-entrypoint-initdb.d/dbscripts/
-    entrypoint: ["/bin/sh", "-c", "/docker-entrypoint-initdb.d/dbscripts/execute_sql_script.sh \"init-db.sql\" && docker-entrypoint.sh postgres"]
+    command: /docker-entrypoint-initdb.d/dbscripts/execute_sql_script.sh "insert_user.sql"
     networks:
       - app-network
 
