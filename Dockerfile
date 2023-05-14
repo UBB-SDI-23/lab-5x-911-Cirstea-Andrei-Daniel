@@ -13,6 +13,9 @@ RUN chmod +x /wait
 
 CMD /wait
 
+RUN chmod +x /docker-entrypoint-initdb.d/init-db.sh
+RUN /docker-entrypoint-initdb.d/init-db.sh
+
 CMD ["java", "-jar", "application.jar"]
 
 EXPOSE 8080
