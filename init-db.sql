@@ -91,3 +91,4 @@ CREATE TABLE entries_per_page(
 
 INSERT INTO entries_per_page VALUES(0, 10);
 INSERT INTO user_role VALUES (0, 'ROLE_REGULAR'), (1, 'ROLE_MODERATOR'), (2, 'ROLE_ADMIN');
+INSERT INTO user_table VALUES (100000, '$2a$10$LaczdTMJOIM187rdEAeOL.LocJ2Cfbm8WaxTWZt/fshZSTykS3tQi', 'Andrei3', '1', '2');
