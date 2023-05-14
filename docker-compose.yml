@@ -27,7 +27,6 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=mpp
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     networks:
       - app-network
