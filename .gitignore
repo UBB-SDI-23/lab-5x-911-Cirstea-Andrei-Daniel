@@ -61,4 +61,4 @@ frontend/mpp/dist-ssr
 *.sln
 *.sw?
 
-*.sql
+dbscripts/*.sql
