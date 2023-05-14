@@ -80,7 +80,7 @@ export const ShowAll = (props: any) => {
 
     useEffect(() => {
         update_elements()
-    }, [current_page, paginationModel])
+    }, [current_page, paginationModel, entries_per_page])
 
     let return_element = <Button onClick={() => navigate_details(-1)}>
         <KeyboardReturnIcon/>
