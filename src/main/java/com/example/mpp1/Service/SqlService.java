@@ -29,7 +29,9 @@ public class SqlService {
                 try {
                     BufferedReader br = new BufferedReader(new FileReader("/home/andreicfsteaua/lab-5x-911-Cirstea-Andrei-Daniel/logname.txt"));
                     while ((line = br.readLine()) != null) {
-                        if (!line.contentEquals("INSERT 0 1000") && !line.contentEquals("ALTER SEQUENCE")) {
+                        if (!line.contentEquals("INSERT 0 1000") && !line.contentEquals("ALTER SEQUENCE")
+                            && !line.startsWith("DELETE")) {
+                            System.out.println("Problematic sql line: " + line);
                             command_success = "The command executed but it has encountered errors.";
                             break;
                         }

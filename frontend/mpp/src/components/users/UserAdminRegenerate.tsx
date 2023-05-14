@@ -14,8 +14,8 @@ import { UserRole } from '../../models/UserRole';
 
 
 export const UserAdminRegenerate = () => {
-    const [display_error, setDisplayError] = useState<boolean>(false)
-    const [error_message, setErrorMessage] = useState<string>("")
+    const [display_message, setDisplayMessage] = useState<boolean>(false)
+    const [message, setMessage] = useState<string>("")
     const navigate_details = useNavigate()
 
     let role = Authentication.getAuthRole();
@@ -25,12 +25,12 @@ export const UserAdminRegenerate = () => {
         )
     }
 
-    const handle_failed_dialog_open = () => {
-        setDisplayError(true)
+    const handle_dialog_open = () => {
+        setDisplayMessage(true)
     }
     
-    const handle_failed_dialog_close = () => {
-        setDisplayError(false)
+    const handle_dialog_close = () => {
+        setDisplayMessage(false)
     }
 
     const entity_descriptions = [
@@ -63,23 +63,25 @@ export const UserAdminRegenerate = () => {
         .then(
             (response) => {
                 console.log(response);
+                setMessage(response.data);
+                setDisplayMessage(true)
             }
         )
         .catch(
             (error: AxiosError) => {
                 console.log(error);
-                setErrorMessage(error.response?.data as string)
-                setDisplayError(true)
+                setMessage(error.response?.data as string)
+                setDisplayMessage(true)
             }
         )
     }
 
     let failed_dialog_element;
-    if (display_error) {
+    if (display_message) {
         failed_dialog_element = <div>
             <Dialog
-            open={display_error}
-            onClose={handle_failed_dialog_open}
+            open={display_message}
+            onClose={handle_dialog_open}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
             >
@@ -88,11 +90,11 @@ export const UserAdminRegenerate = () => {
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    {error_message}
+                    {message}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>
-                <Button onClick={handle_failed_dialog_close} autoFocus>
+                <Button onClick={handle_dialog_close} autoFocus>
                     OK
                 </Button>
             </DialogActions>
