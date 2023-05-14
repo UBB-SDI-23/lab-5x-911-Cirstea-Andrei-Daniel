@@ -12,7 +12,7 @@ CREATE TABLE user_table(
     email VARCHAR(255),
     password VARCHAR(255),
     username VARCHAR(255),
-    is_enabled BOOLEAN,
+    enabled BOOLEAN,
     role_roleid BIGINT
 );
 
