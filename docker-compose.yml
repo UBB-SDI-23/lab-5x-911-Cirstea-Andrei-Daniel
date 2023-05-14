@@ -28,7 +28,6 @@ services:
       - POSTGRES_DB=mpp
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
-      - ./dbscripts:/docker-entrypoint-initdb.d/dbscripts
       - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     networks:
       - app-network
