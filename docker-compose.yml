@@ -39,11 +39,11 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./nginx/fullchain.pem:/etc/nginx/fullchain.pem
-      - ./nginx/privkey.pem:/etc/nginx/privkey.pem
-      - ./nginx/options-ssl-nginx.conf:/etc/nginx/options-ssl-nginx.conf
-      - ./nginx/ssl-dhparams.pem:/etc/nginx/ssl-dhparams.pem
+      - /etc/nginx/conf.d:/etc/nginx/conf.d
+      - /etc/letsencrypt/live/sdi-2023-car-dealership.crabdance.com/fullchain.pem:/etc/nginx/fullchain.pem
+      - /etc/letsencrypt/live/sdi-2023-car-dealership.crabdance.com/privkey.pem:/etc/nginx/privkey.pem
+      - /etc/letsencrypt/options-ssl-nginx.conf:/etc/nginx/options-ssl-nginx.conf
+      - /etc/letsencrypt/ssl-dhparams.pem:/etc/nginx/ssl-dhparams.pem
     depends_on:
       - app
     networks:
