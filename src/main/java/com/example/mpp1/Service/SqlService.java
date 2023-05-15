@@ -20,9 +20,23 @@ public class SqlService {
 
     public String ExecuteScript(String script_name) throws Exception {
         try {
+            long initial_time = System.nanoTime();
             ClassPathResource resource = new ClassPathResource("dbscripts/delete_distributor.sql");
+            long load_time = System.nanoTime();
+
+            System.out.println("Class path time " + (load_time - initial_time));
+
+            initial_time = load_time;
             String content = resource.getContentAsString(Charset.defaultCharset());
+            load_time = System.nanoTime();
+
+            System.out.println("Read content time " + (load_time - initial_time));
+
+            initial_time = load_time;
             jdbcTemplate.execute(content);
+            load_time = System.nanoTime();
+
+            System.out.println("Executing time " + (load_time - initial_time));
             return "The command executed successfully without any errors.";
         }
         catch (Exception exception) {
@@ -117,7 +131,7 @@ public class SqlService {
 //        } catch (InterruptedException e) {
 //            // Error handling for waiting for the process to complete
 //        }
-        
+
     }
 
 }
