@@ -81,11 +81,11 @@ export const UserRegister = () => {
                 setUsername(event.target.value)
             }} />
             <br></br>
-            <TextField inputProps={{data_testid: 'password'}} label="Password" variant="standard" defaultValue={password} onChange={(event) => {
+            <TextField inputProps={{data_testid: 'password'}} type="password" label="Password" variant="standard" defaultValue={password} onChange={(event) => {
                 setPassword(event.target.value)
             }} />
             <br></br>
-            <TextField inputProps={{data_testid: 'email'}} label="Email" variant="standard" defaultValue={email} onChange={(event) => {
+            <TextField inputProps={{data_testid: 'email'}} type="email" label="Email" variant="standard" defaultValue={email} onChange={(event) => {
                 setEmail(event.target.value)
             }} />
             <br></br>

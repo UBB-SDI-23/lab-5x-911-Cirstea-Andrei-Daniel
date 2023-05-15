@@ -4,6 +4,8 @@ ARG JAR_FILE=target/*.jar
 
 COPY ${JAR_FILE} application.jar
 
+COPY dbscripts /scripts
+
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.11.0/wait /wait
 RUN chmod +x /wait
 
