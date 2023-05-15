@@ -5,7 +5,7 @@ if __name__ == '__main__':
     
     GENERATE_COUNT = 10000
     
-    sql_start_string = "INSERT INTO user_table (userid, email, password, username) VALUES\n"
+    sql_start_string = "INSERT INTO user_table (userid, email, password, username, enabled, role_roleid) VALUES\n"
 
     # create list to store SQL statements
     lines = []
@@ -26,7 +26,7 @@ if __name__ == '__main__':
         if (i % 1000) == 0:
             print(i)
         
-        lines.append("('{}', '{}', '{}', '{}')".format(id, email, hashed_password, username))
+        lines.append("('{}', '{}', '{}', '{}', {}, {})".format(id, email, hashed_password, username, "TRUE", 0))
         if ((i + 1) % 1000) != 0:
             lines[i] += ",\n"
 

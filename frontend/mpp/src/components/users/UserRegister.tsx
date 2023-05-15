@@ -77,15 +77,15 @@ export const UserRegister = () => {
     let current_element;
     if (confirmation_code === "") {
         current_element = <React.Fragment>
-            <TextField label="Username" variant="standard" defaultValue={username} onChange={(event)=>{
+            <TextField inputProps={{data_testid: 'username'}} label="Username" variant="standard" defaultValue={username} onChange={(event)=>{
                 setUsername(event.target.value)
             }} />
             <br></br>
-            <TextField label="Password" variant="standard" defaultValue={password} onChange={(event) => {
+            <TextField inputProps={{data_testid: 'password'}} label="Password" variant="standard" defaultValue={password} onChange={(event) => {
                 setPassword(event.target.value)
             }} />
             <br></br>
-            <TextField label="Email" variant="standard" defaultValue={email} onChange={(event) => {
+            <TextField inputProps={{data_testid: 'email'}} label="Email" variant="standard" defaultValue={email} onChange={(event) => {
                 setEmail(event.target.value)
             }} />
             <br></br>
