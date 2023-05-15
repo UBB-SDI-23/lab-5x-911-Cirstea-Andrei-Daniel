@@ -32,4 +32,6 @@ public interface PurchaseRepository extends BasicRepository<Purchase> {
     Page<Purchase> findAllByStatusEqualsOrderById(String status, Pageable pageable);
 
     Long countByStatus(String status);
+
+    List<Purchase> findByDateContainsIgnoreCase(String date, Pageable pageable);
 }

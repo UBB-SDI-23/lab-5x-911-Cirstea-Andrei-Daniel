@@ -102,4 +102,10 @@ public class DistributorController extends ControllerBase<DistributorDTO, Distri
         return service.getDistributorsSortedByAverageShipmentPrice(page_request);
     }
 
+    @GetMapping("/autocomplete")
+    public List<Distributor> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
+        System.out.println(query);
+        return service.filter(query == null ? "" : query);
+    }
+
 }

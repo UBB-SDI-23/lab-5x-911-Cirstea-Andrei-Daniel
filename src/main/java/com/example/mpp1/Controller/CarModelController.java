@@ -1,9 +1,6 @@
 package com.example.mpp1.Controller;
 
-import com.example.mpp1.Model.CarModel;
-import com.example.mpp1.Model.CarModelDTO;
-import com.example.mpp1.Model.CarModelStatisticDTO;
-import com.example.mpp1.Model.CarModelValidator;
+import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.CarModelRepository;
 import com.example.mpp1.Service.CarModelService;
 import jakarta.annotation.security.RolesAllowed;
@@ -116,9 +113,18 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/api/cars")
 public class CarModelController extends ControllerBase<CarModelDTO, CarModel> {
 
+    private final CarModelService service;
+
     @Autowired
     public CarModelController(CarModelService service) {
         super(service);
+        this.service = service;
+    }
+
+    @GetMapping("/autocomplete")
+    public List<CarModel> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
+        System.out.println(query);
+        return service.filter(query == null ? "" : query);
     }
 
 }

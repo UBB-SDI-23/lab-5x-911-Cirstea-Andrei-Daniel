@@ -76,9 +76,18 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/api/customers")
 public class CustomerController extends ControllerBase<CustomerDTO, Customer> {
 
+    private final CustomerService service;
+
     @Autowired
     public CustomerController(CustomerService service) {
         super(service);
+        this.service = service;
+    }
+
+    @GetMapping("/autocomplete")
+    public List<Customer> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
+        System.out.println(query);
+        return service.filterCustomers(query == null ? "" : query);
     }
 
 }

@@ -140,9 +140,14 @@ public class DistributorService extends ServiceBase<DistributorDTO, Distributor>
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Autowired
+    private final DistributorRepository repository;
+
     @Autowired
     public DistributorService(DistributorRepository repository, UserService user_service) {
         super(repository, "Distributor", user_service);
+        this.repository = repository;
     }
 
     public Page<DistributorStatisticDTO> getDistributorsSortedByAverageShipmentPrice(Pageable pageable) {
@@ -177,6 +182,11 @@ public class DistributorService extends ServiceBase<DistributorDTO, Distributor>
 
         List<DistributorStatisticDTO> distributorStatisticDTOList = typedQuery.getResultList();
         return new PageImpl<>(distributorStatisticDTOList, pageable, count);
+    }
+
+    public List<Distributor> filter(String filter_string) {
+        Pageable page_request = PageRequest.of(0, 20);
+        return repository.findByNameContainingIgnoreCase(filter_string, page_request);
     }
 
 }

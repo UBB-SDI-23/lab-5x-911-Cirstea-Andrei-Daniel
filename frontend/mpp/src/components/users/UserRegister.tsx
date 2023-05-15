@@ -16,6 +16,7 @@ export const UserRegister = () => {
     const [display_error, setDisplayError] = useState<boolean>(false)
     const [error_message, setErrorMessage] = useState<string>("")
     const [confirmation_code, setConfirmationCode] = useState<string>("")
+    const [isInvalid, setIsInvalid] = useState(false);
     const navigate_details = useNavigate()
 
     const handle_failed_dialog_open = () => {
@@ -74,6 +75,15 @@ export const UserRegister = () => {
         </div>
     }
 
+    const isValidPassword = (password: string) => {
+        const hasCapitalLetter = /[A-Z]/.test(password);
+        const hasSmallLetter = /[a-z]/.test(password);
+        const hasDigit = /\d/.test(password);
+
+        // Return true only if all the patterns are matched
+        return password.length >= 8 && hasCapitalLetter && hasSmallLetter && hasDigit;
+    };
+
     let current_element;
     if (confirmation_code === "") {
         current_element = <React.Fragment>
@@ -81,7 +91,8 @@ export const UserRegister = () => {
                 setUsername(event.target.value)
             }} />
             <br></br>
-            <TextField inputProps={{data_testid: 'password'}} type="password" label="Password" variant="standard" defaultValue={password} onChange={(event) => {
+            <TextField inputProps={{data_testid: 'password'}} type="password" label="Password" variant="standard" error={isInvalid} defaultValue={password} onChange={(event) => {
+                setIsInvalid(!isValidPassword(event.target.value));
                 setPassword(event.target.value)
             }} />
             <br></br>

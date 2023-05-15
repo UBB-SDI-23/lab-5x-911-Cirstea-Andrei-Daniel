@@ -3,6 +3,7 @@ package com.example.mpp1.Service;
 import com.example.mpp1.Jwt.JwtAuthFilter;
 import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.CarModelRepository;
+import com.example.mpp1.Repository.CustomerRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
@@ -106,9 +107,23 @@ import java.util.stream.Collectors;
 @Service
 public class CarModelService extends ServiceBase<CarModelDTO, CarModel> {
 
+    private final CarModelRepository repository;
+
     @Autowired
     public CarModelService(CarModelRepository repository, UserService user_service) {
         super(repository, "Car Model", user_service);
+        this.repository = repository;
+    }
+
+    public List<CarModel> filter(String filter_string) {
+        String[] parts = filter_string.split(" ");
+        Pageable page_request = PageRequest.of(0, 20);
+        if (parts.length == 1) {
+            return repository.findByModelContainingIgnoreCaseOrManufacturerContainsIgnoreCase(parts[0], "", page_request);
+        }
+        else {
+            return repository.findByModelContainingIgnoreCaseOrManufacturerContainsIgnoreCase(parts[0], parts[1], page_request);
+        }
     }
 
 }

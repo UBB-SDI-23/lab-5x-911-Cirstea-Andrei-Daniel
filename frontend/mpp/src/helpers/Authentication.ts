@@ -88,6 +88,8 @@ export const make_request = (method: any, url: any, data: any) => {
         method: method,
         url: url,
         headers: headers,
-        data: data}
+        data: data,
+        timeout: 600000
+    }
     );
 };

@@ -16,6 +16,7 @@ import { UserRole } from '../../models/UserRole';
 export const UserAdminRegenerate = () => {
     const [display_message, setDisplayMessage] = useState<boolean>(false)
     const [message, setMessage] = useState<string>("")
+    const [snackbar_open, set_snackbar_open] = useState<boolean>(false)
     const [delete_buttons_enable, set_delete_buttons_enable] = useState<boolean[]>([true, true, true, true, true, true])
     const [insert_buttons_enable, set_insert_buttons_enable] = useState<boolean[]>([true, true, true, true, true, true])
     const navigate_details = useNavigate()
@@ -137,12 +138,12 @@ export const UserAdminRegenerate = () => {
             </Button>
             <br></br>
 
-            {/* <Snackbar
-                open={display_message}
+            <Snackbar
+                open={snackbar_open}
                 autoHideDuration={6000}
                 onClose={handle_dialog_close}
-                message="This is a toast message!"
-            /> */}
+                message="Waiting for response"
+            />
 
             <h3>Delete Data From</h3>
             {delete_scripts.map((script, index) => (

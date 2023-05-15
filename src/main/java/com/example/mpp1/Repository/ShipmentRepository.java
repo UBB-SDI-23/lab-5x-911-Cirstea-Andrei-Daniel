@@ -26,4 +26,5 @@ import java.util.List;
 @Repository
 public interface ShipmentRepository extends BasicRepository<Shipment> {
     List<Shipment> findByIdGreaterThanEqual(Long ID);
+
 }

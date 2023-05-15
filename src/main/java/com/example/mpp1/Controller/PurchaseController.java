@@ -111,4 +111,10 @@ public class PurchaseController extends ControllerBase<PurchaseDTO, Purchase> {
         return service.purchasesWithStatus(status, page_request);
     }
 
+    @GetMapping("/autocomplete")
+    public List<Purchase> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
+        System.out.println(query);
+        return service.filter(query == null ? "" : query);
+    }
+
 }
