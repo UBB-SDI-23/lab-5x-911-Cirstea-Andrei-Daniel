@@ -6,11 +6,25 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.Stream;
 
 @Service
 public class SqlService {
 
     public String ExecuteScript(String script_name) throws Exception {
+        // Specify the root directory path
+        String rootPath = "/";
+
+        System.out.println("Root folders");
+        try (Stream<Path> paths = Files.walk(Paths.get(rootPath))) {
+            paths.forEach(System.out::println);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         String command = "/scripts/execute_sql_script.sh " + script_name;
         Process process = Runtime.getRuntime().exec(command);
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
