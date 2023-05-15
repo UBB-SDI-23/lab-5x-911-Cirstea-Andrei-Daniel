@@ -26,7 +26,7 @@ public class SqlService {
         }
 
         //String command = "/bin/bash dbscripts/execute_sql_script.sh " + script_name;
-        String command = "ls";
+        String command = "ls dbscripts";
         Process process = Runtime.getRuntime().exec(command);
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line = reader.readLine();

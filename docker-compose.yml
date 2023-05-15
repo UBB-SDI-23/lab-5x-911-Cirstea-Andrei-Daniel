@@ -9,7 +9,7 @@ services:
       context: .
     container_name: app
     volumes:
-      - ./dbscripts:/dbcripts
+      - ./dbscripts:/dbscripts
     depends_on:
       - db
     environment:
