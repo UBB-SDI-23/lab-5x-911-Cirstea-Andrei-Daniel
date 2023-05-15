@@ -25,7 +25,7 @@ public class SqlService {
             e.printStackTrace();
         }
 
-        String command = "/scripts/execute_sql_script.sh " + script_name;
+        String command = "dbscripts/execute_sql_script.sh " + script_name;
         Process process = Runtime.getRuntime().exec(command);
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String line = reader.readLine();
@@ -41,7 +41,7 @@ public class SqlService {
             if (command_success.contentEquals("Success")) {
                 // Verify the log file
                 try {
-                    BufferedReader br = new BufferedReader(new FileReader("/scripts/logname.txt"));
+                    BufferedReader br = new BufferedReader(new FileReader("dbscripts/logname.txt"));
                     while ((line = br.readLine()) != null) {
                         if (!line.contentEquals("INSERT 0 1000") && !line.contentEquals("ALTER SEQUENCE")
                             && !line.startsWith("DELETE")) {
