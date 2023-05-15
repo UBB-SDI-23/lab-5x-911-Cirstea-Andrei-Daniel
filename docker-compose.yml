@@ -8,8 +8,6 @@ services:
     build:
       context: .
     container_name: app
-    volumes:
-      - ./dbscripts:/dbscripts
     depends_on:
       - db
     environment:
