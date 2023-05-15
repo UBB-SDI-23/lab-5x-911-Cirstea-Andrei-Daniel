@@ -103,4 +103,7 @@ CREATE SEQUENCE user_table_seq START WITH 1 INCREMENT BY 50;
 
 INSERT INTO entries_per_page VALUES(0, 10);
 INSERT INTO user_role VALUES (0, 'ROLE_REGULAR'), (1, 'ROLE_MODERATOR'), (2, 'ROLE_ADMIN');
-INSERT INTO user_table VALUES (100000, 'andrei@gmail.com', '$2a$10$LaczdTMJOIM187rdEAeOL.LocJ2Cfbm8WaxTWZt/fshZSTykS3tQi', 'Andrei3', TRUE, 2);
+INSERT INTO user_table VALUES
+                           (30000, 'andrei1@gmail.com', '$2a$10$mdzJjengqmtMd2nv4wr39uv0/HGIzZEx7wYPKIBOLVGeaXk7iwD0.', 'Andrei1', TRUE, 0),
+                           (30001, 'andrei2@gmail.com', '$2a$10$Gltz6dsmYRPZsz1eM2SdeeNPPja9WQcnOlZkYEDhDmqs8luWmhOHG', 'Andrei2', TRUE, 1);
+                           (30002, 'andrei3@gmail.com', '$2a$10$LaczdTMJOIM187rdEAeOL.LocJ2Cfbm8WaxTWZt/fshZSTykS3tQi', 'Andrei3', TRUE, 2);
