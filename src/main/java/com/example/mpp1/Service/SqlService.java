@@ -21,7 +21,7 @@ public class SqlService {
     public String ExecuteScript(String script_name) throws Exception {
         try {
             long initial_time = System.nanoTime();
-            ClassPathResource resource = new ClassPathResource("dbscripts/delete_distributor.sql");
+            ClassPathResource resource = new ClassPathResource("dbscripts/" + script_name);
             long load_time = System.nanoTime();
 
             System.out.println("Class path time " + (load_time - initial_time));
