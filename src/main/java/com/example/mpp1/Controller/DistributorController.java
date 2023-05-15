@@ -85,9 +85,21 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/api/distributors")
 public class DistributorController extends ControllerBase<DistributorDTO, Distributor> {
 
+    private final DistributorService service;
+
     @Autowired
     public DistributorController(DistributorService service) {
         super(service);
+        this.service = service;
+    }
+
+    @GetMapping("/statistic")
+    public Page<DistributorStatisticDTO> getDistributorsStatistic(
+            @RequestParam(defaultValue = "0", required = false) Integer page,
+            @RequestParam(defaultValue = "10", required = false) Integer page_size
+    ) {
+        Pageable page_request = PageRequest.of(page, page_size);
+        return service.getDistributorsSortedByAverageShipmentPrice(page_request);
     }
 
 }

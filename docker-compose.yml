@@ -28,7 +28,7 @@ services:
       - POSTGRES_DB=mpp
     volumes:
       - ./init-db.sql:/docker-entrypoint-initdb.d/aa_init-db.sql
-      - ./dbscripts/execute_sql_script.sh:/spring/execute_sql_script.sh
+      - ./dbscripts/execute_sql_script.sh:/scripts/execute_sql_script.sh
       - ./dbscripts/insert_user.sql:/docker-entrypoint-initdb.d/ab_insert_user.sql
       - ./dbscripts/insert_user_profile.sql:/docker-entrypoint-initdb.d/ac_insert_user_profile.sql
       - ./dbscripts/insert_distributor.sql:/docker-entrypoint-initdb.d/ad_insert_distributor.sql

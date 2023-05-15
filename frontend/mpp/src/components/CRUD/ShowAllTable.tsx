@@ -18,9 +18,11 @@ export const ShowAllTable = (props: any) => {
         page: 0,
         pageSize: 0,
     });
+    const [entries_per_page, setEntriesPerPage] = useState<number>(0)
     const [current_page, setCurrentPage] = useState<number>(0)
 
     const update_elements = () => {
+        console.log("Page size " + paginationModel.pageSize)
         if (paginationModel.pageSize > 0) {
             Authentication.make_request('GET', ServerSettings.API_ENDPOINT + props.table_endpoint + props.request_endpoint + "?page=" 
             + current_page + "&page_size=" + paginationModel.pageSize, "")
@@ -40,6 +42,7 @@ export const ShowAllTable = (props: any) => {
             let response_data = data.data;
             console.log(response_data)
             paginationModel.pageSize = response_data;
+            setEntriesPerPage(response_data)
             setPaginationModel(paginationModel)
         })
         .catch((error) => {
@@ -49,7 +52,7 @@ export const ShowAllTable = (props: any) => {
 
     useEffect(() => {
         update_elements()
-    }, [current_page, paginationModel, props.request_endpoint])
+    }, [current_page, paginationModel, props.request_endpoint, entries_per_page])
 
 
     const [delete_id, set_delete_id] = useState(props.id)
@@ -112,8 +115,8 @@ export const ShowAllTable = (props: any) => {
             count={page_count} 
             color="primary"
             onChange={handlePageChange}
-            siblingCount={5}
-            boundaryCount={5}
+            siblingCount={2}
+            boundaryCount={2}
             {...props}
             page={current_page + 1}
           />

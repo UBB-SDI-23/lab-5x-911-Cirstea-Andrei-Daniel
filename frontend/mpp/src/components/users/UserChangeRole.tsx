@@ -72,8 +72,8 @@ export const UserChangeRole = () => {
     }, [])
 
     let table_columns: GridColDef[] = [
-        { field: 'username', headerName: 'Username', width: 130 },
-        { field: 'role', headerName: 'Role', width: 150, editable:true,
+        { field: 'username', headerName: 'Username', width: 300, align:"center" },
+        { field: 'role', headerName: 'Role', width: 300, align:"center", editable:true,
             renderCell: (params) => {
                 //console.log(params.value);
                 return Authentication.getRoleParsed(params.value)
