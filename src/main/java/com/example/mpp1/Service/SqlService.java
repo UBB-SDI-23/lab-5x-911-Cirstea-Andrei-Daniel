@@ -16,9 +16,9 @@ public class SqlService {
 
     public String ExecuteScript(String script_name) throws Exception {
         // Specify the root directory path
-        String rootPath = "/";
+        String rootPath = "dbscripts";
 
-        System.out.println("Root folders");
+        System.out.println("Dbscripts folders");
         try (Stream<Path> paths = Files.walk(Paths.get(rootPath))) {
             paths.forEach(System.out::println);
         } catch (Exception e) {
