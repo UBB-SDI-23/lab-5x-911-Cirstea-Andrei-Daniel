@@ -5,12 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallbackWithoutResult;
+import org.springframework.transaction.support.TransactionTemplate;
+
+import org.springframework.transaction.PlatformTransactionManager;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.stream.Stream;
 
 @Service
@@ -21,6 +27,9 @@ public class SqlService {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private PlatformTransactionManager transactionManager;
 
     public String ExecuteScript(String script_name) throws Exception {
         if (!user_service.isCurrentUserRole("ROLE_ADMIN")) {
@@ -41,8 +50,28 @@ public class SqlService {
             System.out.println("Read content time " + (load_time - initial_time));
 
             initial_time = load_time;
-            jdbcTemplate.execute(content);
+
+            TransactionTemplate transactionTemplate = new TransactionTemplate(transactionManager);
+            transactionTemplate.execute(new TransactionCallbackWithoutResult() {
+                @Override
+                protected void doInTransactionWithoutResult(TransactionStatus status) {
+                    // Disable auto-commit for the current transaction
+                    try {
+                        jdbcTemplate.getDataSource().getConnection().setAutoCommit(false);
+                    } catch (SQLException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    // Execute your SQL statements or queries here
+                    jdbcTemplate.execute(content);
+
+                    // Commit the transaction
+                    status.flush();
+                }
+            });
+
             load_time = System.nanoTime();
+
 
             System.out.println("Executing time " + (load_time - initial_time));
             return "The command executed successfully without any errors.";
