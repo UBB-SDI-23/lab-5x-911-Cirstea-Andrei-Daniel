@@ -111,7 +111,7 @@ public class UserService {
         User session_user = getCurrentUser();
 
         if (!with_user.getUser().getId().equals(session_user.getId())) {
-            // Check to see if their role is only ROLE_REGULAR
+            // Check to see if their role is only
             UserRole userRole = session_user.getRole();
             if (userRole.getName().compareTo(role) == 0) {
                 throw new Exception("Cannot " + message_string + " of user " + with_user.getUser().getUsername() + " while having role " + role);
@@ -127,6 +127,11 @@ public class UserService {
     }
 
     public User changeUserRole(Long userID, UserRole new_role) throws Exception {
+        User current_user = getCurrentUser();
+        if (!current_user.getRole().getName().contentEquals("ROLE_ADMIN")) {
+            throw new Exception("Only admins can change the role of other users. You only have role " + current_user.getRole().getName());
+        }
+
         String role = new_role.getName();
         new_role = role_repository.findByName(role);
         if (new_role == null) {
@@ -144,6 +149,11 @@ public class UserService {
             return findByUsername(user_details.getUsername());
         }
         return null;
+    }
+
+    public boolean isCurrentUserRole(String role) {
+        User current_user = getCurrentUser();
+        return current_user.getRole().getName().contentEquals(role);
     }
 
 }
