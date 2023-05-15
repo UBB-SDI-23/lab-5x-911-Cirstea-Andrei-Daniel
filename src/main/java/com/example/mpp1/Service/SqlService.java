@@ -117,8 +117,7 @@ public class SqlService {
 //        } catch (InterruptedException e) {
 //            // Error handling for waiting for the process to complete
 //        }
-
-        return "Unknown error";
+        
     }
 
 }
