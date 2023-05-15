@@ -16,6 +16,8 @@ services:
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - WAIT_HOSTS=postgres:5432
+      - WAIT_TIMEOUT=10000000
+      - WAIT_SLEEP_INTERVAL=5
     networks:
       - app-network
 
