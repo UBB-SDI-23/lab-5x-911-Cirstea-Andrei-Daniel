@@ -2,10 +2,7 @@ package com.example.mpp1.Service;
 
 import org.springframework.stereotype.Service;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,6 +25,16 @@ public class SqlService {
         //String command = "dbscripts/execute_sql_script.sh " + script_name;
         //String command = "ls dbscripts";
         //Process process = Runtime.getRuntime().exec(command);
+
+        String filePath = "dbscripts/execute_sql_script.sh";
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            System.out.println("File exists!");
+        } else {
+            System.out.println("File does not exist!");
+        }
+
 
         String script_to_execute = "dbscripts/execute_sql_script.sh";
         String[] command = {script_to_execute, "insert_car_model.sql"};
