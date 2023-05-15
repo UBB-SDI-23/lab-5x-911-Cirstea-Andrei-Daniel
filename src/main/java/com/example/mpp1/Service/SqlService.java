@@ -29,10 +29,10 @@ public class SqlService {
         //String command = "ls dbscripts";
         //Process process = Runtime.getRuntime().exec(command);
 
-        String command = "/bin/bash";
         String script_to_execute = "dbscripts/execute_sql_script.sh";
+        String[] command = {script_to_execute, "insert_car_model.sql"};
 
-        ProcessBuilder processBuilder = new ProcessBuilder(command, script_to_execute, script_name);
+        ProcessBuilder processBuilder = new ProcessBuilder(command);
 
         try {
             Process process = processBuilder.start();
