@@ -55,7 +55,7 @@ public class ServiceBase<R, T extends IModel<R>> {
     }
 
     public T findID(Long id) throws Exception {
-        return repository.findById(id).orElseThrow(() -> new Exception("The " + model_string + " with id" + id + "doesn't exist"));
+        return repository.findById(id).orElseThrow(() -> new Exception("The " + model_string + " with id " + id + " doesn't exist"));
     }
 
     public Integer findCountForUser(Long userID) {
@@ -73,7 +73,7 @@ public class ServiceBase<R, T extends IModel<R>> {
     }
 
     public T update(T element, Long id) throws Exception {
-        T old_element = ValidateUserRole(id, "update the");
+        T old_element = ValidateUserRole(id, "update the ");
         User old_user = old_element.getUser();
         old_element = element;
         old_element.setUser(old_user);
@@ -81,7 +81,7 @@ public class ServiceBase<R, T extends IModel<R>> {
     }
 
     public String delete(Long id) throws Exception {
-        ValidateUserRole(id, "delete the");
+        ValidateUserRole(id, "delete the ");
         repository.deleteById(id);
         return model_string + " successfully deleted";
     }
