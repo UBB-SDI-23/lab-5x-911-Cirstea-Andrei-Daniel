@@ -122,7 +122,7 @@ public class CarModelController extends ControllerBase<CarModelDTO, CarModel> {
     }
 
     @GetMapping("/autocomplete")
-    public List<CarModel> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
+    public Page<CarModel> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
         System.out.println(query);
         return service.filter(query == null ? "" : query);
     }

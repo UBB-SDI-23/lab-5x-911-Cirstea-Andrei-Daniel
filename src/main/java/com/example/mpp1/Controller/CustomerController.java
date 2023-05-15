@@ -85,7 +85,7 @@ public class CustomerController extends ControllerBase<CustomerDTO, Customer> {
     }
 
     @GetMapping("/autocomplete")
-    public List<Customer> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
+    public Page<Customer> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
         System.out.println(query);
         return service.filterCustomers(query == null ? "" : query);
     }

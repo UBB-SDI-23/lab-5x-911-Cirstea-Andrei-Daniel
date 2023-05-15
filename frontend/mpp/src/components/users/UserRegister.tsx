@@ -81,7 +81,7 @@ export const UserRegister = () => {
         const hasDigit = /\d/.test(password);
 
         // Return true only if all the patterns are matched
-        return password.length >= 8 && hasCapitalLetter && hasSmallLetter && hasDigit;
+        return password.length >= 6 && hasCapitalLetter && hasSmallLetter && hasDigit;
     };
 
     let current_element;

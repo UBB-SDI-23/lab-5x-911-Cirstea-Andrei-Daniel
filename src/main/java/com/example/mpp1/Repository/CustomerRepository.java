@@ -25,5 +25,5 @@ import java.util.List;
 
 @Repository
 public interface CustomerRepository extends BasicRepository<Customer> {
-    List<Customer> findByFirstNameContainingAndLastNameContaining(String firstName, String lastName, Pageable pageable);
+    Page<Customer> findByFirstNameContainingAndLastNameContaining(String firstName, String lastName, Pageable pageable);
 }

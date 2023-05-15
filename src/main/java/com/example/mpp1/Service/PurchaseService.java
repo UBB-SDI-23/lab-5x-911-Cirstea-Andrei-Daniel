@@ -131,9 +131,9 @@ public class PurchaseService extends ServiceBase<PurchaseDTO, Purchase> {
         return new PageImpl<>(output_list, pageable, repository.countByStatus(status));
     }
 
-    public List<Purchase> filter(String filter_string) {
+    public Page<Purchase> filter(String filter_string) {
         Pageable page_request = PageRequest.of(0, 20);
-        return repository.findByDateContainsIgnoreCase(filter_string, page_request);
+        return repository.findByCustomerName(filter_string, page_request);
     }
 
 }

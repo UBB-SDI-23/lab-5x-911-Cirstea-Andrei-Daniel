@@ -10,6 +10,7 @@ import { Purchase } from '../../models/Purchase';
 import { Customer } from '../../models/Customer';
 import debounce from 'lodash.debounce';
 import * as Authentication from '../../helpers/Authentication';
+import { AxiosError } from 'axios';
 
 export const CreatePage = (props: any) => {
     const { element, setElement, form_result, table_endpoint } = props;
@@ -21,6 +22,11 @@ export const CreatePage = (props: any) => {
         console.log(element);
         Authentication.make_request('POST', endpoint, element)
         .then((data) => { setElement(data.data) })
+        .catch(
+            (error: AxiosError) => {
+                console.log(error);
+            }
+        );
         navigate_back(-1)
     }
 

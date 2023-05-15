@@ -15,6 +15,6 @@ import { ShowAll } from '../CRUD/ShowAll';
 export const CustomerShowAll = () => {
     let table_columns = CustomerTableColumns()
     
-    return <ShowAll table_endpoint={EndPoints.CUSTOMER_TABLE} has_actions={true} table_columns={table_columns} description={"Customers"} 
+    return <ShowAll table_endpoint={EndPoints.CUSTOMER_TABLE} has_actions={true} table_columns={table_columns} description={"Customer"} 
     has_statistic={false}></ShowAll>
 }

@@ -112,7 +112,7 @@ public class PurchaseController extends ControllerBase<PurchaseDTO, Purchase> {
     }
 
     @GetMapping("/autocomplete")
-    public List<Purchase> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
+    public Page<Purchase> searchCustomerByFirstNameAndLastName(@RequestParam("query") String query) {
         System.out.println(query);
         return service.filter(query == null ? "" : query);
     }

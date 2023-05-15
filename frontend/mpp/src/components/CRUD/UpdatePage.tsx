@@ -7,6 +7,7 @@ import React from 'react';
 import * as Authentication from '../../helpers/Authentication';
 import EditIcon from '@mui/icons-material/Edit';
 import { EndPoints } from '../../Endpoints';
+import { AxiosError } from 'axios';
 
 export const UpdatePage = (props: any) => {
     const { element, setElement, form_result, table_endpoint, description } = props;
@@ -17,6 +18,11 @@ export const UpdatePage = (props: any) => {
         const endpoint = ServerSettings.API_ENDPOINT + table_endpoint + "/" + id
         Authentication.make_request('PUT', endpoint, element)
         .then((data) => { let response_data = data.data; setElement(response_data); })
+        .catch(
+            (error: AxiosError) => {
+                console.log(error);
+            }
+        );
         navigate_back(-1)
     }
 
@@ -24,7 +30,12 @@ export const UpdatePage = (props: any) => {
         const endpoint = EndPoints.backendFind(table_endpoint, id)
         console.log(endpoint)
         Authentication.make_request('GET', endpoint, "")
-        .then((data) => { let response_data = data.data; setElement(response_data) });
+        .then((data) => { let response_data = data.data; setElement(response_data) })
+        .catch(
+            (error: AxiosError) => {
+                console.log(error);
+            }
+        );;
     }, [])
 
     const cancel_update = () => {

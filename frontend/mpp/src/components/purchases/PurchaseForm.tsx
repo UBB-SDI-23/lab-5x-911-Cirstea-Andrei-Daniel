@@ -11,7 +11,7 @@ export const PurchaseForm = (props: any) => {
         let date = new Date(element.date)
         let formattedDate = DateToTextFieldInput(date)
         form_result = (
-            <div>
+            <React.Fragment>
                 <TextField fullWidth type="date" label="Date" variant="standard" InputLabelProps={{ shrink: true }} defaultValue={formattedDate} onChange={(event)=>{
                     element.date = new Date(Date.parse(event.target.value))
                     setElement(element)
@@ -51,7 +51,7 @@ export const PurchaseForm = (props: any) => {
                 <br></br>
                 <PurchaseSuggestions element={element} setElement={setElement} ></PurchaseSuggestions>
     
-            </div>
+            </React.Fragment>
         );
     }
     else {

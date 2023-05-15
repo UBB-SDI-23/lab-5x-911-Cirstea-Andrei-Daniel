@@ -1,6 +1,7 @@
 import { TextField } from "@mui/material";
 import React from "react";
 import { DateToTextFieldInput } from "../../helpers/Helpers";
+import { ShipmentSuggestions } from "./ShipmentSuggestions";
 
 export const ShipmentForm = (props: any) => {
     const { element, setElement, initial_empty } = props;
@@ -14,7 +15,7 @@ export const ShipmentForm = (props: any) => {
         let arrival_formattedDate = DateToTextFieldInput(arrival_date)
 
         form_result = (
-            <div>
+            <React.Fragment>
                 <TextField type="date" label="Expected Arrival" variant="standard"  InputLabelProps={{ shrink: true }} defaultValue={expected_formattedDate} onChange={(event)=>{
                     element.expectedArrival = new Date(Date.parse(event.target.value))
                     setElement(element)
@@ -29,9 +30,10 @@ export const ShipmentForm = (props: any) => {
                     element.totalPrice = parseInt(event.target.value)
                     setElement(element)
                 }}/>
+                <br></br>   
+                <ShipmentSuggestions element={element} setElement={setElement} />
                 <br></br>
-                
-            </div>
+            </React.Fragment>
         );
     }
     else {

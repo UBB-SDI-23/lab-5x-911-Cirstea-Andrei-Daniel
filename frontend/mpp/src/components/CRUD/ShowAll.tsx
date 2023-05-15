@@ -178,7 +178,7 @@ export const ShowAll = (props: any) => {
             aria-describedby="alert-dialog-description"
             >
             <DialogTitle id="alert-dialog-title">
-                {`Are you sure you want to delete this {props.description}?`}
+                {"Are you sure you want to delete this " + props.description + "?"}
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">

@@ -6,15 +6,16 @@ import { ServerSettings } from "../ServerIP";
 import debounce from 'lodash.debounce';
 import * as Authentication from '../../helpers/Authentication';
 import { AxiosError } from "axios";
+import { Distributor } from "../../models/Distributor";
 import { Suggestions } from "../CRUD/Suggestions";
-import { Purchase } from "../../models/Purchase";
+import { Shipment } from "../../models/Shipment";
 
-export const PurchaseSuggestions = (props: any) => {
+export const ShipmentSuggestions = (props: any) => {
     const { element, setElement } = props;
 
-    // const [suggestions, setSuggestions] = useState<Customer[]>([])
+    // const [suggestions, setSuggestions] = useState<Distributor[]>([])
     // const fetch_suggestions = (query: string) => {
-    //     const suggestion_endpoint = ServerSettings.API_ENDPOINT + EndPoints.CUSTOMER_TABLE + EndPoints.AUTOCOMPLETE_PATH + query
+    //     const suggestion_endpoint = ServerSettings.API_ENDPOINT + EndPoints.DISTRIBUTOR_TABLE + EndPoints.AUTOCOMPLETE_PATH + query
     //     Authentication.make_request('GET', suggestion_endpoint, "")
     //     .then((data) => { let response_data = data.data; setSuggestions(response_data) })
     //     .catch(
@@ -43,10 +44,9 @@ export const PurchaseSuggestions = (props: any) => {
 	// }
 
     // return <Autocomplete
-    //             id="customer_id"
     //             options={suggestions}
-    //             getOptionLabel={(option) => option.firstName + " " + option.lastName }
-    //             renderInput={(params) => <TextField  {...params} label="Customer" variant="outlined" />}
+    //             getOptionLabel={(option) => option.name + " from " + option.country }
+    //             renderInput={(params) => <TextField  {...params} label="Distributor" variant="outlined" />}
     //             onInputChange={handleInputChange}
     //             onChange={(event, value) => {
     //                 if (value) {
@@ -57,10 +57,9 @@ export const PurchaseSuggestions = (props: any) => {
     //             }}
     //         />
 
-    //const { element, setElement, table_endpoint, render_function, description, set_id } = props;
-
-    return <Suggestions element={element} setElement={setElement} table_endpoint={EndPoints.CUSTOMER_TABLE} 
-    render_function={(option: Customer) => { return option.firstName + " " + option.lastName }} description={"Customer"} set_id={(element: Purchase, id: number) => {
-        element.original_customer.id = id;
+    return <Suggestions element={element} setElement={setElement} table_endpoint={EndPoints.DISTRIBUTOR_TABLE} 
+    render_function={(option: Distributor) => { return option.name + " from " + option.country }} description={"Distributor"} 
+    set_id={(element: Shipment, id: number) => {
+        element.parent_distributor.id = id;
     }} />
 }

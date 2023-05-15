@@ -24,6 +24,6 @@ import java.util.List;
 @Repository
 public interface DistributorRepository extends BasicRepository<Distributor> {
 
-    List<Distributor> findByNameContainingIgnoreCase(String name, Pageable pageable);
+    Page<Distributor> findByNameContainingIgnoreCase(String name, Pageable pageable);
 
 }

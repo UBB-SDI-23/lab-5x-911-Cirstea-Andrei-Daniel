@@ -115,7 +115,7 @@ public class CarModelService extends ServiceBase<CarModelDTO, CarModel> {
         this.repository = repository;
     }
 
-    public List<CarModel> filter(String filter_string) {
+    public Page<CarModel> filter(String filter_string) {
         String[] parts = filter_string.split(" ");
         Pageable page_request = PageRequest.of(0, 20);
         if (parts.length == 1) {

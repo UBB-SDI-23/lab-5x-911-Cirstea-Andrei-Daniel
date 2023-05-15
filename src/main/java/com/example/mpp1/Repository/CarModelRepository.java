@@ -25,6 +25,6 @@ import java.util.List;
 @Repository
 public interface CarModelRepository extends BasicRepository<CarModel> {
 
-    List<CarModel> findByModelContainingIgnoreCaseOrManufacturerContainsIgnoreCase(String model, String manufacturer, Pageable pageable);
+    Page<CarModel> findByModelContainingIgnoreCaseOrManufacturerContainsIgnoreCase(String model, String manufacturer, Pageable pageable);
 
 }

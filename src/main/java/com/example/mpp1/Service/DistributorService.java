@@ -184,7 +184,7 @@ public class DistributorService extends ServiceBase<DistributorDTO, Distributor>
         return new PageImpl<>(distributorStatisticDTOList, pageable, count);
     }
 
-    public List<Distributor> filter(String filter_string) {
+    public Page<Distributor> filter(String filter_string) {
         Pageable page_request = PageRequest.of(0, 20);
         return repository.findByNameContainingIgnoreCase(filter_string, page_request);
     }

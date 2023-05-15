@@ -116,7 +116,7 @@ public class CustomerService extends ServiceBase<CustomerDTO, Customer> {
         this.repository = repository;
     }
 
-    public List<Customer> filterCustomers(String filter_string) {
+    public Page<Customer> filterCustomers(String filter_string) {
         String[] parts = filter_string.split(" ");
         Pageable page_request = PageRequest.of(0, 20);
         if (parts.length == 1) {
