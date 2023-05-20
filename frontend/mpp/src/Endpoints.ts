@@ -15,6 +15,7 @@ export class EndPoints {
     static STATISTIC = "/statistic"
     static FILTER = "/filter"
     
+    static CHATROOM = "/chatroom"
     static BACKEND_LOGIN_SUFFIX = "/login"
     static BACKEND_REGISTER_SUFFIX = "/register"
 

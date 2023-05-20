@@ -32,6 +32,10 @@ export const UserLogin = () => {
         .then(
             (response) => {
                 console.log(response);
+                // const sessionCookie = response.headers['set-cookie'];
+                // if (sessionCookie != undefined) {
+                //     document.cookie = sessionCookie.join(';');
+                // }
                 Authentication.setAuth(response.data);
                 navigate_details(EndPoints.HOME_PAGE)
             })
@@ -96,6 +100,13 @@ export const UserLogin = () => {
                 navigate_details(EndPoints.HOME_PAGE)
             }}>
                 Continue as Guest
+            </Button>
+
+            <Button onClick={() => {
+                Authentication.resetAuth()
+                navigate_details(EndPoints.CHATROOM)
+            }}>
+                Chatroom
             </Button>
 
             {failed_dialog_element}

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -39,6 +39,7 @@ import { PurchaseFilter } from './components/purchases/PurchaseFilter'
 import { UserChangeRole } from './components/users/UserChangeRole'
 import { UserEntriesPerPage } from './components/users/UserEntriesPerPage'
 import { UserAdminRegenerate } from './components/users/UserAdminRegenerate'
+import { ChatRoom } from './components/chat/ChatRoom'
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
             <Route path={EndPoints.backendConfirmCodeAPIOnly("") + ":code"} element={<UserConfirmCode />}></Route>
             <Route path={EndPoints.LOGIN_PAGE} element={<UserLogin />}></Route>
             <Route path={EndPoints.HOME_PAGE} element={<HomePage />}></Route>
+            <Route path={EndPoints.CHATROOM} element={<ChatRoom />}></Route>
 
             <Route path={EndPoints.CAR_TABLE} element={<CarModelShowAll />}></Route>
             <Route path={EndPoints.CAR_TABLE + EndPoints.FIND_PATH + "/:id"} element={<CarModelDetails/>}></Route>

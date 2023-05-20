@@ -91,7 +91,10 @@ export const UserRegister = () => {
                 setUsername(event.target.value)
             }} />
             <br></br>
-            <TextField inputProps={{data_testid: 'password'}} type="password" label="Password" variant="standard" error={isInvalid} defaultValue={password} onChange={(event) => {
+            <TextField inputProps={{data_testid: 'password'}} type="password" label="Password" variant="standard" 
+            error={isInvalid} defaultValue={password} helperText={isInvalid ? 
+                'It must contain at least a capital letter, a small letter, a digit and at least 6 characters long' : ''} 
+                onChange={(event) => {
                 setIsInvalid(!isValidPassword(event.target.value));
                 setPassword(event.target.value)
             }} />

@@ -11,7 +11,6 @@ export const CarsOnPurchaseForm = (props: any) => {
         form_result = (
             <div>
                 <CarsOnPurchaseCarModelSuggestions element={element} setElement={setElement} />
-                <CarsOnPurchasePurchaseSuggestions element={element} setElement={setElement}/>
                 <br></br>
                 <TextField type="number" label="Count" variant="standard" defaultValue={element.count} onChange={(event)=>{
                     element.count = parseInt(event.target.value)

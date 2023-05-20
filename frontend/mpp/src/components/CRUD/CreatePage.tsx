@@ -44,13 +44,13 @@ export const CreatePage = (props: any) => {
         <React.Fragment>
             {form_result}
             <div>
-                <button onClick={commit_update}>
+                <Button data-testid="add_button" onClick={commit_update}>
                     <AddIcon/>
-                </button>
+                </Button>
 
-                <button onClick={cancel_add}>
+                <Button onClick={cancel_add}>
                     <KeyboardReturnIcon />
-                </button>
+                </Button>
             </div>
         </React.Fragment>
     )

@@ -55,6 +55,8 @@ export const ShowAll = (props: any) => {
   }, [])
 
   const update_elements = () => {
+    console.log(Authentication.getAuthUsername())
+    console.log(Authentication.getAuthToken())
     console.log(paginationModel.pageSize);
     if (paginationModel.pageSize > 0) {
         Authentication.make_request('GET', ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" +
@@ -331,7 +333,7 @@ export const ShowAll = (props: any) => {
     let add_button;
     const role = Authentication.getAuthRole();
     if (role.name != "ROLE_GUEST") {
-        add_button = <Button onClick={() => navigate_details(props.table_endpoint + EndPoints.VIRTUAL_CREATE)}>
+        add_button = <Button data-testid="add_button" onClick={() => navigate_details(props.table_endpoint + EndPoints.VIRTUAL_CREATE)}>
             <AddIcon />
         </Button>
     }
