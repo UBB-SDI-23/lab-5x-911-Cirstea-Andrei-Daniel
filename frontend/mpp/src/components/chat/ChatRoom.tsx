@@ -3,6 +3,7 @@ import { Frame, over } from 'stompjs';
 import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import './ChatRoom.css';
+import { ServerSettings } from '../ServerIP';
 
 interface ChatMessage {
   senderName: string;
@@ -41,9 +42,8 @@ export const ChatRoom = () => {
   };
 
   const connect = () => {
-    let Sock = new SockJS('http://localhost:8080/ws');
-    setStompClient(over(Sock));
-    
+    let Sock = new SockJS(ServerSettings.API_ENDPOINT + '/ws');
+    setStompClient(over(Sock));    
   };
 
   const onConnected = () => {
