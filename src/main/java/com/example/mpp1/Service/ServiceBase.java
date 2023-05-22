@@ -3,6 +3,8 @@ package com.example.mpp1.Service;
 import com.example.mpp1.Model.*;
 import com.example.mpp1.Repository.BasicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -82,7 +84,20 @@ public class ServiceBase<R, T extends IModel<R>> {
 
     public String delete(Long id) throws Exception {
         ValidateUserRole(id, "delete the ");
-        repository.deleteById(id);
+
+        try {
+            repository.deleteById(id);
+            // Delete operation was successful
+        } catch (EmptyResultDataAccessException ex) {
+            // Handle case when entity with the specified ID does not exist
+            // e.g., return an error response or perform some other action
+            return "The selected " + model_string + " does not exist. Exception: " + ex.getMessage();
+        } catch (DataAccessException ex) {
+            // Handle other data access exceptions
+            // e.g., return an error response or perform some other action
+            return "The selected " + model_string + " has other dependent entities. Exception: " + ex.getMessage();
+        }
+
         return model_string + " successfully deleted";
     }
 
