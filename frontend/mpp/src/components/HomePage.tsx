@@ -29,7 +29,7 @@ export const HomePage = () => {
             <br></br>
 
             <Box>
-            <AppBar position="sticky" style={{ background: '#2E3B55' }}>
+            <AppBar style={{ background: '#2E3B55' }}>
                 <Toolbar>
                     <Button component={Link} to={EndPoints.CAR_TABLE}>Car Models</Button>
                     <Button component={Link} to={EndPoints.CUSTOMER_TABLE}>Customers</Button>

@@ -19,7 +19,6 @@ import { AxiosError } from 'axios';
 export const ShowAll = (props: any) => {
   const navigate_details = useNavigate()
 
-
   const [elements, setElements] = useState<any>()
   const [current_page, setCurrentPage] = useState<number>(0)
   const [element_count, setElementCount] = useState<number>(0)
@@ -35,6 +34,7 @@ export const ShowAll = (props: any) => {
   const [delete_dialog, set_delete_dialog] = useState(false)
   const [successful_dialog, set_successful_dialog] = useState(false)
   const [failed_dialog, set_failed_dialog] = useState(false)
+  const [failed_dialog_message, set_failed_dialog_message] = useState("")
 
   useEffect(() => {
     Authentication.make_request('GET', EndPoints.backendEntriesPerPage(), "")
@@ -160,9 +160,10 @@ export const ShowAll = (props: any) => {
             ""
         )
         .then((res) => { 
+            console.log(res.data)
             update_elements()
             handle_successful_dialog_open() })
-        .catch((exception) => { handle_failed_dialog_open() })
+        .catch((exception: AxiosError) => { set_failed_dialog_message(exception.message); handle_failed_dialog_open() })
     }
 
     const main_delete_dialog_open = (id: number) => {
@@ -237,7 +238,7 @@ export const ShowAll = (props: any) => {
             </DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-description">
-                    Internal error. Could not delete the {props.description}.
+                    Could not delete the {props.description}. Reason: {failed_dialog_message}
                 </DialogContentText>
             </DialogContent>
             <DialogActions>

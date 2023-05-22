@@ -18,18 +18,20 @@ public class CorsFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        response.setHeader("Access-Control-Allow-Origin", "https://papaya-wisp-e51042.netlify.app, http://localhost:5173");
+
+        String requestOrigin = request.getHeader("Origin");
+        response.setHeader("Access-Control-Allow-Origin", requestOrigin);
         response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type, Accept, Access-Control-Allow-Origin");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Allow", "POST, PUT, GET, OPTIONS, DELETE");
 
-        if (HttpMethod.OPTIONS.name().equalsIgnoreCase(((HttpServletRequest)servletRequest).getMethod())) {
+        if (HttpMethod.OPTIONS.name().equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
-        }
-        else {
+        } else {
             filterChain.doFilter(servletRequest, servletResponse);
         }
     }
