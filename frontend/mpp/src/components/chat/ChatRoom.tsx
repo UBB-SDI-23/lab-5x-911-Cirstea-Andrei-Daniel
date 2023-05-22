@@ -8,7 +8,7 @@ import * as Authentication from '../../helpers/Authentication';
 import { EndPoints } from '../../Endpoints';
 import { UserNickname } from '../../models/UserNickname';
 import { AxiosError } from 'axios';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, CircularProgress, Snackbar } from '@mui/material';
 import { UserChatMessage } from '../../models/UserChatMessage';
 
 interface ChatMessage {
@@ -32,6 +32,15 @@ export const ChatRoom = () => {
   const [failed_dialog, set_failed_dialog] = useState(false)
   const [failed_dialog_message, set_failed_dialog_message] = useState("")
   const [go_to_connect, set_go_to_connect] = useState(false)
+  const [snackbarOpen, setSnakcbarOpen] = useState(false);
+
+  const handleSnackbarOpen = () => {
+    setSnakcbarOpen(true);
+  };
+
+  const handleSnackbarClose = () => {
+    setSnakcbarOpen(false);
+  };
 
   const handle_failed_dialog_open = () => {
     set_failed_dialog(true)
@@ -83,12 +92,14 @@ export const ChatRoom = () => {
   };
 
   const connect = () => {
+    handleSnackbarOpen()
     let Sock = new SockJS(ServerSettings.API_ENDPOINT + '/ws');
     setStompClient(over(Sock));    
   };
 
   const onConnected = () => {
     setUserData({ ...userData, connected: true });
+    handleSnackbarClose()
     if (stompClient != null) {
       stompClient.subscribe('/chatroom/public', onMessageReceived);
       stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessage);
@@ -311,12 +322,25 @@ export const ChatRoom = () => {
             value={userData.username}
             onChange={handleUsername}
           />
-          <button type="button" onClick={registerUser}>
+          <button disabled={snackbarOpen} type="button" onClick={registerUser}>
             Connect
           </button>
         </div>
       )}
       {failed_dialog}
+
+      <Snackbar
+        open={snackbarOpen}
+        onClose={handleSnackbarClose}
+        message="Loading..."
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+      >
+        <CircularProgress color="inherit" />
+      </Snackbar>
+
     </div>
   );
 };
