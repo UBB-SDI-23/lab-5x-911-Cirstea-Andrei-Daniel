@@ -25,11 +25,8 @@ export const HomePage = () => {
 
     return (
         <React.Fragment>
-            <h1>Logged in as {username} with role {parsed_role}</h1>
-            <br></br>
-
             <Box>
-            <AppBar style={{ background: '#2E3B55' }}>
+            <AppBar position="sticky" style={{ background: '#2E3B55' }}>
                 <Toolbar>
                     <Button component={Link} to={EndPoints.CAR_TABLE}>Car Models</Button>
                     <Button component={Link} to={EndPoints.CUSTOMER_TABLE}>Customers</Button>
@@ -44,6 +41,10 @@ export const HomePage = () => {
                 </Toolbar>
             </AppBar>
             </Box>
+
+            <h1>Logged in as {username} with role {parsed_role}</h1>
+            <br></br>
+
         </React.Fragment>
     )
 }

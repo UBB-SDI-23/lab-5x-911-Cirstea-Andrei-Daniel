@@ -53,6 +53,9 @@ public class UserController {
     @Autowired
     private ShipmentService shipmentService;
 
+    @Autowired
+    private ChatService chatService;
+
     @GetMapping("/users")
     public List<User> getAll() {
         return service.getUsers();
@@ -72,6 +75,11 @@ public class UserController {
     @GetMapping("/users/find_profile/{id}")
     public UserProfileDTO findUserProfile(@PathVariable("id") Long userID) {
         return convertToProfileDto(service.findUserProfile(userID));
+    }
+
+    @GetMapping("/users/nickname/{id}")
+    public String findUserNickname(@PathVariable("id") Long userID) {
+        return chatService.getUserNickname(userID);
     }
 
     @DeleteMapping("/users/{id}")
