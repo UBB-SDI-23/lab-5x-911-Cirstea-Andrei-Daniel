@@ -45,7 +45,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/api/register/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/register/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-                        //.anyRequest().authenticated()
+                        .anyRequest().authenticated()
                 );
         return http.build();
     }
