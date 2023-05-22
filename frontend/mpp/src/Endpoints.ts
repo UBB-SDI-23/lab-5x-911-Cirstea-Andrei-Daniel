@@ -18,6 +18,12 @@ export class EndPoints {
     static CHATROOM = "/chatroom"
     static BACKEND_LOGIN_SUFFIX = "/login"
     static BACKEND_REGISTER_SUFFIX = "/register"
+    static BACKEND_SAVE_CHAT_MESSAGE = "/api/chat_history"
+    static BACKEND_USER_NICKNAME = this.USER_TABLE + "/nickname";
+
+    static backendUserNickname(userID: number) : string {
+        return ServerSettings.API_ENDPOINT + this.BACKEND_USER_NICKNAME + "/" + userID;
+    }
 
     static backendExecuteSql(script_name: string) : string {
         return ServerSettings.API_ENDPOINT + this.EXECUTE_SQL + "/" + script_name

@@ -4,6 +4,12 @@ import Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
 import './ChatRoom.css';
 import { ServerSettings } from '../ServerIP';
+import * as Authentication from '../../helpers/Authentication';
+import { EndPoints } from '../../Endpoints';
+import { UserNickname } from '../../models/UserNickname';
+import { AxiosError } from 'axios';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
+import { UserChatMessage } from '../../models/UserChatMessage';
 
 interface ChatMessage {
   senderName: string;
@@ -23,6 +29,41 @@ export const ChatRoom = () => {
     message: '',
   });
   const [stompClient, setStompClient] = useState<Stomp.Client | null>(null)
+  const [failed_dialog, set_failed_dialog] = useState(false)
+  const [failed_dialog_message, set_failed_dialog_message] = useState("")
+  const [go_to_connect, set_go_to_connect] = useState(false)
+
+  const handle_failed_dialog_open = () => {
+    set_failed_dialog(true)
+}
+
+  const handle_failed_dialog_close = () => {
+      set_failed_dialog(false)
+  }
+
+  useEffect(() => {
+    if (Authentication.getAuthId() != -1) {
+      let endpoint = EndPoints.backendUserNickname(Authentication.getAuthId());
+      Authentication.make_request('GET', endpoint, "")
+      .then((data) => {
+        let response_data = data.data;
+        if (response_data != "") {
+          console.log("Existing nickname " + response_data);
+          setUserData({ ...userData, username: response_data });
+          set_go_to_connect(true)
+        }
+      })
+      .catch(
+        (exception: AxiosError) => { console.log(exception.message) }
+      )
+    }
+  }, [])
+
+  useEffect(() => {
+    if (go_to_connect) {
+      connect()
+    }
+  }, [go_to_connect])
 
   useEffect(() => {
     console.log(userData);
@@ -99,9 +140,17 @@ export const ChatRoom = () => {
     setUserData({ ...userData, message: value });
   };
 
+  const store_message_to_database = () => {
+    if (Authentication.getAuthId() != -1) {
+      let user_chat_message = new UserChatMessage();
+      user_chat_message.user.id = Authentication.getAuthId();
+      user_chat_message.date = new Date();
+      user_chat_message.message = userData.message;
+      Authentication.make_request('POST', ServerSettings.API_ENDPOINT + EndPoints.BACKEND_SAVE_CHAT_MESSAGE, user_chat_message);
+    }
+  }
+
   const sendValue = () => {
-    console.log("Here")
-    console.log(stompClient)
     if (stompClient != null) {
       console.log("Message is " + userData.message)
       var chatMessage: ChatMessage = {
@@ -110,6 +159,7 @@ export const ChatRoom = () => {
         status: 'MESSAGE',
       };
       stompClient.send('/app/message', {}, JSON.stringify(chatMessage));
+      store_message_to_database()
       setUserData({ ...userData, message: '' });
     }
   };
@@ -128,6 +178,7 @@ export const ChatRoom = () => {
         setPrivateChats(new Map(privateChats));
       }
       stompClient.send('/app/private-message', {}, JSON.stringify(chatMessage));
+      store_message_to_database()
       setUserData({ ...userData, message: '' });
     }
   };
@@ -138,8 +189,45 @@ export const ChatRoom = () => {
   };
 
   const registerUser = () => {
+    if (Authentication.getAuthId() != -1) {
+      let user_nickname = new UserNickname();
+      user_nickname.nickname = userData.username;
+      user_nickname.user.id = Authentication.getAuthId();
+      Authentication.make_request('POST', ServerSettings.API_ENDPOINT + EndPoints.BACKEND_USER_NICKNAME, user_nickname)
+      .then()
+      .catch(
+        (exception: AxiosError) => { set_failed_dialog_message(exception.message); handle_failed_dialog_open() }
+      )
+    }
     connect();
   };
+
+  let failed_dialog_element;
+  if (failed_dialog) {
+      failed_dialog_element = <div>
+          <Dialog
+          open={failed_dialog}
+          onClose={handle_failed_dialog_open}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+          >
+          <DialogTitle id="alert-dialog-title">
+              {"Failure"}
+          </DialogTitle>
+          <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                  {failed_dialog_message}
+              </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+              <Button onClick={handle_failed_dialog_close} autoFocus>
+                  OK
+              </Button>
+          </DialogActions>
+          </Dialog>
+      </div>
+  }
+
 
   return (
     <div className="container">
@@ -182,7 +270,7 @@ export const ChatRoom = () => {
                   onChange={handleMessage}
                 />
                 <button type="button" className="send-button" onClick={sendValue}>
-                  send
+                  Send
                 </button>
               </div>
             </div>
@@ -208,7 +296,7 @@ export const ChatRoom = () => {
                   onChange={handleMessage}
                 />
                 <button type="button" className="send-button" onClick={sendPrivateValue}>
-                  send
+                  Send
                 </button>
               </div>
             </div>
@@ -224,10 +312,11 @@ export const ChatRoom = () => {
             onChange={handleUsername}
           />
           <button type="button" onClick={registerUser}>
-            connect
+            Connect
           </button>
         </div>
       )}
+      {failed_dialog}
     </div>
   );
 };

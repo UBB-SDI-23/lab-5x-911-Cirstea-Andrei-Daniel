@@ -7,6 +7,15 @@ import { LoginRequest } from '../../models/LoginRequest';
 import { AxiosError } from 'axios';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
+// CSS styles for the container element
+const containerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100vh', // Adjust the height as per your requirement
+};
+
 
 export const UserLogin = () => {
     const [username, setUsername] = useState<string>("")
@@ -32,10 +41,6 @@ export const UserLogin = () => {
         .then(
             (response) => {
                 console.log(response);
-                // const sessionCookie = response.headers['set-cookie'];
-                // if (sessionCookie != undefined) {
-                //     document.cookie = sessionCookie.join(';');
-                // }
                 Authentication.setAuth(response.data);
                 navigate_details(EndPoints.HOME_PAGE)
             })
@@ -78,38 +83,40 @@ export const UserLogin = () => {
     }
 
     return (
-        <React.Fragment>
-            <TextField inputProps={{data_testid: 'username'}} label="Username" variant="standard" defaultValue={username} onChange={(event)=>{
-                setUsername(event.target.value)
-            }} />
-            <br></br>
-            <TextField inputProps={{data_testid: 'password'}} type="password" label="Password" variant="standard" defaultValue={password} onChange={(event) => {
-                setPassword(event.target.value)
-            }} />
-            <br></br>
-            <Button onClick={() => {login()}}>
-                Login
-            </Button>
+        <div style={containerStyle}>
+            <React.Fragment>
+                <TextField inputProps={{data_testid: 'username'}} label="Username" variant="standard" defaultValue={username} onChange={(event)=>{
+                    setUsername(event.target.value)
+                }} />
+                <br></br>
+                <TextField inputProps={{data_testid: 'password'}} type="password" label="Password" variant="standard" defaultValue={password} onChange={(event) => {
+                    setPassword(event.target.value)
+                }} />
+                <br></br>
+                <Button onClick={() => {login()}}>
+                    Login
+                </Button>
 
-            <Button onClick={() => {navigate_details(EndPoints.REGISTER_PAGE)}}>
-                Register
-            </Button>
+                <Button onClick={() => {navigate_details(EndPoints.REGISTER_PAGE)}}>
+                    Register
+                </Button>
 
-            <Button onClick={() => {
-                Authentication.resetAuth()
-                navigate_details(EndPoints.HOME_PAGE)
-            }}>
-                Continue as Guest
-            </Button>
+                <Button onClick={() => {
+                    Authentication.resetAuth()
+                    navigate_details(EndPoints.HOME_PAGE)
+                }}>
+                    Continue as Guest
+                </Button>
 
-            <Button onClick={() => {
-                Authentication.resetAuth()
-                navigate_details(EndPoints.CHATROOM)
-            }}>
-                Chatroom
-            </Button>
+                <Button onClick={() => {
+                    Authentication.resetAuth()
+                    navigate_details(EndPoints.CHATROOM)
+                }}>
+                    Chatroom
+                </Button>
 
-            {failed_dialog_element}
-        </React.Fragment>
+                {failed_dialog_element}
+            </React.Fragment>
+        </div>
     )
 }

@@ -37,11 +37,14 @@ export const HomePage = () => {
 
                     {admin_role}
 
+                    <Button component={Link} to={EndPoints.CHATROOM}>Chatroom</Button>
                     <Button component={Link} to={EndPoints.LOGIN_PAGE}>Login</Button>
                 </Toolbar>
             </AppBar>
             </Box>
 
+            <br></br>
+            <br></br>
             <h1>Logged in as {username} with role {parsed_role}</h1>
             <br></br>
 

@@ -82,6 +82,11 @@ public class UserController {
         return chatService.getUserNickname(userID);
     }
 
+    @PostMapping("/users/nickname")
+    public UserNickname setUserNickname(@RequestBody UserNickname userNickname) {
+        return chatService.setUserNickname(userNickname);
+    }
+
     @DeleteMapping("/users/{id}")
     public String deleteUser(@PathVariable("id") Long userID){
         return service.deleteUser(userID);
