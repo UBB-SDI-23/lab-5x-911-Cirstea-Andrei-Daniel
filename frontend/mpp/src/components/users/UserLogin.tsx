@@ -8,7 +8,7 @@ import { AxiosError } from 'axios';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 
 // CSS styles for the container element
-const containerStyle = {
+const containerStyle : React.CSSProperties = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
