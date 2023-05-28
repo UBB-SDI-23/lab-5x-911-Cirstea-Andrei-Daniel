@@ -3,6 +3,9 @@ FROM python:3.9-slim as builder
 # Install necessary packages
 RUN apt-get update && apt-get install -y python3.9
 
+# Add /usr/local/bin to the PATH variable
+ENV PATH="/usr/local/bin:${PATH}"
+
 # Install Python packages
 RUN pip install tensorflow==2.12.0
 
