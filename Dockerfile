@@ -1,6 +1,12 @@
 # Change the base image to python:3.9-slim
 FROM python:3.9-slim
 
+# Install necessary packages
+RUN apt-get update && apt-get install -y python3-dev
+
+# Set the PYTHONPATH environment variable
+ENV PYTHONPATH="/usr/bin/python3:${PYTHONPATH}"
+
 # Install Python and necessary packages
 RUN pip install tensorflow==2.12.0
 
