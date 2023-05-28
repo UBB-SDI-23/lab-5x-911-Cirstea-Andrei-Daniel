@@ -7,4 +7,4 @@ RUN pip install tensorflow==2.12.0
 
 COPY dbscripts /dbscripts
 
-CMD ["python3", "./make_prediction.py", "Canada"]
+CMD ["python3", "/dbscripts/make_prediction.py", "Canada"]
