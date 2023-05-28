@@ -2,8 +2,7 @@
 FROM python:3.9-slim
 
 # Install Python and necessary packages
-RUN apk add --no-cache python3 py3-pip
-RUN pip3 install --no-cache-dir tensorflow==2.12.0
+RUN pip install tensorflow==2.12.0
 
 FROM openjdk:18-jdk-alpine3.14
 
