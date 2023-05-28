@@ -2,7 +2,7 @@ FROM openjdk:18-jdk-alpine3.14
 
 # Install Python and necessary packages
 RUN apk add --no-cache python3 py3-pip
-RUN pip3 install --no-cache-dir tensorflow
+RUN pip3 install --no-cache-dir tensorflow==2.12.0
 
 ARG JAR_FILE=target/*.jar
 
