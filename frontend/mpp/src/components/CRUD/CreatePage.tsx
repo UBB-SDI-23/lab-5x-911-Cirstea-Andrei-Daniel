@@ -14,7 +14,7 @@ import { AxiosError } from 'axios';
 
 export const CreatePage = (props: any) => {
     const { element, setElement, form_result, table_endpoint } = props;
-  const navigate_back = useNavigate()
+    const navigate_back = useNavigate()
 
     const endpoint = ServerSettings.API_ENDPOINT + table_endpoint
 
