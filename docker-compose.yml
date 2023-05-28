@@ -10,6 +10,7 @@ services:
     container_name: app
     depends_on:
       - db
+      - tensorflow
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/mpp
       - SPRING_DATASOURCE_USERNAME=postgres

@@ -34,6 +34,10 @@ public class AIService {
                 last_line = line;
             }
 
+            if (last_line.contentEquals("")) {
+                throw new Exception("Failed to retrieve prediction for country " + country);
+            }
+
             return Float.parseFloat(last_line);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
