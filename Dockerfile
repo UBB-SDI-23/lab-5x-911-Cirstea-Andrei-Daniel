@@ -1,10 +1,6 @@
-FROM ubuntu:latest as builder
+#FROM ubuntu:latest as builder
 
-RUN apt update
-RUN apt install python3 -y
-RUN apt install pip -y
-RUN pip install tensorflow==2.12.0
-RUN pip install scikit-learn
+
 
 FROM openjdk:18-jdk-alpine3.14
 
@@ -18,7 +14,13 @@ ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.11.0/wai
 RUN chmod +x /wait
 
 # Copy Python installation from the builder stage
-COPY --from=builder /usr/local /usr/local
+#COPY --from=builder /usr/local /usr/local
+
+RUN apt update
+RUN apt install python3 -y
+RUN apt install pip -y
+RUN pip install tensorflow==2.12.0
+RUN pip install scikit-learn
 
 CMD /wait
 
