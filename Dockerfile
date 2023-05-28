@@ -1,8 +1,11 @@
-FROM openjdk:18-jdk-alpine3.14
+# Change the base image to python:3.9-slim
+FROM python:3.9-slim
 
 # Install Python and necessary packages
 RUN apk add --no-cache python3 py3-pip
 RUN pip3 install --no-cache-dir tensorflow==2.12.0
+
+FROM openjdk:18-jdk-alpine3.14
 
 ARG JAR_FILE=target/*.jar
 
