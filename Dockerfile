@@ -5,6 +5,6 @@ RUN apt install python3 -y
 
 WORKDIR /usr/app/src
 
-COPY dbscripts /dbscripts
+COPY dbscripts /
 
-CMD ["python3", "dbscripts/make_prediction.py", "Canada"]
+CMD ["python3", "./make_prediction.py", "Canada"]
