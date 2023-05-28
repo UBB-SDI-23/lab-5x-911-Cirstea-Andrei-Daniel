@@ -2,13 +2,11 @@ FROM openjdk:18-jdk-alpine3.14
 
 # Install Python and necessary packages
 RUN apk add --no-cache python3 py3-pip
+RUN pip3 install --no-cache-dir tensorflow
 
 ARG JAR_FILE=target/*.jar
 
 COPY ${JAR_FILE} application.jar
-
-# Copy the Python scripts and requirements file
-COPY dbscripts/requirements.txt /
 
 COPY dbscripts /dbscripts
 
