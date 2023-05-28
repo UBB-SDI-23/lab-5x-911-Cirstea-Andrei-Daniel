@@ -3,9 +3,6 @@ FROM python:3.9-slim as builder
 # Install necessary packages
 RUN apt-get update && apt-get install -y python3.9
 
-# Set the Python executable and symlink
-RUN ln -s /usr/bin/python3.9 /usr/local/bin/python
-
 # Install Python packages
 RUN pip install tensorflow==2.12.0
 

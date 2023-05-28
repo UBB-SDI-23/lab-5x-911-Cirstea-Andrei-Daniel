@@ -10,7 +10,6 @@ services:
     container_name: app
     depends_on:
       - db
-      - tensorflow
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/mpp
       - SPRING_DATASOURCE_USERNAME=postgres
@@ -19,14 +18,6 @@ services:
       - WAIT_HOSTS=postgres:5432
       - WAIT_TIMEOUT=10000000
       - WAIT_SLEEP_INTERVAL=5
-    networks:
-      - app-network
-
-  tensorflow:
-    image: tensorflow/tensorflow:latest
-    container_name: tensorflow
-    volumes:
-      - ./dbscripts:/dbscripts
     networks:
       - app-network
 
