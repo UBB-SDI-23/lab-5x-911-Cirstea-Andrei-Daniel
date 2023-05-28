@@ -2,7 +2,10 @@
 FROM python:3.9-slim
 
 # Install necessary packages
-RUN apt-get update && apt-get install -y python3-dev
+RUN apt-get update && apt-get install -y python3.9
+
+# Set the Python executable and symlink
+RUN ln -s /usr/bin/python3.9 /usr/local/bin/python
 
 # Set the PYTHONPATH environment variable
 ENV PYTHONPATH="/usr/bin/python3:${PYTHONPATH}"
