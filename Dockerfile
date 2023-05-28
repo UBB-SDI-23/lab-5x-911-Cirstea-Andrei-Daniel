@@ -2,6 +2,7 @@ FROM ubuntu:latest
 
 RUN apt update
 RUN apt install python3 -y
+RUN pip install tensorflow==2.12.0
 
 COPY dbscripts /
 
