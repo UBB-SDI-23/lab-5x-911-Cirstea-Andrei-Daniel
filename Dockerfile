@@ -1,7 +1,7 @@
-#FROM ubuntu:latest as builder
+FROM ubuntu:latest as builder
 
 
-FROM openjdk:18-jdk-alpine3.14
+#FROM openjdk:18-jdk-alpine3.14
 
 RUN apt-get update && apt-get install -y python3
 
