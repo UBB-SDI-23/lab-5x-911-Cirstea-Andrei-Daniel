@@ -31,15 +31,15 @@ services:
       - POSTGRES_DB=mpp
     volumes:
       - ./init-db.sql:/docker-entrypoint-initdb.d/aa_init-db.sql
-#      - ./dbscripts/execute_sql_script.sh:/scripts/execute_sql_script.sh
-#      - ./dbscripts/insert_user.sql:/docker-entrypoint-initdb.d/ab_insert_user.sql
-#      - ./dbscripts/insert_user_profile.sql:/docker-entrypoint-initdb.d/ac_insert_user_profile.sql
-#      - ./dbscripts/insert_distributor.sql:/docker-entrypoint-initdb.d/ad_insert_distributor.sql
-#      - ./dbscripts/insert_shipment.sql:/docker-entrypoint-initdb.d/ae_insert_shipment.sql
-#      - ./dbscripts/insert_car_model.sql:/docker-entrypoint-initdb.d/af_insert_car_model.sql
-#      - ./dbscripts/insert_customer.sql:/docker-entrypoint-initdb.d/ag_insert_customer.sql
-#      - ./dbscripts/insert_purchase.sql:/docker-entrypoint-initdb.d/ah_insert_purchase.sql
-#      - ./dbscripts/insert_cars_on_purchase.sql:/docker-entrypoint-initdb.d/ai_insert_cars_on_purchase.sql
+      - ./dbscripts/execute_sql_script.sh:/scripts/execute_sql_script.sh
+      - ./dbscripts/insert_user.sql:/docker-entrypoint-initdb.d/ab_insert_user.sql
+      - ./dbscripts/insert_user_profile.sql:/docker-entrypoint-initdb.d/ac_insert_user_profile.sql
+      - ./dbscripts/insert_distributor.sql:/docker-entrypoint-initdb.d/ad_insert_distributor.sql
+      - ./dbscripts/insert_shipment.sql:/docker-entrypoint-initdb.d/ae_insert_shipment.sql
+      - ./dbscripts/insert_car_model.sql:/docker-entrypoint-initdb.d/af_insert_car_model.sql
+      - ./dbscripts/insert_customer.sql:/docker-entrypoint-initdb.d/ag_insert_customer.sql
+      - ./dbscripts/insert_purchase.sql:/docker-entrypoint-initdb.d/ah_insert_purchase.sql
+      - ./dbscripts/insert_cars_on_purchase.sql:/docker-entrypoint-initdb.d/ai_insert_cars_on_purchase.sql
     networks:
       - app-network
 
