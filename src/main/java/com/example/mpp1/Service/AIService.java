@@ -20,7 +20,7 @@ public class AIService {
             String pythonScript = "dbscripts/make_prediction.py";
             String argument = country;
 
-            ProcessBuilder processBuilder = new ProcessBuilder("python", pythonScript, argument);
+            ProcessBuilder processBuilder = new ProcessBuilder("python3", pythonScript, argument);
             Process process = processBuilder.start();
 
             // Wait for the process to complete
