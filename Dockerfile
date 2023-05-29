@@ -1,7 +1,7 @@
-#FROM ubuntu:latest as builder
+FROM ubuntu:latest as builder
 
 
-FROM openjdk:18-jdk-alpine3.14
+#FROM openjdk:18-jdk-alpine3.14
 
 RUN apt-get update && apt-get install -y python3
 
@@ -27,7 +27,7 @@ RUN pip install scikit-learn
 
 CMD /wait
 
-CMD ["java", "-jar", "application.jar"]
-#CMD ["python3", "/dbscripts/make_prediction.py", "Canada"]
+#CMD ["java", "-jar", "application.jar"]
+CMD ["python3", "/dbscripts/make_prediction.py", "Canada"]
 
 EXPOSE 8080
