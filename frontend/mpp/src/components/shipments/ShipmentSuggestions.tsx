@@ -51,7 +51,7 @@ export const ShipmentSuggestions = (props: any) => {
             )
             .then((data) =>{
                 let response_data = data.data;
-                let new_date = element.expectedArrival;
+                let new_date = new Date();
                 new_date.setHours(new_date.getHours() + parseInt(response_data));
                 console.log(new_date)
                 console.log(parseInt(response_data))
