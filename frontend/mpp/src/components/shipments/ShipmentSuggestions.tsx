@@ -59,7 +59,23 @@ export const ShipmentSuggestions = (props: any) => {
 
     return <Suggestions element={element} setElement={setElement} table_endpoint={EndPoints.DISTRIBUTOR_TABLE} 
     render_function={(option: Distributor) => { return option.name + " from " + option.country }} description={"Distributor"} 
-    set_id={(element: Shipment, id: number) => {
-        element.parent_distributor.id = id;
+    set_value={(element: Shipment, distributor: Distributor) => {
+        element.parent_distributor = distributor;
+        Authentication.make_request(
+            'GET',
+            EndPoints.backendAIServiceRequest(distributor.country),
+            ""
+        )
+        .then((data) =>{
+            let response_data = data.data;
+            let new_date = element.expectedArrival;
+            new_date.setHours(new_date.getHours() + parseInt(response_data));
+            console.log(new_date)
+            console.log(parseInt(response_data))
+            setElement({...element, expectedArrival: new_date})
+        })
+        .catch((error: AxiosError) => {
+            console.log(error);
+        })
     }} />
 }

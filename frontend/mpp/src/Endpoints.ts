@@ -12,6 +12,7 @@ export class EndPoints {
     static USER_TABLE = "/api/users"
     static ENTRIES_PER_PAGE_TABLE = "/api/entries_per_page"
     static EXECUTE_SQL = "/api/sql"
+    static AI_SERVICE = "/api/ai";
     static STATISTIC = "/statistic"
     static FILTER = "/filter"
     
@@ -20,6 +21,10 @@ export class EndPoints {
     static BACKEND_REGISTER_SUFFIX = "/register"
     static BACKEND_SAVE_CHAT_MESSAGE = "/api/chat_history"
     static BACKEND_USER_NICKNAME = this.USER_TABLE + "/nickname";
+
+    static backendAIServiceRequest(distributor_country: string) : string {
+        return ServerSettings.API_ENDPOINT + this.AI_SERVICE + "/" + distributor_country;
+    }
 
     static backendUserNickname(userID: number) : string {
         return ServerSettings.API_ENDPOINT + this.BACKEND_USER_NICKNAME + "/" + userID;

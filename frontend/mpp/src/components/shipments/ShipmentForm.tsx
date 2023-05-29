@@ -1,5 +1,5 @@
-import { TextField } from "@mui/material";
-import React from "react";
+import { Button, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { DateToTextFieldInput } from "../../helpers/Helpers";
 import { ShipmentSuggestions } from "./ShipmentSuggestions";
 
@@ -16,19 +16,16 @@ export const ShipmentForm = (props: any) => {
 
         form_result = (
             <React.Fragment>
-                <TextField type="date" label="Expected Arrival" variant="standard"  InputLabelProps={{ shrink: true }} defaultValue={expected_formattedDate} onChange={(event)=>{
-                    element.expectedArrival = new Date(Date.parse(event.target.value))
-                    setElement(element)
+                <TextField type="date" label="Expected Arrival" variant="standard"  InputLabelProps={{ shrink: true }} value={expected_formattedDate} onChange={(event)=>{
+                    setElement({...element, expectedArrival: new Date(Date.parse(event.target.value))})
                 }}/>
                 <br></br>
-                <TextField type="date" label="Arrival" variant="standard" InputLabelProps={{ shrink: true }} defaultValue={arrival_formattedDate} onChange={(event)=>{
-                    element.arrival = new Date(Date.parse(event.target.value))
-                    setElement(element)
+                <TextField type="date" label="Arrival" variant="standard" InputLabelProps={{ shrink: true }} value={arrival_formattedDate} onChange={(event)=>{
+                    setElement({...element, arrival: new Date(Date.parse(event.target.value))})
                 }}/>
                 <br></br>
                 <TextField type="number" label="Total Price" variant="standard" defaultValue={element.totalPrice} onChange={(event)=>{
-                    element.totalPrice = parseInt(event.target.value)
-                    setElement(element)
+                    setElement({...element, totalPrice: parseInt(event.target.value)})
                 }}/>
                 <br></br>   
                 <ShipmentSuggestions element={element} setElement={setElement} />

@@ -60,7 +60,8 @@ export const PurchaseSuggestions = (props: any) => {
     //const { element, setElement, table_endpoint, render_function, description, set_id } = props;
 
     return <Suggestions element={element} setElement={setElement} table_endpoint={EndPoints.CUSTOMER_TABLE} 
-    render_function={(option: Customer) => { return option.firstName + " " + option.lastName }} description={"Customer"} set_id={(element: Purchase, id: number) => {
-        element.original_customer.id = id;
-    }} />
+    render_function={(option: Customer) => { return option.firstName + " " + option.lastName }} description={"Customer"} 
+    set_value={(element: Purchase, customer: Customer) => {
+        element.original_customer = customer;
+    }} set_rerender={()=>{}} />
 }

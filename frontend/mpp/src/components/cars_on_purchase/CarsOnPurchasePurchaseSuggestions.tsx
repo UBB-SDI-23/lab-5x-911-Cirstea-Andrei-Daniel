@@ -17,7 +17,7 @@ export const CarsOnPurchasePurchaseSuggestions = (props: any) => {
     return <Suggestions element={element} setElement={setElement} table_endpoint={EndPoints.PURCHASE_TABLE} 
     render_function={(option: Purchase) => { return "Customer " + option.original_customer.firstName + " " + 
     option.original_customer.lastName + " at " + new Date(option.date).toLocaleString() }} description={"Purchase"}
-     set_id={(element: CarsOnPurchase, id: number) => {
-        element.purchase.id = id;
-    }} />
+     set_value={(element: CarsOnPurchase, purchase: Purchase) => {
+        element.purchase = purchase;
+    }} set_rereder={()=>{}} />
 }

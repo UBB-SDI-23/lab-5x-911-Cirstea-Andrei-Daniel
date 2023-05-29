@@ -36,6 +36,10 @@ export const CreatePage = (props: any) => {
         setElement(element);
     }, [])
 
+    useEffect(() => {
+        console.log("Rerender from create");
+    }, [form_result])
+
     const cancel_add = () => {
         navigate_back(-1)
     }
@@ -43,15 +47,13 @@ export const CreatePage = (props: any) => {
     return (
         <React.Fragment>
             {form_result}
-            <div>
-                <Button data-testid="add_button" onClick={commit_update}>
-                    <AddIcon/>
-                </Button>
+            <Button data-testid="add_button" onClick={commit_update}>
+                <AddIcon/>
+            </Button>
 
-                <Button onClick={cancel_add}>
-                    <KeyboardReturnIcon />
-                </Button>
-            </div>
+            <Button onClick={cancel_add}>
+                <KeyboardReturnIcon />
+            </Button>
         </React.Fragment>
     )
 }

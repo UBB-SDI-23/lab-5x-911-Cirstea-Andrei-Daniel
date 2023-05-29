@@ -16,7 +16,7 @@ export const CarsOnPurchaseCarModelSuggestions = (props: any) => {
 
     return <Suggestions element={element} setElement={setElement} table_endpoint={EndPoints.CAR_TABLE} 
     render_function={(option: CarModel) => { return option.model + " by " + option.manufacturer }} description={"Car Model"}
-     set_id={(element: CarsOnPurchase, id: number) => {
-        element.carModel.id = id;
-    }} />
+     set_id={(element: CarsOnPurchase, car_model: CarModel) => {
+        element.carModel = car_model;
+    }} set_rerender={()=>{}}/>
 }
