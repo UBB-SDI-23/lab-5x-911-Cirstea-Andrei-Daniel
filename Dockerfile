@@ -27,7 +27,7 @@ RUN pip install scikit-learn
 
 CMD /wait
 
-#CMD ["java", "-jar", "application.jar"]
-CMD ["python3", "/dbscripts/make_prediction.py", "Canada"]
+CMD ["java", "-jar", "application.jar"]
+#CMD ["python3", "/dbscripts/make_prediction.py", "Canada"]
 
 EXPOSE 8080
