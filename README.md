@@ -12,7 +12,7 @@ Steps for installation:
 - Compile the java project using maven (for example mvn install)
 - Obtain a web domain for the server (for example from godaddy.com) and replace its value in the ServerSettings file in the frontend
 - Obtain an SSL certificate and place it inside the path specified in the docker-compose.yml file
-- Using docker-compose create the docker containers (for example docker-compose build and docker-compose up)
+- Using docker-compose create the docker containers and run them (for example docker-compose build and docker-compose up)
 - Now the application should be running!
 
 Teck stack:
