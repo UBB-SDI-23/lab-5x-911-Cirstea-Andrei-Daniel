@@ -20,8 +20,8 @@ export const PurchaseDetails = () => {
     const endpoint = EndPoints.backendFind(EndPoints.PURCHASE_TABLE, id)
 
     let cars_on_purchase_columns: GridColDef[] = [
-        { field: 'count', headerName: 'Order Count', type: 'number', flex: 1 },
-        { field: 'priority', headerName: 'Priority', type: 'number', flex: 1 },
+        { field: 'count', headerName: 'Order Count', type: 'number', flex: 1, headerAlign: 'center', align: 'center' },
+        { field: 'priority', headerName: 'Priority', type: 'number', flex: 1, headerAlign: 'center', align: 'center' },
     ];
 
     useEffect(() => {
