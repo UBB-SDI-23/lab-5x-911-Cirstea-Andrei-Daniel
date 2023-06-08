@@ -40,6 +40,11 @@ export const CustomerDetails = () => {
                         }}
                         pageSizeOptions={[10]}
                         autoHeight={true}
+                        sx={{
+                            "& .MuiDataGrid-virtualScroller": {
+                              overflow: "hidden"
+                            }
+                        }}
                     />
                 </Box>)
             console.log(purchases_html)
