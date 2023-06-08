@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { ServerSettings } from '../ServerIP';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { EndPoints } from '../../Endpoints';
 import { Box, Button, TextField } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
@@ -22,9 +22,20 @@ export const DistributorDetails = () => {
 
     let shipment_columns = ShipmentTableColumns();
 
+    let user_column: GridColDef =
+        { field: 'user', headerName: 'User', flex: 1, headerAlign: 'center', align: 'center',
+            renderCell: (params) => {
+                return (
+                    <Link to={EndPoints.USER_TABLE + '/find_profile/' + parseInt(params.value.id.valueOf().toString())}>{params.value.username}</Link>
+                ) 
+            }
+        }
+        shipment_columns.shift();
+        shipment_columns.unshift(user_column);
+
     useEffect(() => {
         Authentication.make_request('GET', endpoint, "")
-        .then((data) => { let response_data = data.data; console.log(response_data); setElement(response_data); })
+        .then((data) => { let response_data = data.data; console.log("HEY"); console.log(response_data); setElement(response_data); })
     }, [])
 
     useEffect(() => {

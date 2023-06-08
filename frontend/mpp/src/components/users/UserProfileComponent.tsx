@@ -8,6 +8,8 @@ import { AxiosError } from 'axios';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import { UserProfileDTO } from '../../models/DTO/UserProfileDTO';
 import { profile } from 'console';
+import { UserDTO } from '../../models/DTO/UserDTO';
+import { User } from '../../models/User';
 
 
 export const UserProfileComponent = () => {
@@ -28,8 +30,8 @@ export const UserProfileComponent = () => {
 
     const retrieve_details = () => {
         if (id != undefined) {
-            let endpoint = EndPoints.backendUserProfile(id);
-            Authentication.make_request('GET', endpoint, "")
+            let profile_endpoint = EndPoints.backendUserProfile(id);
+            Authentication.make_request('GET', profile_endpoint, "")
             .then((data) => { setProfile(data.data) })
             .catch(
                 (error: AxiosError) => {
