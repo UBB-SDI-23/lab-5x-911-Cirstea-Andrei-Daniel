@@ -8,6 +8,7 @@ import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import { Shipment } from '../../models/Shipment';
 import * as Authentication from '../../helpers/Authentication';
+import { DateToTextFieldInput } from '../../helpers/Helpers';
 
 export const ShipmentDetails = () => {
   const [element, setElement] = useState<Shipment>(new Shipment())
@@ -26,10 +27,10 @@ export const ShipmentDetails = () => {
         <KeyboardReturnIcon/>
     </Button>
 
-    if (element === undefined) {
+    if (element === undefined || element.id == -1) {
         return <React.Fragment>
             {return_element}
-            <div>Waiting for reply or the Shipment with id {id} was not found!</div>
+            <div>Waiting for reply</div>
         </React.Fragment>
     }
 
@@ -39,8 +40,8 @@ export const ShipmentDetails = () => {
 
             <h1>Shipment Details</h1>
             <h3>Distributor: {element.parent_distributor.name}</h3>
-            <h3>Expected Arrival: {element.expectedArrival.toString()}</h3>
-            <h3>Arrival: {element.arrival.toString()}</h3>
+            <h3>Expected Arrival: {DateToTextFieldInput(new Date(element.expectedArrival))}</h3>
+            <h3>Arrival: {DateToTextFieldInput(new Date(element.arrival))}</h3>
             <h3>Total Price: {element.totalPrice}</h3>
             <h3>User: {element.user.username}</h3>
         </div>

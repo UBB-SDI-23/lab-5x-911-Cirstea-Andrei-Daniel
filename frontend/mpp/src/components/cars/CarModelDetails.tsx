@@ -55,10 +55,10 @@ export const CarModelDetails = () => {
         <KeyboardReturnIcon/>
     </Button>
 
-    if (element === undefined) {
+    if (element === undefined || element.id == -1) {
         return <React.Fragment>
             {return_element}
-            <div>Oops! The Car Model with id {id} was not found!</div>
+            <div>Waiting for reply</div>
         </React.Fragment>
     }
 

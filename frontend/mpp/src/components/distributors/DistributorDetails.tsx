@@ -10,6 +10,7 @@ import { Shipment } from '../../models/Shipment';
 import { Distributor } from '../../models/Distributor';
 import * as Authentication from '../../helpers/Authentication';
 import { ShipmentTableColumns } from '../shipments/ShipmentTableColumns';
+import { DateToTextFieldInput } from '../../helpers/Helpers';
 
 export const DistributorDetails = () => {
   const [element, setElement] = useState<Distributor>(new Distributor())
@@ -68,10 +69,10 @@ export const DistributorDetails = () => {
         <KeyboardReturnIcon/>
     </Button>
 
-    if (element === undefined) {
+    if (element === undefined || element.id == -1) {
         return <React.Fragment>
             {return_element}
-            <div>Waiting for reply or the Distributor with id {id} was not found!</div>
+            <div>Waiting for reply</div>
         </React.Fragment>
     }
 
@@ -81,7 +82,7 @@ export const DistributorDetails = () => {
 
             <h1>Distributor Details</h1>
             <h3>Name: {element.name}</h3>
-            <h3>Cooperation Start Date: {element.cooperationStartDate.toString()}</h3>
+            <h3>Cooperation Start Date: {DateToTextFieldInput(new Date(element.cooperationStartDate))}</h3>
             <h3>Country: {element.country}</h3>
             <h3>Contact Email: {element.contactEmail}</h3>
             <h3>Category: {element.category}</h3>

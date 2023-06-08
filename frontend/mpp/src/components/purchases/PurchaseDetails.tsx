@@ -8,6 +8,7 @@ import { Purchase } from '../../models/Purchase';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import * as Authentication from '../../helpers/Authentication';
+import { DateToTextFieldInput } from '../../helpers/Helpers';
 
 export const PurchaseDetails = () => {
   const [element, setElement] = useState<Purchase>(new Purchase())
@@ -51,10 +52,10 @@ export const PurchaseDetails = () => {
         <KeyboardReturnIcon/>
     </Button>
 
-    if (element === undefined) {
+    if (element === undefined || element.id == -1) {
         return <React.Fragment>
             {return_element}
-            <div>Waiting for reply or the Purchase with id {id} was not found!</div>
+            <div>Waiting for reply</div>
         </React.Fragment>
     }
 
@@ -64,7 +65,7 @@ export const PurchaseDetails = () => {
 
             <h1>Purchase Details</h1>
             <h3>Customer: {element.original_customer.firstName} {element.original_customer.lastName}</h3>
-            <h3>Date: {element.date.toString()}</h3>
+            <h3>Date: {DateToTextFieldInput(new Date(element.date))}</h3>
             <h3>Pay Method: {element.payMethod}</h3>
             <h3>Status: {element.status}</h3>
             <h3>User: {element.user.username}</h3>

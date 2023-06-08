@@ -51,10 +51,10 @@ export const CustomerDetails = () => {
         <KeyboardReturnIcon/>
     </Button>
 
-    if (element === undefined) {
+    if (element === undefined || element.id == -1) {
         return <React.Fragment>
             {return_element}
-            <div>Waiting for reply or the Customer with id {id} was not found!</div>
+            <div>Waiting for reply</div>
         </React.Fragment>
     }
 

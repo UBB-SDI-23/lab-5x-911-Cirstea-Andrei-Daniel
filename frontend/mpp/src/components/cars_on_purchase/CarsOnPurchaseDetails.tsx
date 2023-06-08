@@ -10,6 +10,7 @@ import { CarsOnPurchase } from '../../models/CarsOnPurchase';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import React from 'react';
 import * as Authentication from '../../helpers/Authentication';
+import { DateToTextFieldInput } from '../../helpers/Helpers';
 
 export const CarsOnPurchaseDetails = () => {
   const [element, setElement] = useState<CarsOnPurchase>(new CarsOnPurchase())
@@ -28,10 +29,10 @@ export const CarsOnPurchaseDetails = () => {
         <KeyboardReturnIcon/>
     </Button>
 
-    if (element === undefined) {
+    if (element === undefined || element.id == -1) {
         return <React.Fragment>
             {return_element}
-            <div>Waiting for reply or the Car Order with id {id} was not found!</div>
+            <div>Waiting for reply</div>
         </React.Fragment>
     }
 
@@ -41,7 +42,7 @@ export const CarsOnPurchaseDetails = () => {
 
             <h1>Car Order Details</h1>
             <h3>Customer: {element.purchase.original_customer.firstName} {element.purchase.original_customer.lastName}</h3>
-            <h3>Purchase Date: {element.purchase.date.toString()}</h3>
+            <h3>Purchase Date: {DateToTextFieldInput(new Date(element.purchase.date))}</h3>
             <h3>Car Model: {element.carModel.manufacturer} {element.carModel.model}</h3>
             <h3>Count: {element.count}</h3>
             <h3>Priority: {element.priority}</h3>
