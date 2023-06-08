@@ -29,6 +29,8 @@ export const ShowAll = (props: any) => {
     page: 0,
     pageSize: entries_per_page,
 });
+    const [isLoading, setIsLoading] = useState(false);
+
 
   const [delete_id, set_delete_id] = useState(props.id)
   const [delete_dialog, set_delete_dialog] = useState(false)
@@ -59,6 +61,7 @@ export const ShowAll = (props: any) => {
     console.log(Authentication.getAuthToken())
     console.log(paginationModel.pageSize);
     if (paginationModel.pageSize > 0) {
+        setIsLoading(true);
         Authentication.make_request('GET', ServerSettings.API_ENDPOINT + props.table_endpoint + EndPoints.PAGE_REQUEST_PATH + "?page=" +
         current_page + "&page_size=" + paginationModel.pageSize, "")
         .then((data) => { 
@@ -66,13 +69,16 @@ export const ShowAll = (props: any) => {
             setElements(response_data.content);
             setElementCount(response_data.totalElements);
             setPageCount(response_data.totalPages); 
-            console.log(data) }
+            console.log(data)
+            setIsLoading(false);
+        }
             )
             .catch(
                 (error: AxiosError) => {
                     console.log(error);
+                    setIsLoading(false);
                 }
-            );;
+            );
     }
   }
 
@@ -264,6 +270,7 @@ export const ShowAll = (props: any) => {
             boundaryCount={5}
             {...props}
             page={current_page + 1}
+            disabled={isLoading} // Disable pagination when loading
           />
         );
       }
@@ -273,7 +280,7 @@ export const ShowAll = (props: any) => {
         headerName: 'Options',
         sortable: false,
         type: 'actions',
-        width: 160,
+        flex: 1,
         headerAlign: 'center', 
         align: 'center',
         getActions: (params: GridRowParams) => {
@@ -314,6 +321,7 @@ export const ShowAll = (props: any) => {
         <React.Fragment>
             <Box sx={{ height: 650, width: '100%' }}>
                 <DataGrid
+                    loading={isLoading} // Disable table when loading
                     getRowId={(row) => row.id}
                     rows={elements}
                     columns={columns}

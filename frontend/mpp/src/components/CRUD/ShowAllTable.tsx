@@ -9,6 +9,7 @@ import { ServerSettings } from '../ServerIP';
 import { EndPoints } from '../../Endpoints';
 import KeyboardReturnIcon from '@mui/icons-material/KeyboardReturn';
 import * as Authentication from '../../helpers/Authentication';
+import { AxiosError } from 'axios';
 
 export const ShowAllTable = (props: any) => {
     const [elements, setElements] = useState<any>()
@@ -20,19 +21,26 @@ export const ShowAllTable = (props: any) => {
     });
     const [entries_per_page, setEntriesPerPage] = useState<number>(0)
     const [current_page, setCurrentPage] = useState<number>(0)
+    const [isLoading, setIsLoading] = useState(false);
 
     const update_elements = () => {
         console.log("Page size " + paginationModel.pageSize)
         if (paginationModel.pageSize > 0) {
+            setIsLoading(true);
             Authentication.make_request('GET', ServerSettings.API_ENDPOINT + props.table_endpoint + props.request_endpoint + "?page=" 
             + current_page + "&page_size=" + paginationModel.pageSize, "")
             .then((data) => { 
+                setIsLoading(false);
                 let response_data = data.data; 
                 setElements(response_data.content);
                 setElementCount(response_data.totalElements);
                 setPageCount(response_data.totalPages); 
                 console.log(data) }
-            );
+            ).catch(
+                (error: AxiosError) => {
+                    setIsLoading(false);
+                }
+            )
         }
     }
 
@@ -119,6 +127,7 @@ export const ShowAllTable = (props: any) => {
             boundaryCount={2}
             {...props}
             page={current_page + 1}
+            disabled={isLoading} // Disable pagination when loading
           />
         );
       }
@@ -230,6 +239,7 @@ export const ShowAllTable = (props: any) => {
         <React.Fragment>
             <Box sx={{ height: 650, width: '100%' }}>
                 <DataGrid
+                    loading={isLoading} // Disable table when loading
                     getRowId={(row) => row.id}
                     rows={elements}
                     columns={columns}
