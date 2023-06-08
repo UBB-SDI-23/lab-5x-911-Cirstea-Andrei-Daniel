@@ -2,27 +2,32 @@ import { DataGrid, GridActionsCellItem, GridColDef, GridRenderCellParams, GridRo
 import { EndPoints } from '../../Endpoints'
 import { Link } from 'react-router-dom'
 import { UserColumn } from '../CRUD/ShowAllUserColumn';
+import React from 'react';
 
 export const CarModelTableColumns = () => {
     let table_columns: GridColDef[] = [
-        { field: 'model', headerName: 'Model', width: 130, 
+        { field: 'model', headerName: 'Model', flex: 1, headerAlign: 'center', align: 'center',
             renderCell: (params) => (
-              <Link to={EndPoints.frontendFind(EndPoints.CAR_TABLE, params.id.valueOf().toString())}>{params.value}</Link>
+              <React.Fragment>
+                  <Link to={EndPoints.frontendFind(EndPoints.CAR_TABLE, params.id.valueOf().toString())}>{params.value}</Link>
+              </React.Fragment>
             ) 
         },
-        { field: 'manufacturer', headerName: 'Manufacturer', width: 130 },
-        { field: 'manufacture_year', headerName: 'Manufacture Year', width: 160},
+        { field: 'manufacturer', headerName: 'Manufacturer', flex: 1, headerAlign: 'center', align: 'center', },
+        { field: 'manufacture_year', headerName: 'Manufacture Year', flex: 1, headerAlign: 'center', align: 'center', },
         {
           field: 'price',
           headerName: 'Price',
           type: 'number',
-          width: 160,
+          flex: 1,
+          headerAlign: 'center', align: 'center',
         },
         {
           field: 'fuel_consumption',
           headerName: 'Fuel Consumption',
           type: 'number',
-          width: 160,
+          flex: 1,
+          headerAlign: 'center', align: 'center',
         },
       ];
 

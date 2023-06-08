@@ -16,7 +16,9 @@ export const CarModelShowAll = () => {
         field: 'purchaseCount',
         headerName: 'Total Order Count',
         type: 'number',
-        width: 160 
+        width: 160,
+        headerAlign: 'center', 
+        align: 'center',
     }
     table_columns.push(purchase_count)
 

@@ -274,6 +274,8 @@ export const ShowAll = (props: any) => {
         sortable: false,
         type: 'actions',
         width: 160,
+        headerAlign: 'center', 
+        align: 'center',
         getActions: (params: GridRowParams) => {
             // If the user is a regular one and the entity does not belong to it then don't allow these columns
             const role = Authentication.getAuthRole().name;
@@ -322,6 +324,11 @@ export const ShowAll = (props: any) => {
                     pageSizeOptions={[10]}
                     autoHeight={true}
                     components={{ Pagination: CustomPagination }}
+                    sx={{
+                        "& .MuiDataGrid-virtualScroller": {
+                          overflow: "hidden"
+                        }
+                    }}
                 />
             </Box>
 

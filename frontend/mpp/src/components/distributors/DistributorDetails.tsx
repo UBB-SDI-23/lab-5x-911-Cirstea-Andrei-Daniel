@@ -42,6 +42,11 @@ export const DistributorDetails = () => {
                         }}
                         pageSizeOptions={[10]}
                         autoHeight={true}
+                        sx={{
+                            "& .MuiDataGrid-virtualScroller": {
+                              overflow: "hidden"
+                            }
+                        }}
                     />
                 </Box>)
             console.log(shipment_html)

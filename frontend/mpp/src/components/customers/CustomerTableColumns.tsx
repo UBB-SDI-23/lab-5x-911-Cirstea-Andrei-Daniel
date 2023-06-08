@@ -12,28 +12,34 @@ import { UserColumn } from '../CRUD/ShowAllUserColumn';
 
 export const CustomerTableColumns = () => {
     let table_columns: GridColDef[] = [
-        { field: 'firstName', headerName: 'First Name', width: 130, 
+        { field: 'firstName', headerName: 'First Name', flex: 1, headerAlign: 'center', align: 'center',
             renderCell: (params) => (
             <Link to={EndPoints.frontendFind(EndPoints.CUSTOMER_TABLE, params.id.valueOf().toString())}>{params.value}</Link>
           ) 
         },
-        { field: 'lastName', headerName: 'Last Name', width: 130 },
-        { field: 'telephone_number', headerName: 'Phone Number', width: 160},
+        { field: 'lastName', headerName: 'Last Name', flex: 1, headerAlign: 'center', align: 'center', },
+        { field: 'telephone_number', headerName: 'Phone Number', flex: 1, headerAlign: 'center', align: 'center', },
         {
           field: 'email_address',
           headerName: 'Email',
-          width: 160,
+          flex: 1,
+          headerAlign: 'center', 
+          align: 'center',
         },
         {
           field: 'priority',
           headerName: 'Priority',
-          width: 160,
+          flex: 1,
+          headerAlign: 'center',
+          align: 'center',
         },
         {
             field: 'purchaseCount',
             headerName: 'Purchase Count',
             type: 'number',
-            width: 160  
+            flex: 1,
+            headerAlign: 'center', 
+            align: 'center',  
         }
       ];
 

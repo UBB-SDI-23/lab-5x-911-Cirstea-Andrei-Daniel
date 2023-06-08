@@ -34,6 +34,11 @@ export const CarModelDetails = () => {
                         }}
                         pageSizeOptions={[10]}
                         autoHeight={true}
+                        sx={{
+                            "& .MuiDataGrid-virtualScroller": {
+                              overflow: "hidden"
+                            }
+                        }}
                     />
                 </Box>)
             console.log(purchases_html)
@@ -42,8 +47,8 @@ export const CarModelDetails = () => {
     }, [])
 
     let cars_on_purchase_columns: GridColDef[] = [
-        { field: 'count', headerName: 'Order Count', type: 'number', width: 130 },
-        { field: 'priority', headerName: 'Priority', type: 'number', width: 130 },
+        { field: 'count', headerName: 'Order Count', type: 'number', flex: 1 },
+        { field: 'priority', headerName: 'Priority', type: 'number', flex: 1 },
     ];
 
     let return_element = <Button onClick={() => navigate_details(-1)}>

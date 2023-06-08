@@ -63,3 +63,9 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.centered-data-grid .centered-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

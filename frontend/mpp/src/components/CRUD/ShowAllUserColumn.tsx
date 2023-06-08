@@ -4,7 +4,7 @@ import { EndPoints } from "../../Endpoints";
 
 export const UserColumn = () => {
     let table_columns: GridColDef =
-        { field: 'user', headerName: 'User', width: 150, 
+        { field: 'user', headerName: 'User', flex: 1, headerAlign: 'center', align: 'center',
             renderCell: (params) => {
                 return (
                     <Link to={EndPoints.USER_TABLE + '/find_profile/' + parseInt(params.id.valueOf().toString())}>{params.value.username}</Link>

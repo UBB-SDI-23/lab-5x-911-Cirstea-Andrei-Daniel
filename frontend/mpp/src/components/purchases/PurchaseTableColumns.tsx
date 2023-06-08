@@ -12,18 +12,20 @@ import { UserColumn } from '../CRUD/ShowAllUserColumn';
 
 export const PurchaseTableColumns = () => {
     let table_columns: GridColDef[] = [
-        { field: 'date', headerName: 'Date', type: 'Date', width: 130, 
+        { field: 'date', headerName: 'Date', type: 'Date', flex: 1, headerAlign: 'center', align: 'center',
             renderCell: (params) => (
             <Link to={EndPoints.frontendFind(EndPoints.PURCHASE_TABLE, params.id.valueOf().toString())}>{new Date(params.value).toLocaleString()}</Link>
           ) 
         },
-        { field: 'payMethod', headerName: 'Pay Method', width: 130 },
-        { field: 'status', headerName: 'Status', width: 160},
+        { field: 'payMethod', headerName: 'Pay Method', flex: 1, headerAlign: 'center', align: 'center', },
+        { field: 'status', headerName: 'Status', flex: 1, headerAlign: 'center', align: 'center', },
         {
             field: 'carsPurchased',
             headerName: 'Cars Purchased',
             type: 'number',
-            width: 160  
+            flex: 1,
+            headerAlign: 'center',
+            align: 'center',
         }
       ];
 

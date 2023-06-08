@@ -239,6 +239,12 @@ export const ShowAllTable = (props: any) => {
                     onPaginationModelChange={(model, details) => {setPaginationModel(model); setCurrentPage(model.page)}}
                     autoHeight={true}
                     components={{ Pagination: CustomPagination }}
+                    autoPageSize={false}
+                    sx={{
+                        "& .MuiDataGrid-virtualScroller": {
+                          overflow: "hidden"
+                        }
+                    }}
                 />
             </Box>
 
