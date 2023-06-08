@@ -27,7 +27,7 @@ export const HomePage = () => {
         <React.Fragment>
             <Box>
             <AppBar position="sticky" style={{ background: '#2E3B55' }}>
-                <Toolbar>
+                <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Button component={Link} to={EndPoints.CAR_TABLE}>Car Models</Button>
                     <Button component={Link} to={EndPoints.CUSTOMER_TABLE}>Customers</Button>
                     <Button component={Link} to={EndPoints.PURCHASE_TABLE}>Purchases</Button>
